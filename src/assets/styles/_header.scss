@@ -1,0 +1,208 @@
+@use "./functions" as *;
+@use "./mixins" as *;
+@import "./variables";
+
+.header {
+  position: relative;
+  padding-top: rem(20);
+
+  //Mobile menu transitions
+  &.menu-opened {
+    z-index: 999;
+    .menu__links {
+      height: 100vh;
+      visibility: visible;
+      transition: all 0.3s ease-in, background 0.5s ease-in;
+      transition-delay: 0.25s;
+    }
+    .menu__link {
+      transform: scale(1) translateY(0px);
+      opacity: 1;
+      @for $i from 1 through $menuItems {
+        &:nth-child(#{$i}) {
+          transition-delay: #{0.07 * $i + 0.2}s;
+        }
+      }
+    }
+    .menu__button {
+      > span:first-child {
+        transform: rotate(45deg);
+      }
+      > span:nth-child(2) {
+        opacity: 0;
+      }
+      > span:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__links {
+    position: absolute;
+    top: 102px;
+    display: block;
+    height: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 rem(48) 0;
+    visibility: hidden;
+    list-style: none;
+    transition: all 0.5s ease-out, background 1s ease-out;
+    transition-delay: 0.2s;
+    @include theme() {
+      background-color: theme-get("color-bg");
+      @include lg {
+        background: none;
+      }
+    }
+    @include lg {
+      position: static;
+      display: flex;
+      visibility: visible;
+      width: 60%;
+      height: 100%;
+      padding: 0;
+    }
+  }
+
+  &__link {
+    margin-top: rem(5);
+    opacity: 0;
+    transform: scale(1.15) translateY(rem(-30));
+    transition: transform 0.5s $cubic, opacity 0.6s $cubic;
+    @for $i from 1 through $menuItems {
+      &:nth-child(#{$i}) {
+        transition-delay: #{0.56 - ($i * 0.07)}s;
+      }
+    }
+    &:not(:last-child) {
+      @include theme() {
+        border-bottom: rem(1) solid theme-get("color-primary");
+        @include lg {
+          border-bottom: none;
+        }
+      }
+    }
+    @include lg {
+      opacity: 1;
+      margin-top: 0;
+      transform: none;
+    }
+    a {
+      display: block;
+      position: relative;
+      width: 100%;
+      font-weight: 100;
+      font-size: rem(22);
+      line-height: 2.35;
+      font-weight: 200;
+      @include theme() {
+        color: theme-get("color-text");
+      }
+      @include lg {
+        font-size: rem(16);
+        padding: 10px;
+        cursor: pointer;
+        &:hover {
+          @include theme() {
+            font-weight: 600;
+            color: theme-get("color-primary");
+          }
+        }
+      }
+    }
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: rem(44);
+    height: rem(44);
+    padding: rem(2);
+    font-size: 0;
+    border: none;
+    cursor: pointer;
+    background-color: rgba($color: #000000, $alpha: 0);
+    @include lg {
+      display: none;
+    }
+    span {
+      display: block;
+      width: 80%;
+      height: rem(3);
+      border-radius: rem(1);
+      transform-origin: rem(4.8) rem(1.6);
+      transition: all 400ms ease-in-out;
+      @include theme() {
+        background-color: theme-get("color-neutral");
+      }
+      &:not(:last-child) {
+        margin-bottom: rem(5);
+      }
+    }
+  }
+}
+
+.toggle {
+  display: flex;
+  margin-top: rem(40);
+  justify-content: flex-end;
+  @include lg {
+    margin-top: 0;
+    justify-content: center;
+    align-items: center;
+    margin-left: rem(40);
+  }
+  &__checkbox {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+    &:checked + .toggle__label {
+      background: $c-bg;
+    }
+    &:checked + .toggle__label::after {
+      background: $c-neutral;
+      left: calc(100% - 5px);
+      -webkit-transform: translateX(-100%);
+      -moz-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+      -o-transform: translateX(-100%);
+      transform: translateX(-100%);
+    }
+  }
+  &__label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 55px;
+    height: 30px;
+    background: $c-dark-bg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
+    border-radius: 100px;
+    position: relative;
+    &::after {
+      content: "";
+      background: $c-dark-neutral;
+      width: 20px;
+      height: 20px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      left: 4px;
+      transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 320ms;
+    }
+  }
+}

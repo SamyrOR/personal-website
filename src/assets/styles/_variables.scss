@@ -1,0 +1,42 @@
+//Colors Dark
+
+$c-dark-text: #7887a7;
+$c-dark-bg: #102131;
+$c-dark-title: #ffffff;
+$c-dark-primary: #f7618b;
+$c-dark-neutral: #6c63ff;
+$c-dark-secondary: #2a7aff;
+$c-dark-footer: #101f2d;
+$bg-dark-image: url(../images/dark-bg.png);
+$bg-dark-rect: url(../images/dark-rect.png);
+$bg-dark-main1: url(../images/dark-main-bg1.png);
+$bg-dark-main2: url(../images/dark-main-bg2.png);
+
+//Colors Light
+$c-mobile-menu: #6c63ff;
+$c-text: #6b8cae;
+$c-bg: #f8fafd;
+$c-title: #677897;
+$c-primary: #04d8f4;
+$c-neutral: #187adf;
+$c-secondary: #102397;
+$c-footer: #e6effa;
+$c-social: #677897;
+$bg-image: url(../images/bg.png);
+$bg-rect: url(../images/rect.png);
+$bg-main1: url(../images/bg-main1.png);
+$bg-main2: url(../images/bg-main2.png);
+
+//Font
+$default-font-size: 100%;
+$main-font: "Montserrat";
+
+//BreakPoints
+$screen-sm-min: 440px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+
+//Others
+$cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
+$menuItems: 6;

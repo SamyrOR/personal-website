@@ -1,0 +1,40 @@
+@use "./variables" as *;
+@use "./functions" as *;
+@use "./mixins" as *;
+@use "./themes" as *;
+%mt-20 {
+  margin-top: rem(20);
+}
+
+%mt-80 {
+  margin-top: rem(80);
+}
+.hero {
+  display: flex;
+  flex-direction: column;
+  @include lg {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+  }
+  &__details {
+    text-align: center;
+  }
+  &__title {
+    align-self: center;
+    font-weight: 500;
+    font-size: rem(48);
+    @include theme() {
+      color: theme-get("color-title");
+    }
+  }
+  &__img {
+    display: none;
+    @include lg {
+      display: block;
+      svg {
+        width: rem(480);
+      }
+    }
+  }
+}

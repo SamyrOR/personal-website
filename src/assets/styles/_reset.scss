@@ -1,0 +1,25 @@
+@use "./variables" as *;
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $default-font-size;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}

@@ -1,0 +1,30 @@
+@use "./variables" as *;
+
+$themes: (
+  light-theme: (
+    "color-text": $c-text,
+    "color-bg": $c-bg,
+    "color-title": $c-title,
+    "color-primary": $c-primary,
+    "color-neutral": $c-neutral,
+    "color-secondary": $c-secondary,
+    "footer-bg": $c-footer,
+    "bg-image": $bg-image,
+    "bg-rect": $bg-rect,
+    "bg-main1": $bg-main1,
+    "bg-main2": $bg-main2,
+  ),
+  dark-theme: (
+    "color-text": $c-dark-text,
+    "color-bg": $c-dark-bg,
+    "color-title": $c-dark-title,
+    "color-primary": $c-dark-primary,
+    "color-neutral": $c-dark-neutral,
+    "color-secondary": $c-dark-secondary,
+    "footer-bg": $c-dark-footer,
+    "bg-image": $bg-dark-image,
+    "bg-rect": $bg-dark-rect,
+    "bg-main1": $bg-dark-main1,
+    "bg-main2": $bg-dark-main2,
+  ),
+);

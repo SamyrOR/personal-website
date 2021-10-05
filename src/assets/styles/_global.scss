@@ -1,0 +1,117 @@
+@use "./variables" as *;
+@use "./functions" as *;
+@use "./mixins" as *;
+
+html.transition,
+html.transition *,
+html.transition *:before,
+html.transition *:after {
+  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 420ms;
+  transition-delay: 0;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  font-family: $main-font, sans-serif;
+  font-size: rem(18);
+  @include theme() {
+    background-color: theme-get("color-bg");
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: rem(-90);
+    width: 100%;
+    height: 100%;
+    max-height: rem(975);
+    max-width: rem(1454);
+    background-repeat: no-repeat;
+    z-index: -2;
+    @include theme() {
+      background-image: theme-get("bg-rect");
+    }
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: rem(-170);
+    width: 100%;
+    height: 100%;
+    max-height: rem(975);
+    max-width: rem(1454);
+    background-repeat: no-repeat;
+    z-index: -1;
+    @include theme() {
+      background-image: theme-get("bg-image");
+    }
+    @include lg {
+      top: rem(-58);
+    }
+  }
+}
+
+h3 {
+  font-size: rem(36);
+  font-weight: 400;
+  @include theme() {
+    color: theme-get("color-title");
+  }
+}
+
+p {
+  font-size: rem(16);
+  font-weight: 400;
+  @include theme() {
+    color: theme-get("color-text");
+  }
+}
+
+.btn {
+  margin-top: rem(18);
+  width: rem(211);
+  height: rem(46);
+  color: #fff;
+  font-size: rem(18);
+  font-weight: 600;
+  border-radius: rem(25);
+  border: none;
+  @include theme() {
+    background: linear-gradient(
+      to top right,
+      theme-get("color-primary"),
+      theme-get("color-secondary")
+    );
+  }
+  @include lg {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: rem(24);
+  max-width: rem(1177);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.themed-svg {
+  @include theme() {
+    fill: theme-get("color-neutral");
+  }
+}
+
+.logo {
+  width: rem(137);
+  @include lg {
+    cursor: pointer;
+  }
+}

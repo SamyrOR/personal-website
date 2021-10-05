@@ -1,0 +1,26 @@
+@use "sass:math";
+@use "variables" as *;
+@use "./mixins" as *;
+
+// Set base font size
+@function base($base-font-size) {
+  @if unitless($base-font-size) or math.unit($base-font-size) != "%" {
+    @error "Sorry, this #{$default-html-font-size} must have percentage unit!";
+  }
+
+  @return math.div($base-font-size, 100%) * 16;
+}
+
+// Change px to rem
+@function rem($value) {
+  @if unitless($value) {
+    $base-size: base($default-font-size);
+    @return math.div($value, $base-size) * 1rem;
+  }
+
+  @error "Sorry, this '#{$value}' must have not any unit";
+}
+
+@function theme-get($key) {
+  @return map-get($theme-map, $key);
+}
