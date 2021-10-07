@@ -2,6 +2,12 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
+html,
+body,
+app-root {
+  min-height: 100vh;
+}
+
 html.transition,
 html.transition *,
 html.transition *:before,
@@ -11,7 +17,6 @@ html.transition *:after {
 }
 
 body {
-  min-height: 100vh;
   position: relative;
   font-family: $main-font, sans-serif;
   font-size: rem(18);
@@ -113,5 +118,12 @@ p {
   width: rem(137);
   @include lg {
     cursor: pointer;
+  }
+}
+
+.container {
+  min-height: calc(100vh - 416px);
+  @include lg {
+    min-height: calc(100vh - 267px);
   }
 }

@@ -36,7 +36,8 @@
       }
       @include lg {
         cursor: pointer;
-        &:hover {
+        &:hover,
+        &.active {
           @include theme() {
             font-weight: 600;
             color: theme-get("color-primary");
