@@ -42,6 +42,7 @@
 
 .main {
   padding-top: rem(62);
+  padding-bottom: rem(62);
   @include sm {
     margin-top: rem(160);
   }
@@ -127,7 +128,7 @@
   }
 }
 
-.certificate {
+.home-certificate {
   @extend %mt-80;
   @extend %lg-section;
   &__text {

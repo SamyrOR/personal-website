@@ -1,0 +1,46 @@
+@use "./variables" as *;
+@use "./functions" as *;
+@use "./mixins" as *;
+
+.certificates {
+  margin-top: rem(50);
+  margin-bottom: rem(50);
+  p {
+    margin-top: rem(10);
+  }
+  &__organization {
+    margin-top: rem(100);
+    text-align: center;
+  }
+  &__wrapper {
+    @include lg {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+}
+
+.certificate {
+  text-align: center;
+  margin-top: rem(40);
+  @include sm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  @include lg {
+  }
+  &__title {
+    // font-weight: 400;
+    @include theme() {
+      color: theme-get("color-title");
+    }
+  }
+  &__img {
+    margin-top: rem(20);
+    @include sm {
+      max-width: rem(480);
+    }
+  }
+}
