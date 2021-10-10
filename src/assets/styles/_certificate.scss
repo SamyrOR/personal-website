@@ -3,8 +3,7 @@
 @use "./mixins" as *;
 
 .certificates {
-  margin-top: rem(50);
-  margin-bottom: rem(50);
+  @extend %margins;
   p {
     margin-top: rem(10);
   }

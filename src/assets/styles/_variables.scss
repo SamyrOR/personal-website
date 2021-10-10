@@ -1,5 +1,4 @@
 //Colors Dark
-
 $c-dark-text: #7887a7;
 $c-dark-bg: #102131;
 $c-dark-title: #ffffff;
@@ -7,6 +6,7 @@ $c-dark-primary: #f7618b;
 $c-dark-neutral: #6c63ff;
 $c-dark-secondary: #2a7aff;
 $c-dark-footer: #101f2d;
+$c-dark-card-bg: #1f2b44;
 $bg-dark-image: url(../images/dark-bg.png);
 $bg-dark-rect: url(../images/dark-rect.png);
 $bg-dark-main1: url(../images/dark-main-bg1.png);
@@ -22,10 +22,12 @@ $c-neutral: #187adf;
 $c-secondary: #102397;
 $c-footer: #e6effa;
 $c-social: #677897;
+$c-card-bg: #91b7dc;
 $bg-image: url(../images/bg.png);
 $bg-rect: url(../images/rect.png);
 $bg-main1: url(../images/bg-main1.png);
 $bg-main2: url(../images/bg-main2.png);
+$white: #ffffff;
 
 //Font
 $default-font-size: 100%;
@@ -40,3 +42,6 @@ $screen-xl-min: 1200px;
 //Others
 $cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
 $menuItems: 6;
+%margins {
+  margin: 50px 0;
+}
