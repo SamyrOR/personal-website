@@ -83,6 +83,7 @@ p {
   font-weight: 600;
   border-radius: rem(25);
   border: none;
+  transition: all 250ms ease-out;
   @include theme() {
     background: linear-gradient(
       to top right,
@@ -93,7 +94,7 @@ p {
   @include lg {
     cursor: pointer;
     &:hover {
-      transform: scale(1.2);
+      transform: translateY(rem(-2));
     }
   }
 }

@@ -108,7 +108,7 @@
         color: theme-get("color-text");
       }
       @include lg {
-        font-size: rem(16);
+        font-size: rem(18);
         padding: 10px;
         cursor: pointer;
         &:hover,

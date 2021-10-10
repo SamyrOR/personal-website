@@ -140,7 +140,7 @@
   }
 }
 
-.projects {
+.home-projects {
   text-align: center;
   @extend %mt-80;
   @include md {
@@ -148,9 +148,12 @@
     flex-direction: column;
     align-items: center;
   }
+  p {
+    margin-top: rem(15);
+  }
 }
 .carousel-container {
-  @extend %mt-20;
+  margin: rem(30) 0;
   width: 100%;
   height: rem(440);
   padding: 0;
