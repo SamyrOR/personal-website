@@ -14,8 +14,6 @@
     @include lg {
       flex-direction: row;
       justify-content: space-between;
-      padding-left: 0;
-      padding-right: 0;
     }
   }
   &__logo {
@@ -56,12 +54,13 @@
     .icon {
       display: grid;
       place-items: center;
-      width: rem(48);
-      height: rem(48);
+      width: rem(44);
+      height: rem(44);
       background-color: $c-social;
       border-radius: 50%;
+      transition: all 300ms ease-in-out;
       &:not(:last-child) {
-        margin-right: rem(5);
+        margin-right: rem(7);
       }
       svg {
         width: rem(24);

@@ -64,10 +64,11 @@
     @include lg {
       position: static;
       display: flex;
-      visibility: visible;
+      justify-content: flex-end;
       width: 60%;
       height: 100%;
       padding: 0;
+      visibility: visible;
     }
   }
 
@@ -102,6 +103,7 @@
       font-size: rem(22);
       line-height: 2.35;
       font-weight: 200;
+      transition: color 200ms ease-out;
       @include theme() {
         color: theme-get("color-text");
       }
