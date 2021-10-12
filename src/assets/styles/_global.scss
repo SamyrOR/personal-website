@@ -20,6 +20,7 @@ body {
   position: relative;
   font-family: $main-font, sans-serif;
   font-size: rem(18);
+  text-rendering: optimizeLegibility;
   @include theme() {
     background-color: theme-get("color-bg");
   }

@@ -2,47 +2,32 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
-// colour stuff
-$lightBG: #dce1df;
-$salmon: #ff6666;
-
-$teal: #0096a0;
-$tealMid: #0ebac7;
-$tealContrast: #33ffff;
-$tealShade: #007c85;
-
-$darkGrey: #4f585e;
-
-body {
-  text-rendering: optimizeLegibility;
-}
-
 .projects {
   @extend %margins;
+  display: flex;
+  flex-wrap: wrap;
   &__text {
     margin-top: rem(15);
   }
 }
 
 a.btn {
-  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.25);
-  padding: 6px 30px 8px;
   position: relative;
+  padding: rem(6) rem(30) rem(8);
   text-decoration: none;
+  box-shadow: 0 rem(2) 0 0 rgba(0, 0, 0, 0.25);
   transition: all 0.1s 0s ease-out;
 }
 
 .no-touch a.btn:hover {
-  background: lighten($teal, 2.5);
-  box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
+  box-shadow: 0 rem(8) rem(2) 0 rgba(0, 0, 0, 0.075);
   transform: translateY(-2px);
   transition: all 0.25s 0s ease-out;
 }
 
 .no-touch a.btn:active,
 a.btn:active {
-  background: darken($teal, 2.5);
-  box-shadow: 0 1px 0px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 rem(1) 0 0 rgba(255, 255, 255, 0.25);
   transform: translate3d(0, 1px, 0);
   transition: all 0.025s 0s ease-out;
 }
@@ -51,21 +36,26 @@ div.cards {
   margin: rem(80) 0;
   text-align: center;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
-  justify-content: space-around;
+  @include lg {
+    justify-content: start;
+  }
 }
 
 div.card {
-  background: $white;
-  display: inline-block;
-  margin: rem(20);
-  max-width: rem(300);
-  perspective: 1000;
   position: relative;
+  display: inline-block;
+  margin: rem(30);
+  max-width: rem(300);
   text-align: left;
-  transition: all 0.3s 0s ease-in;
-  z-index: 1;
   border-radius: rem(10);
+  z-index: 1;
+  perspective: 1000;
+  transition: all 0.3s 0s ease-in;
+  @include theme() {
+    color: theme-get("color-title");
+  }
 
   .card__image-holder {
     background: rgba(0, 0, 0, 0.1);
@@ -79,51 +69,56 @@ div.card {
   }
 
   div.card-title {
-    background: $white;
-    padding: 6px 15px 10px;
+    padding: rem(6) rem(15) rem(10);
     position: relative;
-    border-radius: rem(5);
+    border-bottom-left-radius: rem(5);
+    border-bottom-right-radius: rem(5);
     z-index: 0;
+    @include theme() {
+      background-color: theme-get("color-card-bg");
+    }
 
     a.toggle-info {
-      border-radius: 32px;
-      height: 32px;
-      padding: 0;
       position: absolute;
-      right: 15px;
-      top: 10px;
-      width: 32px;
+      top: rem(10);
+      right: rem(15);
+      height: rem(32);
+      width: rem(32);
+      padding: 0;
+      border-radius: rem(32);
 
       span {
-        background: $white;
-        display: block;
-        height: 2px;
         position: absolute;
-        top: 16px;
+        top: rem(16);
+        display: block;
+        height: rem(2);
+        width: rem(12);
         transition: all 0.15s 0s ease-out;
-        width: 12px;
+        @include theme() {
+          background-color: theme-get("color-card-bg");
+        }
       }
 
       span.left {
-        right: 14px;
+        right: rem(14);
         transform: rotate(45deg);
       }
       span.right {
-        left: 14px;
+        left: rem(14);
         transform: rotate(-45deg);
       }
     }
 
     h2 {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.05em;
       margin: 0;
       padding: 0;
+      font-size: rem(24);
+      font-weight: 700;
+      letter-spacing: -0.05em;
 
       small {
         display: block;
-        font-size: 18px;
+        font-size: rem(18);
         font-weight: 600;
         letter-spacing: -0.025em;
       }
@@ -131,23 +126,24 @@ div.card {
   }
 
   div.card-description {
-    padding: 0 15px 10px;
+    padding: 0 rem(15) rem(10);
     position: relative;
-    font-size: 14px;
+    font-size: rem(14);
   }
 
   div.card-actions {
-    box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.075);
-    padding: 10px 15px 20px;
+    padding: rem(10) rem(15) rem(20);
     text-align: center;
   }
 
   div.card-flap {
-    background: darken($white, 15);
     position: absolute;
     width: 100%;
     transform-origin: top;
     transform: rotateX(-90deg);
+    @include theme() {
+      background-color: darken(theme-get("color-card-bg"), 15);
+    }
   }
   div.flap1 {
     transition: all 0.3s 0.3s ease-out;
@@ -181,22 +177,26 @@ div.card.show {
   border-bottom-right-radius: 0;
 
   div.card-title {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     a.toggle-info {
-      background: $salmon !important;
+      background: $salmon;
       span {
-        top: 15px;
+        top: rem(15);
       }
       span.left {
-        right: 10px;
+        right: rem(10);
       }
       span.right {
-        left: 10px;
+        left: rem(10);
       }
     }
   }
   div.card-flap {
-    background: $white;
     transform: rotateX(0deg);
+    @include theme() {
+      background-color: theme-get("color-card-bg");
+    }
   }
   div.flap1 {
     transition: all 0.3s 0s ease-out;
@@ -206,8 +206,4 @@ div.card.show {
     border-bottom-left-radius: rem(10);
     border-bottom-right-radius: rem(10);
   }
-}
-
-div.card.show {
-  border-radius: none;
 }
