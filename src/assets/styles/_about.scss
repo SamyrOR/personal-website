@@ -1,0 +1,74 @@
+@use "./variables" as *;
+@use "./functions" as *;
+@use "./mixins" as *;
+
+.about {
+  @extend %margins;
+  padding: rem(20);
+  border-radius: rem(15);
+  color: $white;
+  @include theme() {
+    background: linear-gradient(
+      to top right,
+      theme-get("color-primary"),
+      theme-get("color-secondary")
+    );
+  }
+
+  &__info {
+    p {
+      padding-top: rem(16);
+      text-indent: rem(64);
+    }
+  }
+  &__break {
+    margin: rem(30);
+  }
+
+  h3 {
+    color: $white !important;
+  }
+
+  p {
+    font-size: rem(18);
+    color: $white !important;
+  }
+}
+.career {
+  &__title {
+    text-align: center;
+  }
+  &__subtitle {
+    font-size: rem(24);
+  }
+  &__section {
+    margin-top: rem(20);
+  }
+  &__date {
+    margin-top: rem(10);
+  }
+  &__text {
+    margin-top: rem(10);
+    padding-left: rem(17);
+  }
+  ul {
+    padding-left: rem(40);
+    margin: rem(17);
+  }
+}
+
+.profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  &__img {
+    border-radius: 50%;
+  }
+  &__name {
+    margin: rem(5) 0;
+  }
+  &__desc {
+    font-style: italic;
+  }
+}
