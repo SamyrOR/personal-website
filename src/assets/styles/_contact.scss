@@ -1,0 +1,43 @@
+@use "./variables" as *;
+@use "./functions" as *;
+@use "./mixins" as *;
+
+.contact {
+  @extend %margins;
+  &__header {
+    text-align: center;
+    p {
+      margin-top: rem(10);
+    }
+  }
+}
+
+.form {
+  margin-top: rem(30);
+  &__group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  &__label {
+    padding: rem(7) rem(15);
+    @include theme() {
+      color: theme-get("color-text");
+    }
+  }
+  &__input {
+    border-radius: rem(5);
+    outline: 0;
+    padding: rem(12) rem(6);
+    height: rem(30);
+    @include theme() {
+      border: rem(1) solid theme-get("color-text");
+    }
+    &:focus {
+      @include theme() {
+        border-color: theme-get("color-primary");
+        box-shadow: 0 0 0.6rem theme-get("color-primary");
+      }
+    }
+  }
+}

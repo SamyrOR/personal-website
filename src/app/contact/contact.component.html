@@ -1,3 +1,28 @@
 <div class="wrapper">
-  <p>contact works!</p>
+  <div class="contact">
+    <header class="contact__header">
+      <h3>Entre em contato!</h3>
+      <p>
+        Se você tem uma proposta de emprego, sugestão, crítica ou apenas deseja
+        enviar uma mensagem, por favor, envie um e-mail!
+      </p>
+    </header>
+    <form class="form">
+      <div class="form__group">
+        <label class="form__label" for="subject">Assunto: </label>
+        <input
+          class="form__input"
+          type="text"
+          name="subject"
+          placeholder="Projeto"
+        />
+      </div>
+      <div class="form__group">
+        <label class="form__label" for="message">Mensagem: </label>
+        <textarea name="message" cols="40" rows="8" placeholder="Insira s">
+        </textarea>
+      </div>
+      <button class="btn">Enviar</button>
+    </form>
+  </div>
 </div>
