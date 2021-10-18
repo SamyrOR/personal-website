@@ -2,6 +2,19 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
+%input-focus {
+  @include theme() {
+    border-color: theme-get("color-primary");
+    box-shadow: 0 0 0.6rem theme-get("color-primary");
+  }
+}
+
+%input {
+  padding: rem(6) rem(12);
+  border-radius: rem(5);
+  outline: 0;
+}
+
 .contact {
   @extend %margins;
   &__header {
@@ -14,30 +27,59 @@
 
 .form {
   margin-top: rem(30);
+  display: grid;
+  place-items: center;
+  @include md {
+    display: block;
+  }
   &__group {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin-bottom: rem(20);
   }
   &__label {
     padding: rem(7) rem(15);
+
+    line-height: 1.5;
     @include theme() {
       color: theme-get("color-text");
     }
+    @include sm {
+      flex: 0 0 28%;
+      max-width: 28%;
+    }
+    @include lg {
+      flex: 0 0 16%;
+      max-width: 16%;
+    }
   }
   &__input {
-    border-radius: rem(5);
-    outline: 0;
-    padding: rem(12) rem(6);
+    @extend %input;
     height: rem(30);
     @include theme() {
       border: rem(1) solid theme-get("color-text");
     }
     &:focus {
-      @include theme() {
-        border-color: theme-get("color-primary");
-        box-shadow: 0 0 0.6rem theme-get("color-primary");
-      }
+      @extend %input-focus;
     }
+  }
+  &__textarea {
+    @extend %input;
+
+    font-family: $main-font, sans-serif;
+    &:focus {
+      @extend %input-focus;
+    }
+    &::placeholder {
+      color: black;
+    }
+  }
+  &__error {
+    width: 100%;
+    margin: rem(10);
+    color: $error;
+    font-size: rem(16);
+    font-style: italic;
   }
 }

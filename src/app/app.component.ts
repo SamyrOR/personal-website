@@ -9,4 +9,4 @@ export class AppComponent {
   title = 'personal-website';
 }
 
-//TODO Create the other pages
+// TODO Make the objects and refine the pages

@@ -7,22 +7,49 @@
         enviar uma mensagem, por favor, envie um e-mail!
       </p>
     </header>
-    <form class="form">
-      <div class="form__group">
-        <label class="form__label" for="subject">Assunto: </label>
-        <input
-          class="form__input"
-          type="text"
-          name="subject"
-          placeholder="Projeto"
-        />
+    <form class="form" [formGroup]="form" (ngSubmit)="sendMail()">
+      <div>
+        <div class="form__group">
+          <label class="form__label" for="subject">Assunto: </label>
+          <input
+            class="form__input"
+            type="text"
+            name="subject"
+            placeholder="Ex: Projeto"
+            formControlName="subject"
+          />
+          <div
+            class="form__error"
+            *ngIf="
+              (formControls.subject.touched || submitted) &&
+              formControls.subject.errors?.required
+            "
+          >
+            Por favor, insira um titulo
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="message">Mensagem: </label>
+          <textarea
+            class="form__textarea"
+            name="message"
+            cols="40"
+            rows="8"
+            placeholder="Insira sua mensagem aqui..."
+            formControlName="message"
+          ></textarea>
+          <div
+            class="form__error"
+            *ngIf="
+              (formControls.message.touched || submitted) &&
+              formControls.message.errors?.required
+            "
+          >
+            Por favor, insira uma mensagem
+          </div>
+        </div>
       </div>
-      <div class="form__group">
-        <label class="form__label" for="message">Mensagem: </label>
-        <textarea name="message" cols="40" rows="8" placeholder="Insira s">
-        </textarea>
-      </div>
-      <button class="btn">Enviar</button>
+      <button class="btn" [disabled]="form.invalid">Enviar</button>
     </form>
   </div>
 </div>

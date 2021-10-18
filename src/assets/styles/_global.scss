@@ -98,6 +98,9 @@ p {
       transform: translateY(rem(-2));
     }
   }
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .wrapper {

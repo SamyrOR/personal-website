@@ -31,7 +31,6 @@
   @include lg {
   }
   &__title {
-    // font-weight: 400;
     @include theme() {
       color: theme-get("color-title");
     }
