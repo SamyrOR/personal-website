@@ -10,4 +10,4 @@ export class AppComponent {
 }
 
 // TODO Make the objects and refine the pages
-// TODO Fix home carousel
+// TODO Filter projects at home
