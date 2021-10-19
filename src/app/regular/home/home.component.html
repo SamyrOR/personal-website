@@ -192,9 +192,8 @@
       <div class="tech__text">
         <h3>Seu site desenvolvido com as principais tecnologias do mercado</h3>
         <p>
-          Mussum Ipsum, cacilds vidis litro abertis. Casamentiss faiz malandris
-          se pirulitá. Interessantiss quisso pudia ce receita de bolis, mais
-          bolis eu num gostis.
+          Tenha a certeza e segurança de que seu projeto será construido com
+          tecnologias amplamente testadas e utilizadas no mercado atualmente.
         </p>
       </div>
       <div class="tech__img">
@@ -538,9 +537,8 @@
       <div class="mbfirst__text">
         <h3>Com o conceito de "mobile first"</h3>
         <p>
-          Mussum Ipsum, cacilds vidis litro abertis. Casamentiss faiz malandris
-          se pirulitá. Interessantiss quisso pudia ce receita de bolis, mais
-          bolis eu num gostis.
+          Seu projeto desenvolvido para todos os tipos de dispositivos, desde
+          smartphones, tablets a laptop e desktops!
         </p>
       </div>
       <div class="mbfirst__img">
@@ -841,9 +839,9 @@
       <div class="home-certificate__text">
         <h3>Diversos certificados nacionais e internacionais</h3>
         <p>
-          Mussum Ipsum, cacilds vidis litro abertis. Casamentiss faiz malandris
-          se pirulitá. Interessantiss quisso pudia ce receita de bolis, mais
-          bolis eu num gostis.
+          Com horas de dedicação e estudo, foram adquiridos diversos
+          certificados, tanto em instituições nacionais, como internacionais,
+          mostrando tambem que o inglês não é uma barreira.
         </p>
       </div>
 
@@ -977,7 +975,16 @@
       <h3>Projetos</h3>
       <p>Conheça alguns projetos desenvolvidos por mim</p>
       <div class="carousel-container">
-        <div class="item fade">
+        <div class="item fade" *ngFor="let project of projectsList | async">
+          <div class="image">
+            <img [src]="project.img" />
+          </div>
+          <div class="text">
+            <h4 class="title">{{ project.title }}</h4>
+            <p>{{ project.caption }}</p>
+          </div>
+        </div>
+        <!-- <div class="item fade">
           <div class="image">
             <img src="http://lorempixel.com/400/200/abstract/" />
           </div>
@@ -994,16 +1001,7 @@
             <h4 class="title">This item has a title</h4>
             <p>This item has a caption aligned to the left</p>
           </div>
-        </div>
-        <div class="item fade">
-          <div class="image">
-            <img src="http://lorempixel.com/400/200/abstract/" />
-          </div>
-          <div class="text">
-            <h4 class="title">This item has a title</h4>
-            <p>This item has a caption aligned to the left</p>
-          </div>
-        </div>
+        </div> -->
 
         <a class="prev has-dflex-center"><i class="fas fa-angle-left"></i></a
         ><a class="next has-dflex-center"><i class="fas fa-angle-right"></i></a>

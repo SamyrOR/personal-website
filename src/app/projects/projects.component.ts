@@ -1,4 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { GetDataService } from '../shared/get-data.service';
+import { Projects } from '../shared/project';
 
 @Component({
   selector: 'app-projects',
@@ -7,10 +10,14 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 })
 export class ProjectsComponent implements OnInit {
   @ViewChild('cards') cards!: ElementRef;
-  constructor() {}
+  projectsList!: Observable<any>;
+  constructor(private getData: GetDataService) {}
 
   zindex: number = 10;
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.projectsList = this.getData.getProjects();
+    console.log(this.projectsList);
+  }
 
   onClick(e: any) {
     e.preventDefault();

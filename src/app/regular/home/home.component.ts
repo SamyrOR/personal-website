@@ -1,14 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewInit,
+  Component,
+  OnInit,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { GetDataService } from 'src/app/shared/get-data.service';
+import { Projects } from 'src/app/shared/project';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  constructor() {}
+export class HomeComponent implements OnInit, AfterContentInit {
+  projectsList!: Observable<any>;
+
+  constructor(private getData: GetDataService) {}
 
   ngOnInit(): void {
+    this.projectsList = this.getData.getProjects();
+  }
+
+  ngAfterContentInit(): void {
     this.loadCarousel();
   }
 

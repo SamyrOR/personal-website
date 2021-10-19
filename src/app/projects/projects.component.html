@@ -6,13 +6,13 @@
       para aprendizagem no conhecimento de tecnologias.
     </p>
     <div class="cards" #cards>
-      <div class="card" (click)="onClick($event)">
+      <div
+        class="card"
+        *ngFor="let project of projectsList | async"
+        (click)="onClick($event)"
+      >
         <div class="card__image-holder">
-          <img
-            class="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
-          />
+          <img class="card__image" [src]="project.img" alt="wave" />
         </div>
         <div class="card-title">
           <a href="#" class="toggle-info btn">
@@ -20,138 +20,17 @@
             <span class="right"></span>
           </a>
           <h2>
-            Card title
-            <small>Image from unsplash.com</small>
+            {{ project.title }}
+            <small>{{ project.caption }}</small>
           </h2>
         </div>
         <div class="card-flap flap1">
           <div class="card-description">
-            This grid is an attempt to make something nice that works on touch
-            devices. Ignoring hover states when they're not available etc.
+            {{ project.description }}
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a class="btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card" (click)="onClick($event)">
-        <div class="card__image-holder">
-          <img
-            class="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
-          />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <h2>
-            Card title
-            <small>Image from unsplash.com</small>
-          </h2>
-        </div>
-        <div class="card-flap flap1">
-          <div class="card-description">
-            This grid is an attempt to make something nice that works on touch
-            devices. Ignoring hover states when they're not available etc.
-          </div>
-          <div class="card-flap flap2">
-            <div class="card-actions">
-              <a class="btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card" (click)="onClick($event)">
-        <div class="card__image-holder">
-          <img
-            class="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
-          />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <h2>
-            Card title
-            <small>Image from unsplash.com</small>
-          </h2>
-        </div>
-        <div class="card-flap flap1">
-          <div class="card-description">
-            This grid is an attempt to make something nice that works on touch
-            devices. Ignoring hover states when they're not available etc.
-          </div>
-          <div class="card-flap flap2">
-            <div class="card-actions">
-              <a class="btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card" (click)="onClick($event)">
-        <div class="card__image-holder">
-          <img
-            class="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
-          />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <h2>
-            Card title
-            <small>Image from unsplash.com</small>
-          </h2>
-        </div>
-        <div class="card-flap flap1">
-          <div class="card-description">
-            This grid is an attempt to make something nice that works on touch
-            devices. Ignoring hover states when they're not available etc.
-          </div>
-          <div class="card-flap flap2">
-            <div class="card-actions">
-              <a class="btn">Read more</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card" (click)="onClick($event)">
-        <div class="card__image-holder">
-          <img
-            class="card__image"
-            src="https://source.unsplash.com/300x225/?wave"
-            alt="wave"
-          />
-        </div>
-        <div class="card-title">
-          <a href="#" class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <h2>
-            Card title
-            <small>Image from unsplash.com</small>
-          </h2>
-        </div>
-        <div class="card-flap flap1">
-          <div class="card-description">
-            Mussum Ipsum, cacilds vidis litro abertis. Mauris nec dolor in eros
-            commodo tempor.
-          </div>
-          <div class="card-flap flap2">
-            <div class="card-actions">
-              <a class="btn">Read more</a>
+              <a class="btn">Saiba mais</a>
             </div>
           </div>
         </div>
