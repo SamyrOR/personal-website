@@ -1,16 +1,116 @@
 [
   {
-    "name": "Loiane training",
+    "name": "Digital Innovation One",
     "certificates": [
       {
-        "name": "Angular",
-        "img": "../../assets/images/certificates/angular-loiane.JPG",
-        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
+        "name": "Lógica de programação essencial",
+        "img": "../../assets/images/certificates/dio-logica.jpg",
+        "link": "https://certificates.digitalinnovation.one/035F6F4D"
       },
       {
-        "name": "Angular",
-        "img": "../../assets/images/certificates/angular-loiane.JPG",
-        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
+        "name": "Fundamentos de Arquitetura de Sistemas",
+        "img": "../../assets/images/certificates/dio-fundamentos-as.jpg",
+        "link": "https://certificates.digitalinnovation.one/98905D33"
+      },
+      {
+        "name": "Introdução ao Git e Controle de Versões",
+        "img": "../../assets/images/certificates/dio-intro-git.jpg",
+        "link": "https://certificates.digitalinnovation.one/8CC3F294"
+      },
+      {
+        "name": "Programação para internet com HTML5 e CSS3",
+        "img": "../../assets/images/certificates/dio-html5-css3.jpg",
+        "link": "https://certificates.digitalinnovation.one/10F14BA8"
+      },
+      {
+        "name": "Programação para internet com JavaScript",
+        "img": "../../assets/images/certificates/dio-intro-js.jpg",
+        "link": "https://certificates.digitalinnovation.one/5A70AF28"
+      },
+      {
+        "name": "JavaScript ES6 essencial",
+        "img": "../../assets/images/certificates/dio-js-es6-essential.jpg",
+        "link": "https://certificates.digitalinnovation.one/88EFB9AE"
+      },
+      {
+        "name": "Desenvolvimento avançado com JavaScript ES6",
+        "img": "../../assets/images/certificates/dio-js-es6-advanced.jpg",
+        "link": "https://certificates.digitalinnovation.one/9E3CACD1"
+      },
+      {
+        "name": "Desafio prático: Performance Web Utilizando JavaScript",
+        "img": "../../assets/images/certificates/dio-js-web-performance.jpg",
+        "link": "https://certificates.digitalinnovation.one/20C11BB4"
+      },
+      {
+        "name": "Projetos ágeis com SCRUM",
+        "img": "../../assets/images/certificates/dio-scrum.jpg",
+        "link": "https://certificates.digitalinnovation.one/CC06F1DB"
+      },
+      {
+        "name": "Introdução ao Angular 8",
+        "img": "../../assets/images/certificates/dio-intro-angular8.jpg",
+        "link": "https://certificates.digitalinnovation.one/3452B681"
+      },
+      {
+        "name": "Técnicas avançadas em Angular 8",
+        "img": "../../assets/images/certificates/dio-angular8-advanced.jpg",
+        "link": "https://certificates.digitalinnovation.one/0340210A"
+      },
+      {
+        "name": "Desenvolvimento Front-End Angular",
+        "img": "../../assets/images/certificates/dio-front-end-angular.jpg",
+        "link": "hhttps://certificates.digitalinnovation.one/474846A2"
+      },
+      {
+        "name": "Conceitos de responsividade e experiência do usuário",
+        "img": "../../assets/images/certificates/dio-responsiveness-userxp.jpg",
+        "link": "https://certificates.digitalinnovation.one/009C6685"
+      },
+      {
+        "name": "Aprenda o que são Estrutura de Dados e Algoritmos",
+        "img": "../../assets/images/certificates/dio-data-structure-algorithm.jpg",
+        "link": "https://certificates.digitalinnovation.one/9CA31E2C"
+      },
+      {
+        "name": "Recriando a Interface do Netflix",
+        "img": "../../assets/images/certificates/dio-netflix-interface.jpg",
+        "link": "https://certificates.digitalinnovation.one/AD6A6587"
+      },
+      {
+        "name": "Aplicações avançadas com Angular",
+        "img": "../../assets/images/certificates/dio-advanced-angular-apps.jpg",
+        "link": "https://certificates.digitalinnovation.one/593993DD"
+      },
+      {
+        "name": "Desenvolvendo SPA com Angular",
+        "img": "../../assets/images/certificates/dio-angular-spa.jpg",
+        "link": "https://certificates.digitalinnovation.one/2F0AECE4"
+      },
+      {
+        "name": "A arquitetura de componentes e a gestão da complexidade no front-end",
+        "img": "../../assets/images/certificates/dio-angular-comp-architecture.jpg",
+        "link": "https://certificates.digitalinnovation.one/CFC5269A"
+      },
+      {
+        "name": "Implementando testes automatizados usando Cypress em uma aplicação Angular",
+        "img": "../../assets/images/certificates/dio-angular-cypress.jpg",
+        "link": "https://certificates.digitalinnovation.one/13062F4D"
+      },
+      {
+        "name": "Criando projeto para consultar a previsão do tempo via API",
+        "img": "../../assets/images/certificates/dio-angular-weather-app.jpg",
+        "link": "https://certificates.digitalinnovation.one/7C34437A"
+      },
+      {
+        "name": "Conceitos avançados de performance e otimização usando Angular",
+        "img": "../../assets/images/certificates/dio-angular-performance.jpg",
+        "link": "https://certificates.digitalinnovation.one/2724E031"
+      },
+      {
+        "name": "Avanade Angular Developer",
+        "img": "../../assets/images/certificates/dio-avanade-angular-dev.jpg",
+        "link": "https://certificates.digitalinnovation.one/40EEB258"
       }
     ]
   },
