@@ -1,11 +1,4 @@
-import {
-  AfterContentChecked,
-  AfterContentInit,
-  AfterViewChecked,
-  AfterViewInit,
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
 
@@ -24,10 +17,7 @@ export class HomeComponent implements OnInit {
     setTimeout(() => this.loadCarousel(), 1000);
   }
 
-  ngAfterViewInit(): void {}
-  // ngAfterViewChecked(): void {
-  //   this.loadCarousel();
-  // }
+  // ngAfterViewInit(): void {}
 
   loadCarousel() {
     document

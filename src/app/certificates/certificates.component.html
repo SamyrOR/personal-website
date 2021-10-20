@@ -2,80 +2,22 @@
   <div class="certificates">
     <h3>Diversos certificados em instituições nacionais e internacionais</h3>
     <p>
-      Mussum Ipsum, cacilds vidis litro abertis. Mauris nec dolor in eros
-      commodo tempor.
+      Aqui você encontrará alguns dos certificados de diversas plataformas,
+      adquiridos com horas de esforço e dedicação.
     </p>
-    <div class="certificates__organization">
-      <h3>Loiane traingin</h3>
+    <div
+      class="certificates__organization"
+      *ngFor="let organization of $organizations | async"
+    >
+      <h3>{{ organization.name }}</h3>
       <div class="certificates__wrapper">
-        <div class="certificate">
-          <h4 class="certificate__title">Loiane training - Angular</h4>
-          <a
-            href="https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-            target="_blank"
-          >
-            <img
-              class="certificate__img"
-              src="../../assets/images/angular-loiane.JPG"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="certificate">
-          <h4 class="certificate__title">Loiane training - Angular</h4>
-          <a
-            href="https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-            target="_blank"
-          >
-            <img
-              class="certificate__img"
-              src="../../assets/images/angular-loiane.JPG"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="certificate">
-          <h4 class="certificate__title">Loiane training - Angular</h4>
-          <a
-            href="https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-            target="_blank"
-          >
-            <img
-              class="certificate__img"
-              src="../../assets/images/angular-loiane.JPG"
-              alt=""
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-    <div class="certificates__organization">
-      <h3>Loiane traingin</h3>
-      <div class="certificates__wrapper">
-        <div class="certificate">
-          <h4 class="certificate__title">Loiane training - Angular</h4>
-          <a
-            href="https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-            target="_blank"
-          >
-            <img
-              class="certificate__img"
-              src="../../assets/images/angular-loiane.JPG"
-              alt=""
-            />
-          </a>
-        </div>
-        <div class="certificate">
-          <h4 class="certificate__title">Loiane training - Angular</h4>
-          <a
-            href="https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-            target="_blank"
-          >
-            <img
-              class="certificate__img"
-              src="../../assets/images/angular-loiane.JPG"
-              alt=""
-            />
+        <div
+          class="certificate"
+          *ngFor="let certificate of organization.certificates"
+        >
+          <h4 class="certificate__title">{{ certificate.name }}</h4>
+          <a [href]="certificate.link" target="_blank">
+            <img class="certificate__img" [src]="certificate.img" alt="" />
           </a>
         </div>
       </div>

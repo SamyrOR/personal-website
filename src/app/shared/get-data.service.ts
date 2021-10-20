@@ -8,6 +8,9 @@ export class GetDataService {
   constructor(private httpClient: HttpClient) {}
 
   getProjects() {
-    return this.httpClient.get('assets/projects.json');
+    return this.httpClient.get('assets/data/projects.json');
+  }
+  getCertificates() {
+    return this.httpClient.get('assets/data/certificates.json');
   }
 }
