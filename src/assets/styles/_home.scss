@@ -61,7 +61,7 @@
       width: rem(400);
       height: 65%;
       @include theme() {
-        background-image: theme-get("bg-main1");
+        background-image: theme-get("bg-main-left");
       }
       background-position: 0 0;
       background-repeat: no-repeat;
@@ -82,7 +82,7 @@
       width: rem(280);
       height: 60%;
       @include theme() {
-        background-image: theme-get("bg-main2");
+        background-image: theme-get("bg-main-right");
       }
       background-position: rem(90) 0;
       background-repeat: no-repeat;

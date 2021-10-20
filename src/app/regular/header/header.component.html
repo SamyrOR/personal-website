@@ -1,7 +1,11 @@
 <header class="header wrapper" [ngClass]="{ 'menu-opened': isMenuOpen }">
   <nav class="menu">
     <a [routerLink]="['/home']" routerLinkActive="active">
-      <img class="logo" src="./assets/images/logo.png" alt="Samyr dev logo" />
+      <img
+        class="logo"
+        src="./assets/images/logos/samyrdev.png"
+        alt="Samyr dev logo"
+      />
     </a>
     <!-- Mobile Button -->
     <button class="menu__button" (click)="menuOpen()">

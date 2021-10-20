@@ -36,7 +36,7 @@ body {
     background-repeat: no-repeat;
     z-index: -2;
     @include theme() {
-      background-image: theme-get("bg-rect");
+      background-image: theme-get("bg-header-second");
     }
   }
   &::after {
@@ -51,7 +51,7 @@ body {
     background-repeat: no-repeat;
     z-index: -1;
     @include theme() {
-      background-image: theme-get("bg-image");
+      background-image: theme-get("bg-header-first");
     }
     @include lg {
       top: rem(-58);

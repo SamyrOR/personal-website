@@ -186,7 +186,7 @@
     text-indent: -9999px;
     width: 55px;
     height: 30px;
-    background: $c-dark-bg;
+    background: $c-bg-dark;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -196,7 +196,7 @@
     position: relative;
     &::after {
       content: "";
-      background: $c-dark-neutral;
+      background: $c-neutral-dark;
       width: 20px;
       height: 20px;
       -webkit-border-radius: 50%;

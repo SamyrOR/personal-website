@@ -1,17 +1,3 @@
-//Colors Dark
-$c-dark-text: #8295b9;
-$c-dark-bg: #102131;
-$c-dark-title: #ffffff;
-$c-dark-primary: #f7618b;
-$c-dark-neutral: #6c63ff;
-$c-dark-secondary: #2a7aff;
-$c-dark-footer: #101f2d;
-$c-dark-card-bg: #1f2b44;
-$bg-dark-image: url(../images/dark-bg.png);
-$bg-dark-rect: url(../images/dark-rect.png);
-$bg-dark-main1: url(../images/dark-main-bg1.png);
-$bg-dark-main2: url(../images/dark-main-bg2.png);
-
 //Colors Light
 $c-mobile-menu: #6c63ff;
 $c-text: #546079;
@@ -23,10 +9,24 @@ $c-secondary: #102397;
 $c-footer: #e6effa;
 $c-social: #677897;
 $c-card-bg: #91b7dc;
-$bg-image: url(../images/bg.png);
-$bg-rect: url(../images/rect.png);
-$bg-main1: url(../images/bg-main1.png);
-$bg-main2: url(../images/bg-main2.png);
+$bg-header-first: url(../images/backgrounds/bg-header-first.png);
+$bg-header-second: url(../images/backgrounds/bg-header-second.png);
+$bg-main-left: url(../images/backgrounds/bg-main-left.png);
+$bg-main-right: url(../images/backgrounds/bg-main-right.png);
+
+//Colors Dark
+$c-text-dark: #8295b9;
+$c-bg-dark: #102131;
+$c-title-dark: #ffffff;
+$c-primary-dark: #f7618b;
+$c-neutral-dark: #6c63ff;
+$c-secondary-dark: #2a7aff;
+$c-footer-dark: #101f2d;
+$c-card-bg-dark: #1f2b44;
+$bg-header-first-dark: url(../images/backgrounds/bg-header-first-dark.png);
+$bg-header-second-dark: url(../images/backgrounds/bg-header-second-dark.png);
+$bg-main-left-dark: url(../images/backgrounds/bg-main-left-dark.png);
+$bg-main-right-dark: url(../images/backgrounds/bg-main-right-dark.png);
 
 //Neutral colors
 $white: #ffffff;
