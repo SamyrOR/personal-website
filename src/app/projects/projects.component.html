@@ -12,10 +12,16 @@
         (click)="onClick($event)"
       >
         <div class="card__image-holder">
-          <img class="card__image" [src]="project.img" alt="wave" />
+          <img
+            class="card__image"
+            height="255"
+            width="300"
+            [src]="project.img"
+            alt="wave"
+          />
         </div>
         <div class="card-title">
-          <a href="#" class="toggle-info btn">
+          <a class="toggle-info btn">
             <span class="left"></span>
             <span class="right"></span>
           </a>
@@ -30,7 +36,9 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a class="btn">Saiba mais</a>
+              <a [href]="project.link" class="btn" target="_blank"
+                >Saiba mais
+              </a>
             </div>
           </div>
         </div>

@@ -65,15 +65,17 @@ div.card {
     height: 0;
     padding-bottom: 75%;
     img {
-      object-fit: contain;
+      object-fit: cover;
       border-top-left-radius: rem(10);
       border-top-right-radius: rem(10);
+      height: rem(225);
     }
   }
 
   div.card-title {
-    padding: rem(6) rem(15) rem(10);
+    padding: rem(10) rem(15) 0;
     position: relative;
+    min-height: rem(135);
     border-bottom-left-radius: rem(5);
     border-bottom-right-radius: rem(5);
     z-index: 0;
@@ -121,9 +123,9 @@ div.card {
 
       small {
         display: block;
-        padding-right: rem(30);
+        padding: rem(10) rem(30) rem(10) 0;
         font-size: rem(18);
-        font-weight: 600;
+        font-weight: 400;
         letter-spacing: -0.025em;
       }
     }

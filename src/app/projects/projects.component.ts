@@ -20,7 +20,6 @@ export class ProjectsComponent implements OnInit {
   }
 
   onClick(e: any) {
-    e.preventDefault();
     let cards = this.cards.nativeElement;
     let card = e.currentTarget;
     let isShowing = false;
