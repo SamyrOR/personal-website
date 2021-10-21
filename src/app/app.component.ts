@@ -11,3 +11,4 @@ export class AppComponent {
 
 // TODO Make the objects and refine the pages
 // TODO Filter projects at home
+// TODO Create infinite scroll at certificates page

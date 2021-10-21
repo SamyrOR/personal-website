@@ -57,6 +57,7 @@
   &__input {
     @extend %input;
     height: rem(30);
+    width: rem(318);
     @include theme() {
       border: rem(1) solid theme-get("color-text");
     }
