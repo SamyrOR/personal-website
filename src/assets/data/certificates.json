@@ -119,18 +119,43 @@
     "certificates": [
       {
         "name": "Angular",
-        "img": "../../assets/images/certificates/angular-loiane.JPG",
+        "img": "../../assets/images/certificates/loiane-angular.jpg",
         "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
+      }
+    ]
+  },
+  {
+    "name": "Hcode Treinamentos",
+    "certificates": [
+      {
+        "name": "JavaScript FullStack",
+        "img": "../../assets/images/certificates/hcode-js.jpg",
+        "link": "https://www.udemy.com/certificate/UC-fe3c03e1-201d-466b-a28b-a2725326a32a/"
+      }
+    ]
+  },
+  {
+    "name": "Sololearn",
+    "certificates": [
+      {
+        "name": "HTML Course",
+        "img": "../../assets/images/certificates/sololearn-html.jpg",
+        "link": "https://www.sololearn.com/Certificate/1014-9372838/jpg"
       },
       {
-        "name": "Angular",
-        "img": "../../assets/images/certificates/angular-loiane.JPG",
-        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
-      },
+        "name": "CSS Course",
+        "img": "../../assets/images/certificates/sololearn-css.jpg",
+        "link": "https://www.sololearn.com/Certificate/1023-9372838/jpg"
+      }
+    ]
+  },
+  {
+    "name": "Hacker Rank",
+    "certificates": [
       {
-        "name": "Angular",
-        "img": "../../assets/images/certificates/angular-loiane.JPG",
-        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
+        "name": "CSS Skill",
+        "img": "../../assets/images/certificates/hackerrank-css.jpg",
+        "link": "https://www.hackerrank.com/certificates/ec8ac15f857a"
       }
     ]
   }
