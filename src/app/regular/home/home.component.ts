@@ -1,23 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
+import { Projects } from 'src/app/shared/project';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
-  projectsList!: Observable<any>;
+export class HomeComponent implements OnInit, OnDestroy {
+  projectsList: Projects[] = [];
+  subs!: Subscription;
 
   constructor(private getData: GetDataService) {}
 
   ngOnInit(): void {
-    this.projectsList = this.getData.getProjects();
+    this.subs = this.getData
+      .getProjects()
+      .subscribe((projects) => (this.projectsList = projects.slice(2, 5)));
     setTimeout(() => this.loadCarousel(), 1000);
   }
 
-  // ngAfterViewInit(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 
   loadCarousel() {
     document

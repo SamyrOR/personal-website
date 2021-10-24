@@ -975,7 +975,7 @@
       <h3>Projetos</h3>
       <p>Conheça alguns projetos desenvolvidos por mim</p>
       <div class="carousel-container">
-        <div class="item fade" *ngFor="let project of projectsList | async">
+        <div class="item fade" *ngFor="let project of projectsList">
           <div class="image">
             <img [src]="project.img" />
           </div>
@@ -988,7 +988,7 @@
         <a class="prev has-dflex-center"><i class="fas fa-angle-left"></i></a
         ><a class="next has-dflex-center"><i class="fas fa-angle-right"></i></a>
       </div>
-      <a routerLink="/projects"><button class="btn">Veja mais</button></a>
+      <a routerLink="/projects"><button class="btn">Veja todos</button></a>
     </section>
   </main>
 </div>
