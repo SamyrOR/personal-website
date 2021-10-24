@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class GetDataService {
   constructor(private httpClient: HttpClient) {}
 
-  getProjects(): Observable<Object> {
+  getProjects(): Observable<any> {
     return this.httpClient.get('assets/data/projects.json');
   }
   getCertificates(): Observable<any> {

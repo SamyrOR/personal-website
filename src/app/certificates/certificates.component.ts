@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
-import { Projects } from '../shared/project';
 import { Certificate } from './models/certificate';
 
 @Component({
@@ -9,21 +8,29 @@ import { Certificate } from './models/certificate';
   templateUrl: './certificates.component.html',
   styleUrls: ['./certificates.component.scss'],
 })
-export class CertificatesComponent implements OnInit {
-  $organizations: Certificate[] = [];
-  initialData!: any;
+export class CertificatesComponent implements OnInit, OnDestroy {
+  organizations: Certificate[] = [];
+  subs!: Subscription;
+  initialData: Certificate[] = [];
   loading: boolean = true;
 
   constructor(private getData: GetDataService) {}
 
   ngOnInit(): void {
-    // this.$organizations = this.getData.getCertificates();
-    this.getData.getCertificates().subscribe((data) => {
-      this.$organizations.push(data[0]);
-      console.log(this.$organizations);
-    });
-    setTimeout(() => {
+    this.subs = this.getData.getCertificates().subscribe((data) => {
+      this.organizations = data;
+      this.initialData.push(this.organizations[0]);
       this.loading = false;
-    }, 1000);
+    });
+  }
+
+  onScroll() {
+    if (this.initialData.length < this.organizations.length) {
+      this.initialData.push(this.organizations[this.initialData.length]);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }

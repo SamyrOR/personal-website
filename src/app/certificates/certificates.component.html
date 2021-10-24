@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="loading" *ngIf="loading">
-    <p>Carregando...</p>
+    <h3>Carregando...</h3>
   </div>
   <div class="certificates" *ngIf="!loading">
     <h3>Diversos certificados em instituições nacionais e internacionais</h3>
@@ -9,19 +9,27 @@
       adquiridos com horas de esforço e dedicação.
     </p>
     <div
-      class="certificates__organization"
-      *ngFor="let organization of $organizations"
+      class="search-results"
+      infiniteScroll
+      [infiniteScrollDistance]="1"
+      [infiniteScrollThrottle]="50"
+      (scrolled)="onScroll()"
     >
-      <h3>{{ organization.name }}</h3>
-      <div class="certificates__wrapper">
-        <div
-          class="certificate"
-          *ngFor="let certificate of organization.certificates"
-        >
-          <h4 class="certificate__title">{{ certificate.name }}</h4>
-          <a [href]="certificate.link" target="_blank">
-            <img class="certificate__img" [src]="certificate.img" alt="" />
-          </a>
+      <div
+        class="certificates__organization"
+        *ngFor="let organization of initialData"
+      >
+        <h3>{{ organization.name }}</h3>
+        <div class="certificates__wrapper">
+          <div
+            class="certificate"
+            *ngFor="let certificate of organization.certificates"
+          >
+            <h4 class="certificate__title">{{ certificate.name }}</h4>
+            <a [href]="certificate.link" target="_blank">
+              <img class="certificate__img" [src]="certificate.img" alt="" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -16,7 +16,6 @@ export class ProjectsComponent implements OnInit {
   zindex: number = 10;
   ngOnInit(): void {
     this.projectsList = this.getData.getProjects();
-    console.log(this.projectsList);
   }
 
   onClick(e: any) {
