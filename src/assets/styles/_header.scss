@@ -111,11 +111,30 @@
         font-size: rem(18);
         padding: 10px;
         cursor: pointer;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          display: grid;
+          bottom: 0;
+          left: rem(5);
+          width: 90%;
+          height: rem(2);
+          border-radius: 50%;
+          opacity: 0;
+          transition: all 300ms ease-out;
+          @include theme() {
+            background-color: theme-get("color-menu-link");
+          }
+        }
         &:hover,
         &.active {
+          font-weight: 600;
           @include theme() {
-            font-weight: 600;
-            color: theme-get("color-primary");
+            color: theme-get("color-menu-link");
+          }
+          &::after {
+            opacity: 1;
           }
         }
       }
