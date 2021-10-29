@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
 import { Projects } from 'src/app/shared/project';
@@ -8,21 +15,30 @@ import { Projects } from 'src/app/shared/project';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   projectsList: Projects[] = [];
-  subs!: Subscription;
+  sub!: Subscription;
+  afterLoopSub!: Subscription;
+
+  @ViewChildren('allProjects') allProjects!: QueryList<any>;
 
   constructor(private getData: GetDataService) {}
 
   ngOnInit(): void {
-    this.subs = this.getData
+    this.sub = this.getData
       .getProjects()
       .subscribe((projects) => (this.projectsList = projects.slice(2, 5)));
-    setTimeout(() => this.loadCarousel(), 1000);
+  }
+
+  ngAfterViewInit(): void {
+    this.afterLoopSub = this.allProjects.changes.subscribe(() => {
+      this.loadCarousel();
+    });
   }
 
   ngOnDestroy(): void {
-    this.subs.unsubscribe();
+    this.sub.unsubscribe();
+    this.afterLoopSub.unsubscribe();
   }
 
   loadCarousel() {

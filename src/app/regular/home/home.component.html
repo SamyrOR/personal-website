@@ -982,7 +982,11 @@
       <h3>Projetos</h3>
       <p>Conheça alguns projetos desenvolvidos por mim</p>
       <div class="carousel-container">
-        <div class="item fade" *ngFor="let project of projectsList">
+        <div
+          #allProjects
+          class="item fade"
+          *ngFor="let project of projectsList"
+        >
           <div class="image">
             <img [src]="project.img" />
           </div>
