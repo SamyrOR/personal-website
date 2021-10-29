@@ -9,6 +9,5 @@ export class AppComponent {
   title = 'personal-website';
 }
 
-// TODO Make the objects and refine the pages
-// TODO Filter projects at home
-// TODO Create infinite scroll at certificates page
+// TODO create a favicon
+// TODO add comments
