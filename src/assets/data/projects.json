@@ -47,5 +47,12 @@
     "caption": "Curso com 6 projetos reais em javascript.",
     "description": "6 projetos reais desenvolvendo funcionalidades tanto para o front-end quanto para o back-end.",
     "link": "https://github.com/SamyrOR/hcode-javascript-fullstack"
+  },
+  {
+    "title": "Site pessoal",
+    "img": "../../assets/images/projects/site-pessoal.jpeg",
+    "caption": "Meu atual site pessoal",
+    "description": "Desenvolvido com o framework Angular e diversas funcionalidades deste incrivel framework",
+    "link": "https://github.com/SamyrOR/personal-website"
   }
 ]
