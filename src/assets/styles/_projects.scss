@@ -2,8 +2,9 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
+//Projects page css
 .projects {
-  @extend %margins;
+  @extend %mt-mb-50;
   display: flex;
   flex-wrap: wrap;
   &__text {

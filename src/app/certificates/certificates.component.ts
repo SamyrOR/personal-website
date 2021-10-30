@@ -23,7 +23,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
       this.loading = false;
     });
   }
-
+  //Infinite scroll
   onScroll() {
     if (this.initialData.length < this.organizations.length) {
       this.initialData.push(this.organizations[this.initialData.length]);

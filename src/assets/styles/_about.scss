@@ -3,7 +3,7 @@
 @use "./mixins" as *;
 
 .about {
-  @extend %margins;
+  @extend %mt-mb-50;
   padding: rem(20);
   border-radius: rem(15);
   color: $white;

@@ -2,6 +2,7 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
+//Helper input pseudo class
 %input-focus {
   @include theme() {
     border-color: theme-get("color-primary");
@@ -16,7 +17,7 @@
 }
 
 .contact {
-  @extend %margins;
+  @extend %mt-mb-50;
   &__header {
     text-align: center;
     p {

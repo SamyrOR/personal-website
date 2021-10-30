@@ -2,12 +2,7 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
-html,
-body,
-app-root {
-  min-height: 100vh;
-}
-
+//Theme transition
 html.transition,
 html.transition *,
 html.transition *:before,
@@ -16,6 +11,7 @@ html.transition *:after {
   transition-delay: 0;
 }
 
+//Body and background default
 body {
   position: relative;
   font-family: $main-font, sans-serif;
@@ -75,6 +71,7 @@ p {
   }
 }
 
+//Buttons default style
 .btn {
   margin-top: rem(18);
   width: rem(211);
@@ -103,16 +100,19 @@ p {
   }
 }
 
+//Components wrapper
 .wrapper {
   margin: 0 auto;
   padding: rem(24);
   max-width: rem(1177);
 }
 
+//Mobile menu no-scroll
 .no-scroll {
   overflow: hidden;
 }
 
+//Change svg colors
 .themed-svg {
   @include theme() {
     fill: theme-get("color-neutral");
@@ -126,6 +126,7 @@ p {
   }
 }
 
+//Components container
 .container {
   min-height: calc(100vh - 416px);
   @include lg {

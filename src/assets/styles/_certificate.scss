@@ -3,12 +3,12 @@
 @use "./mixins" as *;
 
 .certificates {
-  @extend %margins;
+  @extend %mt-mb-50;
   p {
     margin-top: rem(10);
   }
   &__organization {
-    margin-top: rem(100);
+    margin-top: rem(80);
     text-align: center;
   }
   &__wrapper {

@@ -32,7 +32,6 @@ $bg-main-right-dark: url(../images/backgrounds/bg-main-right-dark.png);
 $white: #ffffff;
 $salmon: #ff6666;
 $error: #dc3545;
-// $lightBG: #6c63ff;
 
 //Font
 $default-font-size: 100%;
@@ -47,6 +46,16 @@ $screen-xl-min: 1200px;
 //Others
 $cubic: cubic-bezier(0.4, 0.01, 0.165, 0.99);
 $menuItems: 6;
-%margins {
+
+//Utils pseudo class
+%mt-20 {
+  margin-top: rem(20);
+}
+
+%mt-80 {
+  margin-top: rem(80);
+}
+
+%mt-mb-50 {
   margin: 50px 0;
 }

@@ -2,19 +2,13 @@
 @use "./functions" as *;
 @use "./mixins" as *;
 
-%mt-20 {
-  margin-top: rem(20);
-}
-
-%mt-80 {
-  margin-top: rem(80);
-}
-
-%lg-section {
+//Helpers pseudo class
+%img {
+  width: 100%;
+  display: grid;
+  place-items: center;
   @include lg {
-    display: flex;
-    align-items: center;
-    height: rem(458);
+    width: 67%;
   }
 }
 
@@ -31,15 +25,15 @@
   }
 }
 
-%img {
-  width: 100%;
-  display: grid;
-  place-items: center;
+%lg-section {
   @include lg {
-    width: 67%;
+    display: flex;
+    align-items: center;
+    height: rem(458);
   }
 }
 
+//Main section
 .main {
   padding-top: rem(62);
   padding-bottom: rem(62);
@@ -105,6 +99,7 @@
   }
 }
 
+//Technologies section
 .tech {
   &__text {
     @extend %text;
@@ -128,6 +123,7 @@
   }
 }
 
+//Certificate section
 .home-certificate {
   @extend %mt-80;
   @extend %lg-section;
@@ -140,6 +136,7 @@
   }
 }
 
+//Projects section
 .home-projects {
   text-align: center;
   @extend %mt-80;
@@ -152,6 +149,8 @@
     margin-top: rem(15);
   }
 }
+
+//Projects carousel
 .carousel-container {
   margin: rem(30) 0;
   width: 100%;
@@ -275,6 +274,7 @@
   }
 }
 
+//Carousel fade
 @keyframes fade {
   from {
     opacity: 0.8;

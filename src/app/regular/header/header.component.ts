@@ -37,6 +37,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('selected-theme', this.isDarkTheme ? 'dark' : 'light');
   }
 
+  //Add transition to theme change
   transition() {
     document.documentElement.classList.add('transition');
     window.setTimeout(() => {
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit {
     }, 1000);
   }
 
+  //add no-scroll and close menu at route change
   menuOpen() {
     if (window.innerWidth < 1024) {
       this.isMenuOpen = !this.isMenuOpen;

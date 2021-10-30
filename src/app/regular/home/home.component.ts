@@ -27,10 +27,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.sub = this.getData
       .getProjects()
+      //Get just a few projects
       .subscribe((projects) => (this.projectsList = projects.slice(2, 5)));
   }
 
   ngAfterViewInit(): void {
+    //Load carousel after ngFor rendered
     this.afterLoopSub = this.allProjects.changes.subscribe(() => {
       this.loadCarousel();
     });
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.afterLoopSub.unsubscribe();
   }
 
+  //Creat and load carousel functions
   loadCarousel() {
     document
       .querySelectorAll('.carousel-container')

@@ -1,6 +1,7 @@
 @use "./themes" as *;
 @use "./variables" as *;
 
+//Theme mixin
 @mixin theme() {
   @each $theme, $map in $themes {
     $theme-map: $map !global;
@@ -11,6 +12,8 @@
   $theme-map: null !global;
 }
 
+//Break points mixins
+// Small devices
 @mixin sm {
   @media (min-width: #{$screen-sm-min}) {
     @content;

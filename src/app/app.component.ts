@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
   ngOnInit(): void {
+    //Dynamic title
     const appTitle = this.titleService.getTitle();
     this.router.events
       .pipe(
@@ -35,6 +36,3 @@ export class AppComponent implements OnInit {
       });
   }
 }
-
-// TODO create a favicon
-// TODO add comments

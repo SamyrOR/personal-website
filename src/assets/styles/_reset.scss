@@ -1,5 +1,7 @@
 @use "./variables" as *;
 
+//Default resets
+
 *,
 *::after,
 *::before {
@@ -10,6 +12,12 @@
 
 html {
   font-size: $default-font-size;
+  min-height: 100vh;
+}
+
+html,
+body,
+app-root {
   min-height: 100vh;
 }
 

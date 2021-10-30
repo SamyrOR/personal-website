@@ -38,11 +38,13 @@
   }
 }
 
+//Mobile menu
 .menu {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  //Mobile menu links
   &__links {
     position: absolute;
     top: 102px;
@@ -61,6 +63,7 @@
         background: none;
       }
     }
+    //Desktop menu
     @include lg {
       position: static;
       display: flex;
@@ -71,7 +74,7 @@
       visibility: visible;
     }
   }
-
+  //Individual link style
   &__link {
     margin-top: rem(5);
     opacity: 0;
@@ -112,6 +115,7 @@
         padding: 10px;
         cursor: pointer;
         position: relative;
+        //Bottom bar
         &::after {
           content: "";
           position: absolute;
@@ -127,6 +131,7 @@
             background-color: theme-get("color-menu-link");
           }
         }
+        //Hover e active styles
         &:hover,
         &.active {
           font-weight: 600;
@@ -141,6 +146,7 @@
     }
   }
 
+  //Hamburguer mobile button
   &__button {
     display: flex;
     flex-direction: column;
@@ -173,6 +179,7 @@
   }
 }
 
+//Theme toggle button
 .toggle {
   display: flex;
   margin-top: rem(40);

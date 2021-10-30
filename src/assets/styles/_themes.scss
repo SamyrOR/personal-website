@@ -1,5 +1,6 @@
 @use "./variables" as *;
 
+//Theme map
 $themes: (
   light-theme: (
     "color-text": $c-text,
