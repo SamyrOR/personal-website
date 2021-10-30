@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutMeComponent } from './about-me.component';
 
-const routes: Routes = [{ path: '', component: AboutMeComponent }];
+const routes: Routes = [
+  { path: '', component: AboutMeComponent, data: { title: 'Sobre mim' } },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

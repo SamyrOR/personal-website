@@ -49,6 +49,7 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
   - [x] Models
   - [x] Lazy loading modules
   - [x] Infinite Scroll
+  - [x] Dynamic title change
 - [x] Carousel
 - [x] Iterative Card
 - [x] Optimized images
