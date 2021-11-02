@@ -1,0 +1,25 @@
+@use "./functions" as *;
+@use "./mixins" as *;
+@import "./variables";
+
+.not-found {
+  text-align: center;
+  &__title {
+  }
+  &__svg {
+    width: 100%;
+    max-width: rem(600);
+    height: rem(300);
+    @include sm {
+      margin: rem(50) 0;
+    }
+  }
+  &__text {
+    &:not(:last-child) {
+      margin-bottom: rem(10);
+    }
+  }
+  &__link {
+    text-decoration: underline;
+  }
+}
