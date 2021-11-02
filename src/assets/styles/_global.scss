@@ -55,6 +55,14 @@ body {
   }
 }
 
+h1 {
+  font-weight: 500;
+  font-size: rem(48);
+  @include theme() {
+    color: theme-get("color-title");
+  }
+}
+
 h3 {
   font-size: rem(36);
   font-weight: 400;
@@ -68,6 +76,12 @@ p {
   font-weight: 400;
   @include theme() {
     color: theme-get("color-text");
+  }
+}
+
+a:visited {
+  @include theme() {
+    color: theme-get("color-link-active");
   }
 }
 

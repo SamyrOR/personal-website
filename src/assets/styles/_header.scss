@@ -128,7 +128,7 @@
           opacity: 0;
           transition: all 300ms ease-out;
           @include theme() {
-            background-color: theme-get("color-menu-link");
+            background-color: theme-get("color-link-active");
           }
         }
         //Hover e active styles
@@ -136,7 +136,7 @@
         &.active {
           font-weight: 600;
           @include theme() {
-            color: theme-get("color-menu-link");
+            color: theme-get("color-link-active");
           }
           &::after {
             opacity: 1;

@@ -1,10 +1,7 @@
 import { Host, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AboutMeComponent } from './about-me/about-me.component';
-
-import { ContactComponent } from './contact/contact.component';
-import { ProjectsComponent } from './projects/projects.component';
 import { HomeComponent } from './regular/home/home.component';
+import { NotFoundComponent } from './regular/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,6 +27,12 @@ const routes: Routes = [
     path: 'contact',
     loadChildren: () =>
       import('./contact/contact.module').then((m) => m.ContactModule),
+  },
+
+  {
+    path: '**',
+    component: NotFoundComponent,
+    data: { title: '404' },
   },
 ];
 

@@ -16,11 +16,6 @@
   }
   &__title {
     align-self: center;
-    font-weight: 500;
-    font-size: rem(48);
-    @include theme() {
-      color: theme-get("color-title");
-    }
   }
   &__img {
     display: none;
