@@ -39,6 +39,8 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
 ## ⚙️ Features
 
 - [x] SASS
+  - [x] Mobile first
+  - [x] BEM patter
   - [x] Dark theme
 - [x] Angular
   - [x] \*ngFor
@@ -53,6 +55,7 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
 - [x] Carousel
 - [x] Iterative Card
 - [x] Optimized images
+- [ ] English version
 
 ---
 
