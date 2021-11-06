@@ -231,6 +231,11 @@
     @include theme() {
       color: theme-get("color-neutral");
     }
+    svg {
+      margin-top: rem(-5);
+      width: rem(24);
+      height: rem(31);
+    }
     border-radius: 50%;
     transition: 0.6s ease;
 
