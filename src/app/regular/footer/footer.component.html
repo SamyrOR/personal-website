@@ -1,7 +1,12 @@
 <footer class="footer">
   <div class="footer__container wrapper">
     <a [routerLink]="['/home']" routerLinkActive="active">
-      <img class="logo" src="./assets/images/logo.png" alt="Samyr dev logo" />
+      <img
+        class="logo"
+        width="137px"
+        src="./assets/images/logo.png"
+        alt="Samyr dev logo"
+      />
     </a>
     <div class="footer__links">
       <a routerLink="/about-me" class="link">Sobre mim</a>
@@ -14,8 +19,11 @@
           href="https://www.linkedin.com/in/samyr-ribeiro-82a720145"
           target="_blank"
           class="icon"
+          name="LinkedIn"
+          rel="noopener"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+            <title>LinkedIn</title>
             <path
               d="M116 3H12a8.91 8.91 0 00-9 8.8v104.42a8.91 8.91 0 009 8.78h104a8.93 8.93 0 009-8.81V11.77A8.93 8.93 0 00116 3zM39.17 107H21.06V48.73h18.11zm-9-66.21a10.5 10.5 0 1110.49-10.5 10.5 10.5 0 01-10.54 10.48zM107 107H88.89V78.65c0-6.75-.12-15.44-9.41-15.44s-10.87 7.36-10.87 15V107H50.53V48.73h17.36v8h.24c2.42-4.58 8.32-9.41 17.13-9.41C103.6 47.28 107 59.35 107 75z"
             />
@@ -25,6 +33,8 @@
           href="https://pt.stackoverflow.com/users/189079/samyr"
           target="_blank"
           class="icon"
+          name="Stack Overflow"
+          rel="noopener"
         >
           <svg
             role="img"
@@ -41,6 +51,8 @@
           href="https://www.hackerrank.com/saamyr?hr_r=1"
           target="_blank"
           class="icon"
+          name="HackerRank"
+          rel="noopener"
         >
           <svg
             role="img"
@@ -53,12 +65,19 @@
             />
           </svg>
         </a>
-        <a href="https://codepen.io/samyror" target="_blank" class="icon">
+        <a
+          href="https://codepen.io/samyror"
+          target="_blank"
+          class="icon"
+          name="CodePen"
+          rel="noopener"
+        >
           <svg
             viewBox="0 0 128 128"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
+            <title>CodePen</title>
             <path
               d="M125.571 39.926l-58.5-39c-1.997-1.23-4.128-1.24-6.142 0l-58.5 39C.929 40.926 0 42.712 0 44.497v39c0 1.786.929 3.572 2.429 4.571l58.5 39.006c1.996 1.229 4.128 1.24 6.142 0l58.5-39.006c1.5-.999 2.429-2.785 2.429-4.57v-39c0-1.786-.929-3.572-2.429-4.572zm-56.07-24.144l43.07 28.715-19.214 12.858L69.5 41.425V15.784zm-11.001 0v25.644L34.642 57.354 15.428 44.498 58.5 15.782zm-47.5 39l13.786 9.215L11 73.212v-18.43zm47.5 57.43L15.428 83.497 34.642 70.64 58.5 86.569v25.643zM64 76.997l-19.428-13 19.428-13 19.428 13-19.428 13zm5.5 35.215V86.569L93.357 70.64l19.214 12.857-43.07 28.715zm47.5-39l-13.786-9.215L117 54.783v18.429z"
               fill="#000"
@@ -68,7 +87,13 @@
       </div>
       <div class="footer__copy">
         © 2021 Developed with ❤️ by
-        <a href="https://github.com/SamyrOR" target="_blank">Samyr Ribeiro</a>
+        <a
+          class="footer__by"
+          href="https://github.com/SamyrOR"
+          target="_blank"
+          rel="noopener"
+          >Samyr Ribeiro</a
+        >
       </div>
     </div>
   </div>

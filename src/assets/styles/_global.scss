@@ -63,6 +63,7 @@ h1 {
   }
 }
 
+h2,
 h3 {
   font-size: rem(36);
   font-weight: 400;
@@ -76,12 +77,6 @@ p {
   font-weight: 400;
   @include theme() {
     color: theme-get("color-text");
-  }
-}
-
-a:visited {
-  @include theme() {
-    color: theme-get("color-link-active");
   }
 }
 
@@ -134,7 +129,6 @@ a:visited {
 }
 
 .logo {
-  width: rem(137);
   @include lg {
     cursor: pointer;
   }

@@ -26,7 +26,7 @@
             *ngFor="let certificate of organization.certificates"
           >
             <h4 class="certificate__title">{{ certificate.name }}</h4>
-            <a [href]="certificate.link" target="_blank">
+            <a [href]="certificate.link" target="_blank" rel="noopener">
               <img class="certificate__img" [src]="certificate.img" alt="" />
             </a>
           </div>

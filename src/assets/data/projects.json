@@ -51,8 +51,8 @@
   {
     "title": "Site pessoal",
     "img": "../../assets/images/projects/site-pessoal.jpeg",
-    "caption": "Meu atual site pessoal",
-    "description": "Desenvolvido com o framework Angular e diversas funcionalidades deste incrivel framework",
+    "caption": "Desenvolvido com angular e as melhores práticas.",
+    "description": "Sem biblioteca de estilos, com carousel, e cards interativos!",
     "link": "https://github.com/SamyrOR/personal-website"
   }
 ]

@@ -17,7 +17,7 @@
             height="255"
             width="300"
             [src]="project.img"
-            alt="wave"
+            [alt]="project.title"
           />
         </div>
         <div class="card-title">
@@ -36,7 +36,11 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a [href]="project.link" class="btn" target="_blank"
+              <a
+                [href]="project.link"
+                class="btn"
+                target="_blank"
+                rel="noopener"
                 >Saiba mais
               </a>
             </div>

@@ -197,7 +197,7 @@
   <main class="main wrapper">
     <section class="tech">
       <div class="tech__text">
-        <h3>Seu site desenvolvido com as principais tecnologias do mercado</h3>
+        <h2>Seu site desenvolvido com as principais tecnologias do mercado</h2>
         <p>
           Tenha a certeza e segurança de que seu projeto será construido com
           tecnologias amplamente testadas e utilizadas no mercado atualmente.
@@ -542,7 +542,7 @@
     </section>
     <section class="mbfirst">
       <div class="mbfirst__text">
-        <h3>Com o conceito de "mobile first"</h3>
+        <h2>Com o conceito de "mobile first"</h2>
         <p>
           Seu projeto desenvolvido para todos os tipos de dispositivos, desde
           smartphones, tablets a laptop e desktops!
@@ -844,7 +844,7 @@
     </section>
     <section class="home-certificate">
       <div class="home-certificate__text">
-        <h3>Diversos certificados nacionais e internacionais</h3>
+        <h2>Diversos certificados nacionais e internacionais</h2>
         <p>
           Com horas de dedicação e estudo, foram adquiridos diversos
           certificados, tanto em instituições nacionais, como internacionais,
@@ -979,7 +979,7 @@
       </div>
     </section>
     <section class="home-projects">
-      <h3>Projetos</h3>
+      <h2>Projetos</h2>
       <p>Conheça alguns projetos desenvolvidos por mim</p>
       <div class="carousel-container">
         <div
@@ -988,7 +988,7 @@
           *ngFor="let project of projectsList"
         >
           <div class="image">
-            <img [src]="project.img" />
+            <img [src]="project.img" [alt]="project.title" />
           </div>
           <div class="text">
             <h4 class="title">{{ project.title }}</h4>
@@ -996,8 +996,37 @@
           </div>
         </div>
 
-        <a class="prev has-dflex-center"><i class="fas fa-angle-left"></i></a
-        ><a class="next has-dflex-center"><i class="fas fa-angle-right"></i></a>
+        <a class="prev has-dflex-center"
+          ><svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="angle-left"
+            class="svg-inline--fa fa-angle-left fa-w-8"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 512"
+          >
+            <path
+              fill="currentColor"
+              d="M31.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L127.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L201.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34z"
+            ></path></svg></a
+        ><a class="next has-dflex-center"
+          ><svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="angle-right"
+            class="svg-inline--fa fa-angle-right fa-w-8"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 256 512"
+          >
+            <path
+              fill="currentColor"
+              d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"
+            ></path></svg
+        ></a>
       </div>
       <a routerLink="/projects"><button class="btn">Veja todos</button></a>
     </section>

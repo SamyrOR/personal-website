@@ -85,4 +85,10 @@
       color: theme-get("color-text");
     }
   }
+  &__by,
+  &__by:visited {
+    @include theme() {
+      color: theme-get("color-link-active");
+    }
+  }
 }

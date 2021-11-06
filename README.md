@@ -96,6 +96,8 @@ The following tools were used in the construction of the project:
 - **[Angular](https://angular.io/)**
 - **[Sass](https://sass-lang.com/)**
 - **[ngx-infite-scroll](https://www.npmjs.com/package/ngx-infinite-scroll)**
+- **[Font Awesome](https://fontawesome.com/)**
+- **[Design inspired by Addstract UI Kit](https://www.behance.net/gallery/56133557/Addstract-Free-UI-kit)**
 
 ---
 
