@@ -36,3 +36,6 @@ export class AppComponent implements OnInit {
       });
   }
 }
+
+//TODO Better SCSS style files structure (separe base from components with folder)
+//TODO Improve personal website project description
