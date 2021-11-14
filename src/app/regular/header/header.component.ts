@@ -1,11 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
+import { fromEvent, merge, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, AfterViewInit {
+  @ViewChildren('menuLink', { read: ElementRef }) menuLinks!: ElementRef[];
   isDarkTheme: boolean = false;
   isMenuOpen: boolean = false;
   logos!: Element[];
@@ -15,6 +24,20 @@ export class HeaderComponent implements OnInit {
     this.isDarkTheme =
       localStorage.getItem('selected-theme') === 'dark' ? true : false;
     this.switchTheme();
+  }
+
+  ngAfterViewInit(): void {
+    this.closeMobileMenu(this.menuLinks);
+  }
+
+  closeMobileMenu(menuLinks: ElementRef[]) {
+    let linkClicks: Observable<any>[] = menuLinks.map((link: ElementRef) =>
+      fromEvent(link.nativeElement, 'click')
+    );
+
+    merge(...linkClicks).subscribe(() => {
+      this.menuOpen();
+    });
   }
 
   switchTheme() {
@@ -47,6 +70,7 @@ export class HeaderComponent implements OnInit {
 
   //add no-scroll and close menu at route change
   menuOpen() {
+    console.log('passei aqui');
     if (window.innerWidth < 1024) {
       this.isMenuOpen = !this.isMenuOpen;
       this.isMenuOpen

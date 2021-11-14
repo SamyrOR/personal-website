@@ -9,48 +9,31 @@
       />
     </a>
     <!-- Mobile Button -->
-    <button class="menu__button" (click)="menuOpen()">
+    <button class="menu__button" #menuLink>
       Menu
       <span></span><span></span><span></span>
     </button>
     <ul class="menu__links">
       <li class="menu__link">
-        <a
-          (click)="menuOpen()"
-          [routerLink]="['/home']"
-          routerLinkActive="active"
-          >Home</a
-        >
+        <a #menuLink [routerLink]="['/home']" routerLinkActive="active">Home</a>
       </li>
       <li class="menu__link">
-        <a
-          (click)="menuOpen()"
-          [routerLink]="['/certificates']"
-          routerLinkActive="active"
+        <a #menuLink [routerLink]="['/certificates']" routerLinkActive="active"
           >Certificados</a
         >
       </li>
       <li class="menu__link">
-        <a
-          (click)="menuOpen()"
-          [routerLink]="['/projects']"
-          routerLinkActive="active"
+        <a #menuLink [routerLink]="['/projects']" routerLinkActive="active"
           >Projetos</a
         >
       </li>
       <li class="menu__link">
-        <a
-          (click)="menuOpen()"
-          [routerLink]="['/about-me']"
-          routerLinkActive="active"
+        <a #menuLink [routerLink]="['/about-me']" routerLinkActive="active"
           >Sobre mim</a
         >
       </li>
       <li class="menu__link">
-        <a
-          (click)="menuOpen()"
-          [routerLink]="['/contact']"
-          routerLinkActive="active"
+        <a #menuLink [routerLink]="['/contact']" routerLinkActive="active"
           >Contato</a
         >
       </li>
