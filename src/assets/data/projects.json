@@ -51,8 +51,8 @@
   {
     "title": "Site pessoal",
     "img": "../../assets/images/projects/site-pessoal.jpeg",
-    "caption": "Desenvolvido com angular e as melhores práticas.",
-    "description": "Sem biblioteca de estilos, com carousel, e cards interativos!",
+    "caption": "Desenvolvido com as melhores práticas em angular.",
+    "description": "Sem biblioteca de estilos, com carousel, cards interativos, teste de integração e unitarios!",
     "link": "https://github.com/SamyrOR/personal-website"
   }
 ]

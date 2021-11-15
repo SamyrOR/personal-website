@@ -40,7 +40,8 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
 
 - [x] SASS
   - [x] Mobile first
-  - [x] BEM patter
+  - [x] BEM pattern
+  - [x] SMACSS folder structure
   - [x] Dark theme
 - [x] Angular
   - [x] \*ngFor
@@ -52,6 +53,11 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
   - [x] Lazy loading modules
   - [x] Infinite Scroll
   - [x] Dynamic title change
+  - [x] Jasmine unit testing
+  - [x] Cypress integration testing
+    - [x] Navigation
+    - [ ] Carousel testing
+    - [ ] Contact form
 - [x] Carousel
 - [x] Iterative Card
 - [x] Optimized images
@@ -94,6 +100,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 The following tools were used in the construction of the project:
 
 - **[Angular](https://angular.io/)**
+- **[Cypress: e2e JavaScript testing framework](https://www.cypress.io/)**
 - **[Sass](https://sass-lang.com/)**
 - **[ngx-infite-scroll](https://www.npmjs.com/package/ngx-infinite-scroll)**
 - **[Font Awesome](https://fontawesome.com/)**
