@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
 import { Certificate } from './models/certificate';
 

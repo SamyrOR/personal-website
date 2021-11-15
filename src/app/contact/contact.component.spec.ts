@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormBuilder, FormsModule } from '@angular/forms';
-
+import { FormBuilder } from '@angular/forms';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {

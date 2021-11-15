@@ -6,7 +6,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
 import { Projects } from 'src/app/shared/project';
 

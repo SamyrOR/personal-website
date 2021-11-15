@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   OnInit,
-  QueryList,
   ViewChildren,
 } from '@angular/core';
 import { fromEvent, merge, Observable } from 'rxjs';

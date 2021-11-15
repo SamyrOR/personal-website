@@ -1,13 +1,12 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-
+import { TestBed } from '@angular/core/testing';
+import { Certificate } from '../certificates/models/certificate';
 import { GetDataService } from './get-data.service';
 import { Projects } from './project';
-import { Certificate } from '../certificates/models/certificate';
 
 let mockProjects: Projects[] = [
   {

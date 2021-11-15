@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
-import { Projects } from '../shared/project';
 
 @Component({
   selector: 'app-projects',
