@@ -1,9 +1,11 @@
 <section class="hero wrapper">
   <div class="hero__details">
-    <h1 class="hero__title">
+    <h1 data-cy="title" class="hero__title">
       O <strong>dev</strong> front-end que o seu negócio precisa!
     </h1>
-    <a routerLink="/about-me"><button class="btn">Saiba mais</button></a>
+    <a routerLink="/about-me"
+      ><button data-cy="know-more" class="btn">Saiba mais</button></a
+    >
   </div>
   <div class="hero__img">
     <svg
@@ -1027,7 +1029,9 @@
             ></path></svg
         ></a>
       </div>
-      <a routerLink="/projects"><button class="btn">Veja todos</button></a>
+      <a routerLink="/projects"
+        ><button data-cy="see-all" class="btn">Veja todos</button></a
+      >
     </section>
   </main>
 </div>

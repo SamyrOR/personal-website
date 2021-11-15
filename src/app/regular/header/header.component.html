@@ -15,25 +15,47 @@
     </button>
     <ul class="menu__links">
       <li class="menu__link">
-        <a #menuLink [routerLink]="['/home']" routerLinkActive="active">Home</a>
+        <a
+          #menuLink
+          data-cy="header-home"
+          [routerLink]="['/home']"
+          routerLinkActive="active"
+          >Home</a
+        >
       </li>
       <li class="menu__link">
-        <a #menuLink [routerLink]="['/certificates']" routerLinkActive="active"
+        <a
+          #menuLink
+          data-cy="header-certificates"
+          [routerLink]="['/certificates']"
+          routerLinkActive="active"
           >Certificados</a
         >
       </li>
       <li class="menu__link">
-        <a #menuLink [routerLink]="['/projects']" routerLinkActive="active"
+        <a
+          #menuLink
+          data-cy="header-projects"
+          [routerLink]="['/projects']"
+          routerLinkActive="active"
           >Projetos</a
         >
       </li>
       <li class="menu__link">
-        <a #menuLink [routerLink]="['/about-me']" routerLinkActive="active"
+        <a
+          #menuLink
+          data-cy="header-about-me"
+          [routerLink]="['/about-me']"
+          routerLinkActive="active"
           >Sobre mim</a
         >
       </li>
       <li class="menu__link">
-        <a #menuLink [routerLink]="['/contact']" routerLinkActive="active"
+        <a
+          #menuLink
+          data-cy="header-contact"
+          [routerLink]="['/contact']"
+          routerLinkActive="active"
           >Contato</a
         >
       </li>

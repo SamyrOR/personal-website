@@ -1,6 +1,6 @@
 <footer class="footer">
   <div class="footer__container wrapper">
-    <a [routerLink]="['/home']" routerLinkActive="active">
+    <a data-cy="footer-home" [routerLink]="['/home']" routerLinkActive="active">
       <img
         class="logo"
         width="137px"
@@ -9,9 +9,13 @@
       />
     </a>
     <div class="footer__links">
-      <a routerLink="/about-me" class="link">Sobre mim</a>
-      <a routerLink="/projects" class="link">Projetos</a>
-      <a routerLink="/contact" class="link">Contato</a>
+      <a data-cy="footer-about-me" routerLink="/about-me" class="link"
+        >Sobre mim</a
+      >
+      <a data-cy="footer-projects" routerLink="/projects" class="link"
+        >Projetos</a
+      >
+      <a data-cy="footer-contact" routerLink="/contact" class="link">Contato</a>
     </div>
     <div class="footer__social">
       <div class="footer__icons">
