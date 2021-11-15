@@ -1,0 +1,34 @@
+@use "../abstracts/" as *;
+
+//Components wrapper
+.wrapper {
+  margin: 0 auto;
+  padding: rem(24);
+  max-width: rem(1177);
+}
+
+//Mobile menu no-scroll
+.no-scroll {
+  overflow: hidden;
+}
+
+//Change svg colors
+.themed-svg {
+  @include theme() {
+    fill: theme-get("color-neutral");
+  }
+}
+
+.logo {
+  @include lg {
+    cursor: pointer;
+  }
+}
+
+//Components container
+.container {
+  min-height: calc(100vh - 416px);
+  @include lg {
+    min-height: calc(100vh - 267px);
+  }
+}

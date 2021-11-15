@@ -1,0 +1,11 @@
+@use "../abstracts/" as *;
+
+//Projects page style
+.projects {
+  @extend %mt-mb-50;
+  display: flex;
+  flex-wrap: wrap;
+  &__text {
+    margin-top: rem(15);
+  }
+}

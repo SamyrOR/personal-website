@@ -1,6 +1,37 @@
-@use "./variables" as *;
-@use "./functions" as *;
-@use "./mixins" as *;
+@use "../abstracts/" as *;
+
+//Default resets
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $default-font-size;
+  min-height: 100vh;
+}
+
+html,
+body,
+app-root {
+  min-height: 100vh;
+}
+
+a,
+a:hover,
+a:visited {
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
 
 //Theme transition
 html.transition,
@@ -77,67 +108,5 @@ p {
   font-weight: 400;
   @include theme() {
     color: theme-get("color-text");
-  }
-}
-
-//Buttons default style
-.btn {
-  margin-top: rem(18);
-  width: rem(211);
-  height: rem(46);
-  color: #fff;
-  font-size: rem(18);
-  font-weight: 600;
-  border-radius: rem(25);
-  border: none;
-  transition: all 250ms ease-out;
-  @include theme() {
-    background: linear-gradient(
-      to top right,
-      theme-get("color-primary"),
-      theme-get("color-secondary")
-    );
-  }
-  @include lg {
-    cursor: pointer;
-    &:hover {
-      transform: translateY(rem(-2));
-    }
-  }
-  &:disabled {
-    opacity: 0.5;
-  }
-}
-
-//Components wrapper
-.wrapper {
-  margin: 0 auto;
-  padding: rem(24);
-  max-width: rem(1177);
-}
-
-//Mobile menu no-scroll
-.no-scroll {
-  overflow: hidden;
-}
-
-//Change svg colors
-.themed-svg {
-  @include theme() {
-    fill: theme-get("color-neutral");
-  }
-}
-
-.logo {
-  @include lg {
-    cursor: pointer;
-  }
-}
-
-//Components container
-.container {
-  min-height: calc(100vh - 416px);
-  @include lg {
-    min-height: calc(100vh - 267px);
   }
 }

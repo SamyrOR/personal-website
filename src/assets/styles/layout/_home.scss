@@ -1,0 +1,149 @@
+@use "../abstracts/" as *;
+
+//Helpers pseudo class
+%img {
+  width: 100%;
+  display: grid;
+  place-items: center;
+  @include lg {
+    width: 67%;
+  }
+}
+
+%text {
+  p {
+    @extend %mt-20;
+    @include lg {
+      width: rem(300);
+      text-align: left;
+    }
+  }
+  @include lg {
+    width: rem(475);
+  }
+}
+
+%lg-section {
+  @include lg {
+    display: flex;
+    align-items: center;
+    height: rem(458);
+  }
+}
+
+//Main section
+.main {
+  padding-top: rem(62);
+  padding-bottom: rem(62);
+  @include sm {
+    margin-top: rem(160);
+  }
+  @include lg {
+    margin-top: 0;
+  }
+  &__bg {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    &::before {
+      position: absolute;
+      content: "";
+      top: rem(80);
+      left: rem(-85);
+      width: rem(400);
+      height: 65%;
+      @include theme() {
+        background-image: theme-get("bg-main-left");
+      }
+      background-position: 0 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: -1;
+      @include sm {
+        top: rem(176);
+      }
+      @include lg {
+        left: 0;
+      }
+    }
+    &::after {
+      position: absolute;
+      content: "";
+      top: rem(630);
+      right: 0;
+      width: rem(280);
+      height: 60%;
+      @include theme() {
+        background-image: theme-get("bg-main-right");
+      }
+      background-position: rem(90) 0;
+      background-repeat: no-repeat;
+      background-size: contain;
+      z-index: -1;
+      @include lg {
+        width: rem(424);
+      }
+    }
+  }
+  svg {
+    @extend %mt-20;
+    width: rem(300);
+    height: rem(200);
+    @include lg {
+      margin-top: 0;
+      height: 100%;
+      width: 60%;
+    }
+  }
+}
+
+//Technologies section
+.tech {
+  &__text {
+    @extend %text;
+  }
+  &__img {
+    @extend %img;
+  }
+  @extend %lg-section;
+}
+.mbfirst {
+  @extend %mt-80;
+  @extend %lg-section;
+  flex-direction: row-reverse;
+
+  &__text {
+    @extend %text;
+  }
+
+  &__img {
+    @extend %img;
+  }
+}
+
+//Certificate section
+.home-certificate {
+  @extend %mt-80;
+  @extend %lg-section;
+  &__text {
+    @extend %text;
+  }
+
+  &__img {
+    @extend %img;
+  }
+}
+
+//Projects section
+.home-projects {
+  text-align: center;
+  @extend %mt-80;
+  @include md {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  p {
+    margin-top: rem(15);
+  }
+}

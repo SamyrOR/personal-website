@@ -1,0 +1,30 @@
+@use "../abstracts/" as *;
+
+//Buttons default style
+.btn {
+  margin-top: rem(18);
+  width: rem(211);
+  height: rem(46);
+  color: #fff;
+  font-size: rem(18);
+  font-weight: 600;
+  border-radius: rem(25);
+  border: none;
+  transition: all 250ms ease-out;
+  @include theme() {
+    background: linear-gradient(
+      to top right,
+      theme-get("color-primary"),
+      theme-get("color-secondary")
+    );
+  }
+  @include lg {
+    cursor: pointer;
+    &:hover {
+      transform: translateY(rem(-2));
+    }
+  }
+  &:disabled {
+    opacity: 0.5;
+  }
+}

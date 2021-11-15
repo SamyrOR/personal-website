@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as *;
+
+$dark-theme: (
+  "color-text": $c-text-dark,
+  "color-bg": $c-bg-dark,
+  "color-title": $c-title-dark,
+  "color-primary": $c-primary-dark,
+  "color-neutral": $c-neutral-dark,
+  "color-secondary": $c-secondary-dark,
+  "color-card-bg": $c-card-bg-dark,
+  "color-link-active": $c-primary-dark,
+  "footer-bg": $c-footer-dark,
+  "bg-header-first": $bg-header-first-dark,
+  "bg-header-second": $bg-header-second-dark,
+  "bg-main-left": $bg-main-left-dark,
+  "bg-main-right": $bg-main-right-dark,
+);

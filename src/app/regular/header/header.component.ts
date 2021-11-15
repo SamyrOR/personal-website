@@ -70,7 +70,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   //add no-scroll and close menu at route change
   menuOpen() {
-    console.log('passei aqui');
     if (window.innerWidth < 1024) {
       this.isMenuOpen = !this.isMenuOpen;
       this.isMenuOpen

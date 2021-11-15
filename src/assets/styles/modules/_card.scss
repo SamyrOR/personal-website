@@ -1,16 +1,4 @@
-@use "./variables" as *;
-@use "./functions" as *;
-@use "./mixins" as *;
-
-//Projects page css
-.projects {
-  @extend %mt-mb-50;
-  display: flex;
-  flex-wrap: wrap;
-  &__text {
-    margin-top: rem(15);
-  }
-}
+@use "../abstracts/" as *;
 
 a.btn {
   position: relative;
