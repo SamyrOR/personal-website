@@ -5,10 +5,13 @@
       Aqui estão alguns dos projetos que desenvolvi, tanto funcionais quanto
       para aprendizagem no conhecimento de tecnologias.
     </p>
-    <div class="cards" #cards>
+    <div class="loading" *ngIf="loading">
+      <h3>Carregando...</h3>
+    </div>
+    <div class="cards" *ngIf="!loading" #cards>
       <div
         class="card"
-        *ngFor="let project of projectsList | async"
+        *ngFor="let project of projectsList"
         (click)="onClick($event)"
       >
         <div class="card__image-holder">

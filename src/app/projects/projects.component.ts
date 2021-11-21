@@ -1,20 +1,36 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
+import { Projects } from '../shared/project';
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
   @ViewChild('cards') cards!: ElementRef;
-  projectsList!: Observable<any>;
+  projectsList!: Projects[];
+  subs!: Subscription;
+  loading: boolean = true;
+  zindex: number = 10;
+
   constructor(private getData: GetDataService) {}
 
-  zindex: number = 10;
   ngOnInit(): void {
-    this.projectsList = this.getData.getProjects();
+    this.subs = this.getData.getProjects().subscribe((projects) => {
+      this.projectsList = projects;
+      this.loading = false;
+    });
+  }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   onClick(e: any) {
