@@ -1,35 +1,6 @@
 @use "../abstracts/" as *;
 
 //Helpers pseudo class
-%img {
-  width: 100%;
-  display: grid;
-  place-items: center;
-  @include lg {
-    width: 67%;
-  }
-}
-
-%text {
-  p {
-    @extend %mt-20;
-    @include lg {
-      width: rem(300);
-      text-align: left;
-    }
-  }
-  @include lg {
-    width: rem(475);
-  }
-}
-
-%lg-section {
-  @include lg {
-    display: flex;
-    align-items: center;
-    height: rem(458);
-  }
-}
 
 //Main section
 .main {
@@ -99,6 +70,8 @@
 
 //Technologies section
 .tech {
+  margin-top: rem(150);
+
   &__text {
     @extend %text;
   }
@@ -106,6 +79,9 @@
     @extend %img;
   }
   @extend %lg-section;
+  @include lg {
+    margin-top: 0;
+  }
 }
 .mbfirst {
   @extend %mt-80;

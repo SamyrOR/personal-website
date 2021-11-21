@@ -32,3 +32,11 @@
     min-height: calc(100vh - 267px);
   }
 }
+
+//Loading
+.loading {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: rem(400);
+}
