@@ -1,9 +1,31 @@
 [
   {
+    "title": "Charity Finder App",
+    "img": "../../assets/images/projects/charity-finder.jpeg",
+    "caption": "Aplicação que conecta pessoas a projetos beneficentes ao redor do mundo",
+    "description": "Desenvolvida com Angular, Bootstrap e consumo da Global Giving API, muitos desafios superados e conhecimentos adquiridos. ",
+    "link": "https://github.com/SamyrOR/charity-finder-app"
+  },
+
+  {
+    "title": "Requisições App",
+    "img": "../../assets/images/projects/requisicoes-app.jpeg",
+    "caption": "Aplicação completa em Angular, com diversos conceitos aplicados.",
+    "description": "Com um CRUD integrado com o banco de dados do Firebase, é possível realizar e acompanhar requisições entre diferentes setores da mesma empresa.",
+    "link": "https://github.com/SamyrOR/requisicoes-app"
+  },
+  {
+    "title": "Frontend Mentor",
+    "img": "../../assets/images/projects/frontend-mentor.jpeg",
+    "caption": "Inúmeros desafios práticos e reais que realizei para desenvolver habilidades no front-end.",
+    "description": "Adquiri habilidades em desenvolvimento de botões, carousels, sliders, responsividade em HTML, CSS, JS e tambem desenvolvi em SCSS.",
+    "link": "https://github.com/SamyrOR/Frontend-Mentor"
+  },
+  {
     "title": "Full e-commerce",
     "img": "../../assets/images/projects/js-amazona.jpeg",
     "caption": "Plataforma de e-commerce completa desenvolvida com vanilla JS",
-    "description": "Desenvolvido desde o front-end até o back end com JavaScript, tento todo processo de seleção e compra da mercadoria, empregando diversas tecnologias.",
+    "description": "Desenvolvimento completo desde o front-end até o back end com JavaScript, tento todo processo de seleção e compra da mercadoria, empregando diversas tecnologias.",
     "link": "https://github.com/SamyrOR/full-ecommerce"
   },
   {
@@ -14,45 +36,32 @@
     "link": "https://github.com/SamyrOR/games-info"
   },
   {
-    "title": "Requisições App",
-    "img": "../../assets/images/projects/requisicoes-app.jpeg",
-    "caption": "Aplicação em Angular completa, com diversos conceitos aplicados.",
-    "description": "Aplicação completa com integração com banco de dados do Firebase, e requisições entre diferentes setores da mesma empresa",
-    "link": "https://github.com/SamyrOR/requisicoes-app"
-  },
-  {
-    "title": "Frontend Mentor",
-    "img": "../../assets/images/projects/frontend-mentor.jpeg",
-    "caption": "Inúmeros desafios práticos e reais para desenvolver habilidades no front-end.",
-    "description": "Diversos desafios práticos para desenvolvimento de botões, carousels, sliders, responsividade em HTML, CSS, JS e tambem desenvolvi em SCSS.",
-    "link": "https://github.com/SamyrOR/Frontend-Mentor"
-  },
-  {
     "title": "7 Dias 7 Projetos",
     "img": "../../assets/images/projects/7days7projects.jpeg",
     "caption": "7 projetos incríveis com JavaScript",
     "description": "Projetos como tocar bateria com o teclado, relogio analógico, jogo da velha, aplicativo de clima, quiz e mais!",
     "link": "https://github.com/SamyrOR/7Days7Projects"
   },
+
   {
     "title": "Primeiro site pessoal",
     "img": "../../assets/images/projects/primeiro-site.jpeg",
     "caption": "Minha primeira página web.",
-    "description": "Primeiro grande desafio, desenvolvido com HTML CSS e bootstrap.",
+    "description": "Primeiro grande desafio, desenvolvido com HTML, CSS e Bootstrap.",
     "link": "https://samyror.github.io/"
   },
   {
     "title": "Hcode JS Fullstack",
     "img": "../../assets/images/projects/hcode-js.jpeg",
-    "caption": "Curso com 6 projetos reais em javascript.",
+    "caption": "Curso com 6 projetos reais em JavaScript.",
     "description": "6 projetos reais desenvolvendo funcionalidades tanto para o front-end quanto para o back-end.",
     "link": "https://github.com/SamyrOR/hcode-javascript-fullstack"
   },
   {
     "title": "Site pessoal",
     "img": "../../assets/images/projects/site-pessoal.jpeg",
-    "caption": "Desenvolvido com as melhores práticas em angular.",
-    "description": "Sem biblioteca de estilos, com carousel, cards interativos, teste de integração e unitarios!",
+    "caption": "Desenvolvido com as melhores práticas em Angular.",
+    "description": "Estilos em SCSS, BEM e SMACSS escritos do zero, com carousel, cards interativos, teste de integração e unitarios!",
     "link": "https://github.com/SamyrOR/personal-website"
   }
 ]
