@@ -2,7 +2,7 @@
   {
     "title": "Charity Finder App",
     "img": "../../assets/images/projects/charity-finder.jpeg",
-    "caption": "Aplicação que conecta pessoas a projetos beneficentes ao redor do mundo",
+    "caption": "Aplicação que conecta pessoas a projetos beneficentes ao redor do mundo.",
     "description": "Desenvolvida com Angular, Bootstrap e consumo da Global Giving API, muitos desafios superados e conhecimentos adquiridos. ",
     "link": "https://github.com/SamyrOR/charity-finder-app"
   },
@@ -24,21 +24,21 @@
   {
     "title": "Full e-commerce",
     "img": "../../assets/images/projects/js-amazona.jpeg",
-    "caption": "Plataforma de e-commerce completa desenvolvida com vanilla JS",
+    "caption": "Plataforma de e-commerce completa desenvolvida com vanilla JS.",
     "description": "Desenvolvimento completo desde o front-end até o back end com JavaScript, tento todo processo de seleção e compra da mercadoria, empregando diversas tecnologias.",
     "link": "https://github.com/SamyrOR/full-ecommerce"
   },
   {
     "title": "Games Info",
     "img": "../../assets/images/projects/games-info.jpeg",
-    "caption": "Aplicação em Angular com consumo de uma API de jogos",
+    "caption": "Aplicação em Angular com consumo de uma API de jogos.",
     "description": "Plataforma para pesquisa de jogos, com detalhes do jogo selecionado, desenvolvida com as melhores práticas em Angular.",
     "link": "https://github.com/SamyrOR/games-info"
   },
   {
     "title": "7 Dias 7 Projetos",
     "img": "../../assets/images/projects/7days7projects.jpeg",
-    "caption": "7 projetos incríveis com JavaScript",
+    "caption": "7 projetos incríveis com JavaScript.",
     "description": "Projetos como tocar bateria com o teclado, relogio analógico, jogo da velha, aplicativo de clima, quiz e mais!",
     "link": "https://github.com/SamyrOR/7Days7Projects"
   },

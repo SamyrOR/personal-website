@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.sub = this.getData
       .getProjects()
       //Get just a few projects
-      .subscribe((projects) => (this.projectsList = projects.slice(2, 5)));
+      .subscribe((projects) => (this.projectsList = projects.slice(0, 3)));
   }
 
   ngAfterViewInit(): void {
