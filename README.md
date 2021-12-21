@@ -19,7 +19,7 @@ My personal website with all projects, certificates and more.
 - [Table of contents](#table-of-contents)
   - [💻 About](#-about)
   - [⚙️ Features](#️-features)
-  - [🚀 Live demo](#-live-demo)
+  - [🚀 Live](#-live)
   - [💡 How it works](#-how-it-works)
     - [Pre-requisites](#pre-requisites)
       - [Development server](#development-server)
@@ -65,9 +65,9 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
 
 ---
 
-## 🚀 Live demo
+## 🚀 Live
 
-Hosting..
+You can visit the page here [samyr.dev](https://samyr.dev/)
 
 ## 💡 How it works
 
