@@ -33,6 +33,7 @@
   }
 }
 .career {
+  padding-right: rem(20);
   &__title {
     text-align: center;
   }
@@ -43,11 +44,15 @@
     margin-top: rem(20);
   }
   &__date {
-    margin-top: rem(10);
+    margin: rem(10) rem(0);
   }
   &__text {
     margin-top: rem(10);
     padding-left: rem(17);
+  }
+  &__strong {
+    display: block;
+    margin-bottom: rem(10);
   }
   ul {
     padding-left: rem(40);
