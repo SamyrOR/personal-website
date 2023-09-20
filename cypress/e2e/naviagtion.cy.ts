@@ -6,7 +6,7 @@ describe('Navigation header test ', () => {
   it('Visits the initial project page', () => {
     cy.location('href').should('contain', '/home');
     cy.get('[data-cy=title]').contains(
-      'O dev front-end que o seu negócio precisa!'
+      `DesenvolvedorFront-end na Nasajon`
     );
   });
 
@@ -54,6 +54,7 @@ describe('Home navigation links', () => {
 
 describe('Footer navigation test', () => {
   it('Visit each link from footer navigation', () => {
+    cy.visit('/');
     cy.get('[data-cy=footer-home').click();
     cy.location('href').should('contain', '/home');
     cy.get('[data-cy=footer-about-me').click();
