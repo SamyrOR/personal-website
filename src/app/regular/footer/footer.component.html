@@ -1,13 +1,11 @@
 <footer class="footer">
   <div class="footer__container wrapper">
-    <a data-cy="footer-home" [routerLink]="['/home']" routerLinkActive="active">
-      <img
-        class="logo"
-        width="137px"
-        src="./assets/images/logo.png"
-        alt="Samyr dev logo"
-      />
-    </a>
+    <div class="footer__social">
+      <a data-cy="footer-home" [routerLink]="['/home']" routerLinkActive="active">
+        <img class="logo" width="137px" src="./assets/images/logo.png" alt="Samyr dev logo" />
+      </a>
+      <p class="footer__copy">Angular v{{ version.full }}</p>
+    </div>
     <div class="footer__links">
       <a data-cy="footer-about-me" routerLink="/about-me" class="link"
         >Sobre mim</a
