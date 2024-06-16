@@ -1,7 +1,11 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {
-  HttpClientTestingModule,
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
   HttpTestingController,
+  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Certificate } from '../certificates/models/certificate';
@@ -46,8 +50,12 @@ describe('GetDataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpClientModule],
-      providers: [GetDataService, HttpClient],
+      providers: [
+        GetDataService,
+        HttpClient,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
     });
     service = TestBed.inject(GetDataService);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -73,10 +81,11 @@ describe('GetDataService', () => {
   it('should get certificates json', () => {
     service.getCertificates().subscribe((certificatesData) => {
       expect(certificatesData[0].name).toBe('Digital Innovation One');
+      expect.call;
     });
 
     const req = httpTestingController.expectOne(
-      'assets/data/certificates.json'
+      'assets/data/certificates.json',
     );
     req.flush(mockCertificates);
   });
