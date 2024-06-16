@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "personal-website:build:production"
+              "buildTarget": "personal-website:build:production"
             },
             "development": {
-              "browserTarget": "personal-website:build:development"
+              "buildTarget": "personal-website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "personal-website:build"
+            "buildTarget": "personal-website:build"
           }
         },
         "test": {
