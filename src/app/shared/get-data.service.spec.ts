@@ -1,8 +1,5 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Certificate } from '../certificates/models/certificate';
 import { GetDataService } from './get-data.service';
@@ -46,9 +43,12 @@ describe('GetDataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpClientModule],
-      providers: [GetDataService, HttpClient],
-    });
+    imports: [HttpClientModule],
+    providers: [GetDataService, HttpClient, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}{
+    imports: [HttpClientTestingModule],
+    providers: [GetDataService, HttpClient, provideHttpClient(withInterceptorsFromDi())]
+});
     service = TestBed.inject(GetDataService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
