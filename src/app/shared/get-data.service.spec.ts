@@ -1,5 +1,12 @@
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
-import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import {
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Certificate } from '../certificates/models/certificate';
 import { GetDataService } from './get-data.service';
@@ -43,12 +50,13 @@ describe('GetDataService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [HttpClientModule],
-    providers: [GetDataService, HttpClient, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}{
-    imports: [HttpClientTestingModule],
-    providers: [GetDataService, HttpClient, provideHttpClient(withInterceptorsFromDi())]
-});
+      providers: [
+        GetDataService,
+        HttpClient,
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    });
     service = TestBed.inject(GetDataService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
@@ -73,10 +81,11 @@ describe('GetDataService', () => {
   it('should get certificates json', () => {
     service.getCertificates().subscribe((certificatesData) => {
       expect(certificatesData[0].name).toBe('Digital Innovation One');
+      expect.call;
     });
 
     const req = httpTestingController.expectOne(
-      'assets/data/certificates.json'
+      'assets/data/certificates.json',
     );
     req.flush(mockCertificates);
   });
