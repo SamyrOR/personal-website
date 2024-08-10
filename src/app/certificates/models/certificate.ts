@@ -5,7 +5,7 @@ export interface Certificate {
     {
       name: string;
       img: string;
-      link: string;
-    }
+      link?: string;
+    },
   ];
 }

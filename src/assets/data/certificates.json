@@ -4,103 +4,83 @@
     "certificates": [
       {
         "name": "Lógica de programação essencial",
-        "img": "../../assets/images/certificates/dio-logica.jpg",
-        "link": "https://certificates.digitalinnovation.one/035F6F4D"
+        "img": "../../assets/images/certificates/dio-logica.jpg"
       },
       {
         "name": "Fundamentos de Arquitetura de Sistemas",
-        "img": "../../assets/images/certificates/dio-fundamentos-as.jpg",
-        "link": "https://certificates.digitalinnovation.one/98905D33"
+        "img": "../../assets/images/certificates/dio-fundamentos-as.jpg"
       },
       {
         "name": "Introdução ao Git e Controle de Versões",
-        "img": "../../assets/images/certificates/dio-intro-git.jpg",
-        "link": "https://certificates.digitalinnovation.one/8CC3F294"
+        "img": "../../assets/images/certificates/dio-intro-git.jpg"
       },
       {
         "name": "Programação para internet com HTML5 e CSS3",
-        "img": "../../assets/images/certificates/dio-html5-css3.jpg",
-        "link": "https://certificates.digitalinnovation.one/10F14BA8"
+        "img": "../../assets/images/certificates/dio-html5-css3.jpg"
       },
       {
         "name": "Programação para internet com JavaScript",
-        "img": "../../assets/images/certificates/dio-intro-js.jpg",
-        "link": "https://certificates.digitalinnovation.one/5A70AF28"
+        "img": "../../assets/images/certificates/dio-intro-js.jpg"
       },
       {
         "name": "JavaScript ES6 essencial",
-        "img": "../../assets/images/certificates/dio-js-es6-essential.jpg",
-        "link": "https://certificates.digitalinnovation.one/88EFB9AE"
+        "img": "../../assets/images/certificates/dio-js-es6-essential.jpg"
       },
       {
         "name": "Desenvolvimento avançado com JavaScript ES6",
-        "img": "../../assets/images/certificates/dio-js-es6-advanced.jpg",
-        "link": "https://certificates.digitalinnovation.one/9E3CACD1"
+        "img": "../../assets/images/certificates/dio-js-es6-advanced.jpg"
       },
       {
         "name": "Desafio prático: Performance Web Utilizando JavaScript",
-        "img": "../../assets/images/certificates/dio-js-web-performance.jpg",
-        "link": "https://certificates.digitalinnovation.one/20C11BB4"
+        "img": "../../assets/images/certificates/dio-js-web-performance.jpg"
       },
       {
         "name": "Projetos ágeis com SCRUM",
-        "img": "../../assets/images/certificates/dio-scrum.jpg",
-        "link": "https://certificates.digitalinnovation.one/CC06F1DB"
+        "img": "../../assets/images/certificates/dio-scrum.jpg"
       },
       {
         "name": "Introdução ao Angular 8",
-        "img": "../../assets/images/certificates/dio-intro-angular8.jpg",
-        "link": "https://certificates.digitalinnovation.one/3452B681"
+        "img": "../../assets/images/certificates/dio-intro-angular8.jpg"
       },
       {
         "name": "Técnicas avançadas em Angular 8",
-        "img": "../../assets/images/certificates/dio-angular8-advanced.jpg",
-        "link": "https://certificates.digitalinnovation.one/0340210A"
+        "img": "../../assets/images/certificates/dio-angular8-advanced.jpg"
       },
       {
         "name": "Desenvolvimento Front-End Angular",
-        "img": "../../assets/images/certificates/dio-front-end-angular.jpg",
-        "link": "https://certificates.digitalinnovation.one/474846A2"
+        "img": "../../assets/images/certificates/dio-front-end-angular.jpg"
       },
       {
         "name": "Conceitos de responsividade e experiência do usuário",
-        "img": "../../assets/images/certificates/dio-responsiveness-userxp.jpg",
-        "link": "https://certificates.digitalinnovation.one/009C6685"
+        "img": "../../assets/images/certificates/dio-responsiveness-userxp.jpg"
       },
       {
         "name": "Aprenda o que são Estrutura de Dados e Algoritmos",
-        "img": "../../assets/images/certificates/dio-data-structure-algorithm.jpg",
-        "link": "https://certificates.digitalinnovation.one/9CA31E2C"
+        "img": "../../assets/images/certificates/dio-data-structure-algorithm.jpg"
       },
       {
         "name": "Recriando a Interface do Netflix",
-        "img": "../../assets/images/certificates/dio-netflix-interface.jpg",
-        "link": "https://certificates.digitalinnovation.one/AD6A6587"
+        "img": "../../assets/images/certificates/dio-netflix-interface.jpg"
       },
       {
         "name": "Aplicações avançadas com Angular",
-        "img": "../../assets/images/certificates/dio-advanced-angular-apps.jpg",
-        "link": "https://certificates.digitalinnovation.one/593993DD"
+        "img": "../../assets/images/certificates/dio-advanced-angular-apps.jpg"
       },
       {
         "name": "Desenvolvendo SPA com Angular",
-        "img": "../../assets/images/certificates/dio-angular-spa.jpg",
-        "link": "https://certificates.digitalinnovation.one/2F0AECE4"
+        "img": "../../assets/images/certificates/dio-angular-spa.jpg"
       },
       {
         "name": "A arquitetura de componentes e a gestão da complexidade no front-end",
-        "img": "../../assets/images/certificates/dio-angular-comp-architecture.jpg",
-        "link": "https://certificates.digitalinnovation.one/CFC5269A"
+        "img": "../../assets/images/certificates/dio-angular-comp-architecture.jpg"
       },
       {
         "name": "Implementando testes automatizados usando Cypress em uma aplicação Angular",
-        "img": "../../assets/images/certificates/dio-angular-cypress.jpg",
-        "link": "https://certificates.digitalinnovation.one/13062F4D"
+        "img": "../../assets/images/certificates/dio-angular-cypress.jpg"
       },
       {
         "name": "Criando projeto para consultar a previsão do tempo via API",
-        "img": "../../assets/images/certificates/dio-angular-weather-app.jpg",
-        "link": "https://certificates.digitalinnovation.one/7C34437A"
+        "img": "../../assets/images/certificates/dio-angular-weather-app.jpg"
       },
       {
         "name": "Conceitos avançados de performance e otimização usando Angular",
@@ -156,6 +136,15 @@
         "name": "CSS Skill",
         "img": "../../assets/images/certificates/hackerrank-css.jpg",
         "link": "https://www.hackerrank.com/certificates/ec8ac15f857a"
+      }
+    ]
+  },
+  {
+    "name": "FTeam",
+    "certificates": [
+      {
+        "name": "Treinamento em Flutter",
+        "img": "../../assets/images/certificates/flutter-fteam.jpg"
       }
     ]
   }
