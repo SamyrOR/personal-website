@@ -8,8 +8,9 @@ import { VERSION } from '@angular/core';
 })
 export class FooterComponent implements OnInit {
   version: Version = VERSION;
+  year: number = new Date().getFullYear();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
