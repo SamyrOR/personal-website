@@ -6,7 +6,6 @@
     "description": "Desenvolvida com Angular, Bootstrap e consumo da Global Giving API, muitos desafios superados e conhecimentos adquiridos. ",
     "link": "https://github.com/SamyrOR/charity-finder-app"
   },
-
   {
     "title": "Requisições App",
     "img": "../../assets/images/projects/requisicoes-app.jpeg",
@@ -49,7 +48,6 @@
     "description": "Projetos como tocar bateria com o teclado, relogio analógico, jogo da velha, aplicativo de clima, quiz e mais!",
     "link": "https://github.com/SamyrOR/7Days7Projects"
   },
-
   {
     "title": "Primeiro site pessoal",
     "img": "../../assets/images/projects/primeiro-site.jpeg",
@@ -70,5 +68,12 @@
     "caption": "Desenvolvido com as melhores práticas em Angular.",
     "description": "Estilos em SCSS, BEM e SMACSS escritos do zero, com carousel, cards interativos, teste de integração e unitarios!",
     "link": "https://github.com/SamyrOR/personal-website"
+  },
+  {
+    "title": "Rumbl",
+    "img": "../../assets/images/projects/rumbl.png",
+    "caption": "Anotação em videos em tempo eral",
+    "description": "Aplicação fullstack em Elixir e Phoenix, com cadastro, autenticação e anotação de vídeos em tempo real, com armazemaneto no Postgres",
+    "link": "https://github.com/SamyrOR/programming_phoenix"
   }
 ]
