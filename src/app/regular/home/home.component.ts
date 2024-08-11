@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   sub!: Subscription;
   afterLoopSub!: Subscription;
 
-  @ViewChildren('allProjects') allProjects!: QueryList<any>;
+  @ViewChildren('allProjects') allProjects!: QueryList<Projects[]>;
 
   constructor(private getData: GetDataService) {}
 
@@ -47,24 +47,24 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   loadCarousel() {
     document
       .querySelectorAll('.carousel-container')
-      .forEach((carousel: any) => {
+      .forEach((carousel: Element) => {
         this.insertNumbers(carousel);
 
-        carousel.querySelector('.prev').addEventListener('click', (e: any) => {
+        carousel.querySelector('.prev')?.addEventListener('click', () => {
           this.minusItem(carousel);
         });
 
-        carousel.querySelector('.next').addEventListener('click', () => {
+        carousel.querySelector('.next')?.addEventListener('click', () => {
           this.plusItem(carousel);
         });
 
         this.insertDots(carousel);
 
-        carousel.querySelectorAll('.dot').forEach((dot: any) => {
-          dot.addEventListener('click', (e: any) => {
+        carousel.querySelectorAll('.dot').forEach((dot: Element) => {
+          dot.addEventListener('click', (e: Event) => {
             let item = Array.prototype.indexOf.call(
-              e.target.parentNode.children,
-              e.target
+              (e.target as HTMLElement).parentNode?.children,
+              e.target,
             );
 
             this.showItems(carousel, item);
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   }
 
-  insertNumbers(carousel: any) {
+  insertNumbers(carousel: Element) {
     const length = carousel.querySelectorAll('.item').length;
     for (let i = 0; i < length; i++) {
       const nmbr = document.createElement('div');
@@ -86,52 +86,55 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  insertDots(carousel: any) {
+  insertDots(carousel: Element) {
     const dots = document.createElement('div');
     dots.classList.add('dots');
 
     carousel.append(dots);
 
-    carousel.querySelectorAll('.item').forEach((elem: Element) => {
+    carousel.querySelectorAll('.item').forEach(() => {
       const dot = document.createElement('div');
       dot.classList.add('dot');
 
-      carousel.querySelector('.dots').append(dot);
+      carousel.querySelector('.dots')?.append(dot);
     });
   }
 
-  currentItem(carousel: any) {
+  currentItem(carousel: Element) {
     return [...carousel.querySelectorAll('.item')].findIndex(
-      (item) => item.style.display == 'block'
+      (item) => (item as HTMLElement).style.display == 'block',
     );
   }
 
-  showItems(carousel: any, item: any) {
+  showItems(carousel: Element, item: number) {
     if (
       carousel.querySelectorAll('.item')[this.currentItem(carousel)] !=
       undefined
     )
-      carousel.querySelectorAll('.item')[
-        this.currentItem(carousel)
-      ].style.display = 'none';
-    carousel.querySelectorAll('.item')[item].style.display = 'block';
+      (
+        carousel.querySelectorAll('.item')[
+          this.currentItem(carousel)
+        ] as HTMLElement
+      ).style.display = 'none';
+    (carousel.querySelectorAll('.item')[item] as HTMLElement).style.display =
+      'block';
 
     if (carousel.querySelector('.dot.active') != null)
-      carousel.querySelector('.dot.active').classList.remove('active');
+      carousel.querySelector('.dot.active')?.classList.remove('active');
     carousel.querySelectorAll('.dot')[item].classList.add('active');
   }
 
-  plusItem(carousel: any) {
+  plusItem(carousel: Element) {
     let item = this.currentItem(carousel);
 
     carousel
       .querySelectorAll('.item')
-      [item].nextElementSibling.classList.contains('item')
+      [item].nextElementSibling?.classList.contains('item')
       ? this.showItems(carousel, item + 1)
       : this.showItems(carousel, 0);
   }
 
-  minusItem(carousel: any) {
+  minusItem(carousel: Element) {
     let item = this.currentItem(carousel);
 
     carousel.querySelectorAll('.item')[item].previousElementSibling != null

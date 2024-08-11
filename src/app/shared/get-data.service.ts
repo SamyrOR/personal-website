@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Projects } from './project';
+import { Certificate } from '../certificates/models/certificate';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +10,10 @@ import { Observable } from 'rxjs';
 export class GetDataService {
   constructor(private httpClient: HttpClient) {}
 
-  getProjects(): Observable<any> {
-    return this.httpClient.get('assets/data/projects.json');
+  getProjects(): Observable<Projects[]> {
+    return this.httpClient.get<Projects[]>('assets/data/projects.json');
   }
-  getCertificates(): Observable<any> {
-    return this.httpClient.get('assets/data/certificates.json');
+  getCertificates(): Observable<Certificate[]> {
+    return this.httpClient.get<Certificate[]>('assets/data/certificates.json');
   }
 }

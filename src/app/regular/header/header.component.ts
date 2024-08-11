@@ -30,8 +30,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   closeMobileMenu(menuLinks: ElementRef[]) {
-    let linkClicks: Observable<any>[] = menuLinks.map((link: ElementRef) =>
-      fromEvent(link.nativeElement, 'click')
+    let linkClicks: Observable<Event>[] = menuLinks.map((link: ElementRef) =>
+      fromEvent(link.nativeElement, 'click'),
     );
 
     merge(...linkClicks).subscribe(() => {
@@ -46,14 +46,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       document.documentElement.classList.remove('light-theme');
       document.documentElement.classList.add('dark-theme');
       this.logos.forEach((logo) =>
-        logo.setAttribute('src', './assets/images/logos/samyrdev-dark.png')
+        logo.setAttribute('src', './assets/images/logos/samyrdev-dark.png'),
       );
     } else {
       this.transition();
       document.documentElement.classList.add('light-theme');
       document.documentElement.classList.remove('dark-theme');
       this.logos.forEach((logo) =>
-        logo.setAttribute('src', './assets/images/logos/samyrdev.png')
+        logo.setAttribute('src', './assets/images/logos/samyrdev.png'),
       );
     }
     localStorage.setItem('selected-theme', this.isDarkTheme ? 'dark' : 'light');

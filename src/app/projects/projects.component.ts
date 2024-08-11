@@ -33,9 +33,9 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onClick(e: any) {
+  onClick(e: MouseEvent) {
     let cards = this.cards.nativeElement;
-    let card = e.currentTarget;
+    let card = e.currentTarget as HTMLElement;
     let isShowing = false;
     if (card.classList.contains('show')) {
       isShowing = true;
@@ -46,13 +46,13 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       if (isShowing) {
         cards.classList.remove('showing');
       } else {
-        card.style.zIndex = this.zindex;
+        card.style.zIndex = this.zindex.toString();
         card.classList.add('show');
       }
       this.zindex++;
     } else {
       cards.classList.add('showing');
-      card.style.zIndex = this.zindex;
+      card.style.zIndex = this.zindex.toString();
       card.classList.add('show');
       this.zindex++;
     }
