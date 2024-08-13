@@ -1,12 +1,7 @@
 <header class="header wrapper" [ngClass]="{ 'menu-opened': isMenuOpen }">
   <nav class="menu">
     <a [routerLink]="['/home']" routerLinkActive="active">
-      <img
-        class="logo"
-        width="137px"
-        src="./assets/images/logos/samyrdev.png"
-        alt="Samyr dev logo"
-      />
+      <img class="logo" width="137px" src="./assets/images/logos/samyrdev.png" alt="Samyr dev logo" />
     </a>
     <!-- Mobile Button -->
     <button class="menu__button" #menuLink>
@@ -15,60 +10,35 @@
     </button>
     <ul class="menu__links">
       <li class="menu__link">
-        <a
-          #menuLink
-          data-cy="header-home"
-          [routerLink]="['/home']"
-          routerLinkActive="active"
-          >Home</a
-        >
+        <a #menuLink data-cy="header-home" [routerLink]="['/home']" routerLinkActive="active">{{ "home" | translate
+          }}</a>
       </li>
       <li class="menu__link">
-        <a
-          #menuLink
-          data-cy="header-certificates"
-          [routerLink]="['/certificates']"
-          routerLinkActive="active"
-          >Certificados</a
-        >
+        <a #menuLink data-cy="header-certificates" [routerLink]="['/certificates']" routerLinkActive="active">{{
+          "certificates" | translate }}</a>
       </li>
       <li class="menu__link">
-        <a
-          #menuLink
-          data-cy="header-projects"
-          [routerLink]="['/projects']"
-          routerLinkActive="active"
-          >Projetos</a
-        >
+        <a #menuLink data-cy="header-projects" [routerLink]="['/projects']" routerLinkActive="active">{{ "projects" |
+          translate }}</a>
       </li>
       <li class="menu__link">
-        <a
-          #menuLink
-          data-cy="header-about-me"
-          [routerLink]="['/about-me']"
-          routerLinkActive="active"
-          >Sobre mim</a
-        >
+        <a #menuLink data-cy="header-about-me" [routerLink]="['/about-me']" routerLinkActive="active">{{ "about-me" |
+          translate }}</a>
       </li>
       <li class="menu__link">
-        <a
-          #menuLink
-          data-cy="header-contact"
-          [routerLink]="['/contact']"
-          routerLinkActive="active"
-          >Contato</a
-        >
+        <a #menuLink data-cy="header-contact" [routerLink]="['/contact']" routerLinkActive="active">{{ "contact" |
+          translate }}</a>
+      </li>
+      <li class="menu__link">
+        <select (change)="changeLanguage($event)" title="language selector">
+          <option [selected]="lang === 'pt_BR'" value="pt_BR">pt_BR</option>
+          <option [selected]="lang === 'en_US'" value="en_US">en_US</option>
+        </select>
       </li>
       <!-- Theme toggle -->
       <li class="menu__theme menu__link toggle">
-        <input
-          class="toggle__checkbox"
-          type="checkbox"
-          id="switch"
-          name="toggle"
-          [(ngModel)]="isDarkTheme"
-          (change)="switchTheme()"
-        />
+        <input class="toggle__checkbox" type="checkbox" id="switch" name="toggle" [(ngModel)]="isDarkTheme"
+          (change)="switchTheme()" />
         <label class="toggle__label" for="switch">Toggle</label>
       </li>
     </ul>
