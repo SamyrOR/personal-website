@@ -3,5 +3,17 @@
   "certificates": "Certificados",
   "projects": "Projetos",
   "about-me": "Sobre mim",
-  "contact": "Contato"
+  "contact": "Contato",
+  "heroTitleFirstText": "Desenvolvedor",
+  "heroTitleSecondText": "Front-end",
+  "at": "na",
+  "more": "Saiba mais",
+  "siteDevelopedWithLeadingTechnologies": "Seu site desenvolvido com as principais tecnologias do mercado",
+  "projectBuiltWithWidelyTestedTechnologies": "Tenha a certeza e segurança de que seu projeto será construido com tecnologias amplamente testadas e utilizadas no mercado atualmente.",
+  "mobileFirstConcept": "Com o conceito de \"mobile first\"",
+  "responsiveDesignForAllDevices": "Seu projeto desenvolvido com responsividade para todos os tipos de dispositivos, desde smartphones, tablets até laptops e desktops!",
+  "variousNationalAndInternationalCertifications": "Diversos certificados nacionais e internacionais",
+  "certificationsFromNationalAndInternationalInstitutions": "Com horas de dedicação e estudo, foram adquiridos diversos certificados, tanto em instituições nacionais, como internacionais, mostrando tambem que o inglês não é uma barreira.",
+  "projectsDevelopedByMe": "Conheça alguns projetos desenvolvidos por mim",
+  "seeAll": "Veja todos"
 }

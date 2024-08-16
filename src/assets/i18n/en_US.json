@@ -3,5 +3,17 @@
   "certificates": "Certificates",
   "projects": "Projects",
   "about-me": "About me",
-  "contact": "Contact"
+  "contact": "Contact",
+  "heroTitleFirstText": "Front-end",
+  "heroTitleSecondText": "Developer",
+  "at": "at",
+  "more": "More",
+  "siteDevelopedWithLeadingTechnologies": "Your site developed with leading thecnlogies in the market",
+  "projectBuiltWithWidelyTestedTechnologies": "Rest assured that your project will be built with technologies that are widely tested and used in the market today.",
+  "mobileFirstConcept": "With the 'mobile first' concept",
+  "responsiveDesignForAllDevices": "Your project developed with responsiveness for all types of devices, from smartphones and tablets to laptops and desktops!",
+  "variousNationalAndInternationalCertifications": "Various national and international certifications",
+  "certificationsFromNationalAndInternationalInstitutions": "With hours of dedication and study, several certifications were obtained, both from national and international institutions, also showing that English is not a barrier.",
+  "projectsDevelopedByMe": "Check out some projects developed by me",
+  "seeAll": "See all"
 }
