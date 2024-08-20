@@ -1,27 +1,18 @@
 <div class="wrapper">
   <div class="projects">
-    <h3 data-cy="title" class="projects__title">Projetos</h3>
+    <h3 data-cy="title" class="projects__title">
+      {{ "projects" | translate }}
+    </h3>
     <p class="projects__text">
-      Aqui estão alguns dos projetos que desenvolvi, tanto funcionais quanto
-      para aprendizagem no conhecimento de tecnologias.
+      {{ "projectsForLearningAndFunctionality" | translate }}
     </p>
     <div class="loading" *ngIf="loading">
-      <h3>Carregando...</h3>
+      <h3>{{ "loading" | translate }}</h3>
     </div>
     <div class="cards" *ngIf="!loading" #cards>
-      <div
-        class="card"
-        *ngFor="let project of projectsList"
-        (click)="onClick($event)"
-      >
+      <div class="card" *ngFor="let project of projectsList" (click)="onClick($event)">
         <div class="card__image-holder">
-          <img
-            class="card__image"
-            height="255"
-            width="300"
-            [src]="project.img"
-            [alt]="project.title"
-          />
+          <img class="card__image" height="255" width="300" [src]="project.img" [alt]="project.title" />
         </div>
         <div class="card-title">
           <a class="toggle-info btn">
@@ -39,12 +30,7 @@
           </div>
           <div class="card-flap flap2">
             <div class="card-actions">
-              <a
-                [href]="project.link"
-                class="btn"
-                target="_blank"
-                rel="noopener"
-                >Saiba mais
+              <a [href]="project.link" class="btn" target="_blank" rel="noopener">Saiba mais
               </a>
             </div>
           </div>
