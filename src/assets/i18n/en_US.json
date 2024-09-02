@@ -43,5 +43,13 @@
   "knowledgeAcquiredThroughFrontendStudies": "Through front-end studies, I have acquired knowledge in:",
   "backendEnthusiastWithElixirAndPhoenix": "I am also an enthusiast in back-end development with Elixir and Phoenix, loving the world of functional programming.",
   "technicalEnglish": "Technical English:",
-  "englishComprehensionSkills": "Ability to read documentation, watch videos, and conduct research in English with comprehension and without major difficulties."
+  "englishComprehensionSkills": "Ability to read documentation, watch videos, and conduct research in English with comprehension and without major difficulties.",
+  "getInTouch": "Get in touch!",
+  "contactInvitation": "If you have a job proposal, suggestion, feedback, or just want to send a message, please send an email!",
+  "subject": "Subject: ",
+  "pleaseEnterSubject": "Please enter a subject",
+  "message": "Message: ",
+  "putMessage": "Put your message here...",
+  "pleaseEnterMessage": "Please enter a message",
+  "send": "Send"
 }

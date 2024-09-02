@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContactRoutingModule } from './contact-routing.module';
 import { ContactComponent } from './contact.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [ContactComponent],
@@ -11,6 +12,7 @@ import { ContactComponent } from './contact.component';
     FormsModule,
     ReactiveFormsModule,
     ContactRoutingModule,
+    TranslateModule.forChild(),
   ],
 })
-export class ContactModule {}
+export class ContactModule { }
