@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, switchMap } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
 import { Certificate } from './models/certificate';
-
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-certificates',
   templateUrl: './certificates.component.html',
@@ -10,18 +10,48 @@ import { Certificate } from './models/certificate';
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
   organizations: Certificate[] = [];
-  subs!: Subscription;
+  handleLangChange!: Observable<Certificate[]>;
+  changeLocaleEvent!: EventEmitter<LangChangeEvent>;
+  subs: Subscription = new Subscription();
   initialData: Certificate[] = [];
   loading: boolean = true;
+  actualLocale: string = '';
 
-  constructor(private getData: GetDataService) {}
+  constructor(
+    private getData: GetDataService,
+    private translateService: TranslateService,
+  ) {
+    this.actualLocale = this.translateService.currentLang;
+  }
 
   ngOnInit(): void {
-    this.subs = this.getData.getCertificates().subscribe((data) => {
-      this.organizations = data;
-      this.initialData.push(this.organizations[0]);
-      this.loading = false;
-    });
+    const firstLoadSub = this.getData
+      .getCertificates(this.actualLocale)
+      .subscribe((data) => {
+        this.organizations = data;
+        this.initialData.push(this.organizations[0]);
+        this.loading = false;
+      });
+    this.changeLocaleEvent = this.translateService.onLangChange;
+    this.handleLangChange = this.changeLocaleEvent.pipe(
+      switchMap((value: LangChangeEvent) => {
+        this.actualLocale = value.lang;
+        return this.getData.getCertificates(this.actualLocale);
+      }),
+    );
+
+    const langChangSub = this.handleLangChange.subscribe(
+      (certificates: Certificate[]) => {
+        this.loading = true;
+        this.organizations = certificates;
+        this.initialData = [];
+        this.initialData.push(this.organizations[0]);
+        this.loading = false;
+      },
+    );
+
+    this.subs.add(firstLoadSub);
+    this.subs.add(langChangSub);
   }
   //Infinite scroll
   onScroll() {

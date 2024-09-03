@@ -13,7 +13,9 @@ export class GetDataService {
   getProjects(): Observable<Projects[]> {
     return this.httpClient.get<Projects[]>('assets/data/projects.json');
   }
-  getCertificates(): Observable<Certificate[]> {
-    return this.httpClient.get<Certificate[]>('assets/data/certificates.json');
+  getCertificates(locale: string): Observable<Certificate[]> {
+    return this.httpClient.get<Certificate[]>(
+      `assets/data/certificates/certificates_${locale}.json`,
+    );
   }
 }
