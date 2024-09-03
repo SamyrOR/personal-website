@@ -1,0 +1,79 @@
+[
+  {
+    "title": "Charity Finder App",
+    "img": "../../assets/images/projects/charity-finder.jpeg",
+    "caption": "Application that connects people to charitable projects around the world.",
+    "description": "Developed with Angular, Bootstrap and consumption of the Global Giving API, many challenges overcome and knowledge acquired.",
+    "link": "https://github.com/SamyrOR/charity-finder-app"
+  },
+  {
+    "title": "Requisitions App",
+    "img": "../../assets/images/projects/requisicoes-app.jpeg",
+    "caption": "Complete application in Angular, with several concepts applied.",
+    "description": "With a CRUD integrated with the Firebase database, it is possible to make and track requests between different sectors of the same company.",
+    "link": "https://github.com/SamyrOR/requisicoes-app"
+  },
+  {
+    "title": "Frontend Mentor",
+    "img": "../../assets/images/projects/frontend-mentor.jpeg",
+    "caption": "Numerous practical and real challenges that I completed to develop front-end skills.",
+    "description": "I acquired skills in developing buttons, carousels, sliders, responsiveness in HTML, CSS, JS and I also developed in SCSS.",
+    "link": "https://github.com/SamyrOR/Frontend-Mentor"
+  },
+  {
+    "title": "Games Info",
+    "img": "../../assets/images/projects/games-info.jpeg",
+    "caption": "Angular application with consumption of a gaming API.",
+    "description": "Game search platform, with details of the selected game, developed with best practices in Angular.",
+    "link": "https://github.com/SamyrOR/games-info"
+  },
+  {
+    "title": "Ionic Recipes",
+    "img": "../../assets/images/projects/ionic-recipes.jpeg",
+    "caption": "Ionic application for studying the framework.",
+    "description": "App for recording recipes, applying several Ionic components and framework classes, used together with Angular.",
+    "link": "https://github.com/SamyrOR/ionic-recipes"
+  },
+  {
+    "title": "Full e-commerce",
+    "img": "../../assets/images/projects/js-amazona.jpeg",
+    "caption": "Complete e-commerce platform developed with vanilla JS.",
+    "description": "Complete development from the front-end to the back-end with JavaScript, including the entire process of selecting and purchasing merchandise, using different technologies.",
+    "link": "https://github.com/SamyrOR/full-ecommerce"
+  },
+  {
+    "title": "7 days 7 projects",
+    "img": "../../assets/images/projects/7days7projects.jpeg",
+    "caption": "7 projetos incríveis com JavaScript.",
+    "description": "Projetos como tocar bateria com o teclado, relogio analógico, jogo da velha, aplicativo de clima, quiz e mais!",
+    "link": "https://github.com/SamyrOR/7Days7Projects"
+  },
+  {
+    "title": "First personal website",
+    "img": "../../assets/images/projects/primeiro-site.jpeg",
+    "caption": "My first portfolio",
+    "description": "First big challenge, developed with HTML, CSS and Bootstrap.",
+    "link": "https://samyror.github.io/"
+  },
+  {
+    "title": "Hcode JS Fullstack",
+    "img": "../../assets/images/projects/hcode-js.jpeg",
+    "caption": "Course with 6 real projects in JavaScript.",
+    "description": "6 real projects developing functionalities for both the front-end and back-end.",
+    "link": "https://github.com/SamyrOR/hcode-javascript-fullstack"
+  },
+  {
+    "title": "Personal website",
+    "img": "../../assets/images/projects/site-pessoal.jpeg",
+    "caption": "Developed with best practices in Angular.",
+    "description": "SCSS, BEM and SMACSS styles written from scratch, with carousel, interactive cards, integration and unit tests!",
+    "link": "https://github.com/SamyrOR/personal-website"
+  },
+  {
+    "title": "Rumbl",
+    "img": "../../assets/images/projects/rumbl.png",
+    "caption": "Annotating videos in real time",
+    "description": "Fullstack application in Elixir and Phoenix, with registration, authentication and annotation of videos in real time, with storage in Postgres",
+    "link": "https://github.com/SamyrOR/programming_phoenix"
+  }
+]

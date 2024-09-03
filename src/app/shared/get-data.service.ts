@@ -10,8 +10,10 @@ import { Certificate } from '../certificates/models/certificate';
 export class GetDataService {
   constructor(private httpClient: HttpClient) {}
 
-  getProjects(): Observable<Projects[]> {
-    return this.httpClient.get<Projects[]>('assets/data/projects.json');
+  getProjects(locale: string): Observable<Projects[]> {
+    return this.httpClient.get<Projects[]>(
+      `assets/data/projects/projects_${locale}.json`,
+    );
   }
   getCertificates(locale: string): Observable<Certificate[]> {
     return this.httpClient.get<Certificate[]>(
