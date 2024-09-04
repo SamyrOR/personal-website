@@ -1,21 +1,22 @@
 <div class="wrapper">
   <div class="contact">
     <header class="contact__header">
-      <h3 data-cy="title">Entre em contato!</h3>
+      <h3 data-cy="title">{{ "getInTouch" | translate }}</h3>
       <p>
-        Se você tem uma proposta de emprego, sugestão, crítica ou apenas deseja
-        enviar uma mensagem, por favor, envie um e-mail!
+        {{ "contactInvitation" | translate }}
       </p>
     </header>
     <form class="form" [formGroup]="form" (ngSubmit)="sendMail()">
       <div>
         <div class="form__group">
-          <label class="form__label" for="subject">Assunto: </label>
+          <label class="form__label" for="subject">{{
+            "subject" | translate
+          }}</label>
           <input
             class="form__input"
             type="text"
             name="subject"
-            placeholder="Ex: Projeto"
+            placeholder="Ex: {{ 'projects' | translate }}"
             formControlName="subject"
           />
           <div
@@ -25,17 +26,19 @@
               formControls.subject.errors?.required
             "
           >
-            Por favor, insira um titulo
+            {{ "pleaseEnterSubject" | translate }}
           </div>
         </div>
         <div class="form__group">
-          <label class="form__label" for="message">Mensagem: </label>
+          <label class="form__label" for="message">{{
+            "message" | translate
+          }}</label>
           <textarea
             class="form__textarea"
             name="message"
             cols="40"
             rows="8"
-            placeholder="Insira sua mensagem aqui..."
+            placeholder="{{ 'putMessage' | translate }}"
             formControlName="message"
           ></textarea>
           <div
@@ -45,11 +48,13 @@
               formControls.message.errors?.required
             "
           >
-            Por favor, insira uma mensagem
+            {{"pleaseEnterMessage" | translate} }
           </div>
         </div>
       </div>
-      <button class="btn" [disabled]="form.invalid">Enviar</button>
+      <button class="btn" [disabled]="form.invalid">
+        {{ "send" | translate }}
+      </button>
     </form>
   </div>
 </div>

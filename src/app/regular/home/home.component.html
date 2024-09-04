@@ -1,9 +1,10 @@
 <section class="hero wrapper">
   <div class="hero__details">
     <h1 data-cy="title" class="hero__title">
-      <strong>Desenvolvedor</strong>
+      <strong>{{ "heroTitleFirstText" | translate }}</strong>
       <div>
-        <strong>Front-end</strong> na
+        <strong>{{ "heroTitleSecondText" | translate }}</strong>
+        {{ "at" | translate }}
         <a
           class="hero__link"
           href="https://nasajon.com.br/"
@@ -14,7 +15,9 @@
       </div>
     </h1>
     <a routerLink="/about-me"
-      ><button data-cy="know-more" class="btn">Saiba mais</button></a
+      ><button data-cy="know-more" class="btn">
+        {{ "more" | translate }}
+      </button></a
     >
   </div>
   <div class="hero__img">
@@ -209,10 +212,9 @@
   <main class="main wrapper">
     <section class="tech">
       <div class="tech__text">
-        <h2>Seu site desenvolvido com as principais tecnologias do mercado</h2>
+        <h2>{{ "siteDevelopedWithLeadingTechnologies" | translate }}</h2>
         <p>
-          Tenha a certeza e segurança de que seu projeto será construido com
-          tecnologias amplamente testadas e utilizadas no mercado atualmente.
+          {{ "projectBuiltWithWidelyTestedTechnologies" | translate }}
         </p>
       </div>
       <div class="tech__img">
@@ -554,10 +556,9 @@
     </section>
     <section class="mbfirst">
       <div class="mbfirst__text">
-        <h2>Com o conceito de "mobile first"</h2>
+        <h2>{{ "mobileFirstConcept" | translate }}</h2>
         <p>
-          Seu projeto desenvolvido com responsividade para todos os tipos de
-          dispositivos, desde smartphones, tablets até laptops e desktops!
+          {{ "responsiveDesignForAllDevices" | translate }}
         </p>
       </div>
       <div class="mbfirst__img">
@@ -856,11 +857,13 @@
     </section>
     <section class="home-certificate">
       <div class="home-certificate__text">
-        <h2>Diversos certificados nacionais e internacionais</h2>
+        <h2>
+          {{ "variousNationalAndInternationalCertifications" | translate }}
+        </h2>
         <p>
-          Com horas de dedicação e estudo, foram adquiridos diversos
-          certificados, tanto em instituições nacionais, como internacionais,
-          mostrando tambem que o inglês não é uma barreira.
+          {{
+            "certificationsFromNationalAndInternationalInstitutions" | translate
+          }}
         </p>
       </div>
 
@@ -991,8 +994,8 @@
       </div>
     </section>
     <section class="home-projects">
-      <h2>Projetos</h2>
-      <p>Conheça alguns projetos desenvolvidos por mim</p>
+      <h2>{{ "projects" | translate }}</h2>
+      <p>{{ "projectsDevelopedByMe" | translate }}</p>
       <div class="carousel-container">
         <div
           #allProjects
@@ -1040,7 +1043,9 @@
         ></a>
       </div>
       <a routerLink="/projects"
-        ><button data-cy="see-all" class="btn">Veja todos</button></a
+        ><button data-cy="see-all" class="btn">
+          {{ "seeAll" | translate }}
+        </button></a
       >
     </section>
   </main>
