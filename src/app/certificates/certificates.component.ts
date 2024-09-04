@@ -10,37 +10,35 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
   organizations: Certificate[] = [];
-  handleLangChange!: Observable<Certificate[]>;
+  handleLocaleChange!: Observable<Certificate[]>;
   changeLocaleEvent!: EventEmitter<LangChangeEvent>;
-  subs: Subscription = new Subscription();
+  subs = new Subscription();
   initialData: Certificate[] = [];
   loading: boolean = true;
-  actualLocale: string = '';
+  currentLocale: string = this.translateService.currentLang;
 
   constructor(
     private getData: GetDataService,
     private translateService: TranslateService,
-  ) {
-    this.actualLocale = this.translateService.currentLang;
-  }
+  ) {}
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
-      .getCertificates(this.actualLocale)
+      .getCertificates(this.currentLocale)
       .subscribe((data) => {
         this.organizations = data;
         this.initialData.push(this.organizations[0]);
         this.loading = false;
       });
     this.changeLocaleEvent = this.translateService.onLangChange;
-    this.handleLangChange = this.changeLocaleEvent.pipe(
+    this.handleLocaleChange = this.changeLocaleEvent.pipe(
       switchMap((value: LangChangeEvent) => {
-        this.actualLocale = value.lang;
-        return this.getData.getCertificates(this.actualLocale);
+        this.currentLocale = value.lang;
+        return this.getData.getCertificates(this.currentLocale);
       }),
     );
 
-    const langChangSub = this.handleLangChange.subscribe(
+    const localeChangeSub = this.handleLocaleChange.subscribe(
       (certificates: Certificate[]) => {
         this.loading = true;
         this.organizations = certificates;
@@ -51,7 +49,7 @@ export class CertificatesComponent implements OnInit, OnDestroy {
     );
 
     this.subs.add(firstLoadSub);
-    this.subs.add(langChangSub);
+    this.subs.add(localeChangeSub);
   }
   //Infinite scroll
   onScroll() {

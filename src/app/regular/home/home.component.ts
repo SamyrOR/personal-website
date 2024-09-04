@@ -1,12 +1,14 @@
 import {
   AfterViewInit,
   Component,
+  EventEmitter,
   OnDestroy,
   OnInit,
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { Observable, Subscription, switchMap, window } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
 import { Projects } from 'src/app/shared/project';
 
@@ -17,30 +19,91 @@ import { Projects } from 'src/app/shared/project';
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   projectsList: Projects[] = [];
-  sub!: Subscription;
-  afterLoopSub!: Subscription;
+  subs = new Subscription();
+  currentLocale: string = this.translateService.currentLang;
+  changeLocaleEvent!: EventEmitter<LangChangeEvent>;
+  handleLocaleChange!: Observable<Projects[]>;
 
   @ViewChildren('allProjects') allProjects!: QueryList<Projects[]>;
 
-  constructor(private getData: GetDataService) {}
+  constructor(
+    private getData: GetDataService,
+    private translateService: TranslateService,
+  ) {}
 
   ngOnInit(): void {
-    this.sub = this.getData
-      .getProjects()
+    const firstLoadSub = this.getData
+      .getProjects(this.currentLocale)
       //Get just a few projects
       .subscribe((projects) => (this.projectsList = projects.slice(0, 3)));
+
+    this.changeLocaleEvent = this.translateService.onLangChange;
+    this.handleLocaleChange = this.changeLocaleEvent.pipe(
+      switchMap((value: LangChangeEvent) => {
+        this.currentLocale = value.lang;
+        return this.getData.getProjects(this.currentLocale);
+      }),
+    );
+    const localeChangeSub = this.handleLocaleChange.subscribe(
+      (projects: Projects[]) => {
+        this.projectsList = projects.slice(0, 3);
+      },
+    );
+
+    this.subs.add(firstLoadSub);
+    this.subs.add(localeChangeSub);
   }
 
   ngAfterViewInit(): void {
     //Load carousel after ngFor rendered
-    this.afterLoopSub = this.allProjects.changes.subscribe(() => {
+    const afterLoopSub = this.allProjects.changes.subscribe(() => {
       this.loadCarousel();
     });
+
+    const restartCarousel = this.changeLocaleEvent.pipe(
+      switchMap(() => {
+        return this.allProjects.changes;
+      }),
+    );
+
+    restartCarousel.subscribe(() => {
+      this.destroyCarousel();
+      this.loadCarousel();
+    });
+
+    this.subs.add(afterLoopSub);
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-    this.afterLoopSub.unsubscribe();
+  destroyCarousel() {
+    document
+      .querySelectorAll('.carousel-container')
+      .forEach((carousel: Element) => {
+        // Remove number texts
+        carousel.querySelectorAll('.numbertext').forEach((element) => {
+          element.remove();
+        });
+
+        // Remove dots
+        carousel.querySelector('.dots')?.remove();
+
+        // Remove event listeners
+        const prevButton = carousel.querySelector('.prev');
+        const nextButton = carousel.querySelector('.next');
+        const dots = carousel.querySelectorAll('.dot');
+
+        if (prevButton) {
+          prevButton.replaceWith(prevButton.cloneNode(true));
+        }
+        if (nextButton) {
+          nextButton.replaceWith(nextButton.cloneNode(true));
+        }
+        dots.forEach((dot) => dot.replaceWith(dot.cloneNode(true)));
+
+        // Hide all items
+        carousel.querySelectorAll('.item').forEach((item) => {
+          (item as HTMLElement).style.display = 'none';
+        });
+      });
   }
 
   //Creat and load carousel functions
@@ -140,5 +203,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     carousel.querySelectorAll('.item')[item].previousElementSibling != null
       ? this.showItems(carousel, item - 1)
       : this.showItems(carousel, carousel.querySelectorAll('.item').length - 1);
+  }
+
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 }
