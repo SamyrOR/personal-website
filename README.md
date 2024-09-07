@@ -61,7 +61,7 @@ I appreciate any tip/feedback, hope everyone enjoy, i had put a lot of effort on
 - [x] Carousel
 - [x] Iterative Card
 - [x] Optimized images
-- [ ] English version
+- [x] English version
 
 ---
 
