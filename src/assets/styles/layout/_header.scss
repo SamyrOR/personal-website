@@ -160,6 +160,30 @@
         //Hover e active styles
         &:hover,
         &.active {
+          div {
+            p {
+              font-weight: 600;
+
+              @include theme() {
+                color: theme-get("color-link-active");
+              }
+
+              &::after {
+                opacity: 1;
+              }
+            }
+
+            svg {
+              width: rem(20);
+
+              path {
+                @include theme() {
+                  fill: theme-get("color-link-active");
+                }
+              }
+            }
+          }
+
           font-weight: 600;
 
           @include theme() {
@@ -168,6 +192,45 @@
 
           &::after {
             opacity: 1;
+          }
+        }
+      }
+    }
+
+    &--blog {
+      display: flex;
+      align-items: center;
+
+      p {
+        font-weight: 100;
+        font-size: rem(22);
+        line-height: 2.35;
+        font-weight: 200;
+        transition: color 200ms ease-out;
+
+        @include theme() {
+          color: theme-get("color-text");
+        }
+
+        @include lg {
+          font-size: rem(18);
+          cursor: pointer;
+          position: relative;
+        }
+      }
+
+      svg {
+        width: rem(20);
+
+        @include lg {
+          font-size: rem(18);
+          cursor: pointer;
+          position: relative;
+        }
+
+        path {
+          @include theme() {
+            fill: theme-get("color-neutral");
           }
         }
       }
