@@ -21,6 +21,13 @@
     "link": "https://github.com/SamyrOR/Frontend-Mentor"
   },
   {
+    "title": "Blog pessoal",
+    "img": "../../assets/images/projects/blog-pessoal.png",
+    "caption": "Desenvolvido com Astro, alguns componentes em React e com localização de idioma",
+    "description": "Confira o meu blog pessoal, nele eu posto artigos tanto, tecnicos como experiencias que tive na carreira de desenvolvimento.",
+    "link": "https://github.com/SamyrOR/personal-blog"
+  },
+  {
     "title": "Games Info",
     "img": "../../assets/images/projects/games-info.jpeg",
     "caption": "Aplicação em Angular com consumo de uma API de jogos.",
