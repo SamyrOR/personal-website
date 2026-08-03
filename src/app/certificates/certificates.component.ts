@@ -4,9 +4,10 @@ import { GetDataService } from '../shared/get-data.service';
 import { Certificate } from './models/certificate';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 @Component({
-  selector: 'app-certificates',
-  templateUrl: './certificates.component.html',
-  styleUrls: ['./certificates.component.scss'],
+    selector: 'app-certificates',
+    templateUrl: './certificates.component.html',
+    styleUrls: ['./certificates.component.scss'],
+    standalone: false
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
   organizations: Certificate[] = [];
