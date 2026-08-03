@@ -6,36 +6,42 @@
     <p class="projects__text">
       {{ "projectsForLearningAndFunctionality" | translate }}
     </p>
-    <div class="loading" *ngIf="loading">
-      <h3>{{ "loading" | translate }}</h3>
-    </div>
-    <div class="cards" *ngIf="!loading" #cards>
-      <div class="card" *ngFor="let project of projectsList" (click)="onClick($event)">
-        <div class="card__image-holder">
-          <img class="card__image" height="255" width="300" [src]="project.img" [alt]="project.title" />
-        </div>
-        <div class="card-title">
-          <a class="toggle-info btn">
-            <span class="left"></span>
-            <span class="right"></span>
-          </a>
-          <h2>
-            {{ project.title }}
-            <small>{{ project.caption }}</small>
-          </h2>
-        </div>
-        <div class="card-flap flap1">
-          <div class="card-description">
-            {{ project.description }}
-          </div>
-          <div class="card-flap flap2">
-            <div class="card-actions">
-              <a [href]="project.link" class="btn" target="_blank" rel="noopener">Saiba mais
+    @if (loading) {
+      <div class="loading">
+        <h3>{{ "loading" | translate }}</h3>
+      </div>
+    }
+    @if (!loading) {
+      <div class="cards" #cards>
+        @for (project of projectsList; track project) {
+          <div class="card" (click)="onClick($event)">
+            <div class="card__image-holder">
+              <img class="card__image" height="255" width="300" [src]="project.img" [alt]="project.title" />
+            </div>
+            <div class="card-title">
+              <a class="toggle-info btn">
+                <span class="left"></span>
+                <span class="right"></span>
               </a>
+              <h2>
+                {{ project.title }}
+                <small>{{ project.caption }}</small>
+              </h2>
+            </div>
+            <div class="card-flap flap1">
+              <div class="card-description">
+                {{ project.description }}
+              </div>
+              <div class="card-flap flap2">
+                <div class="card-actions">
+                  <a [href]="project.link" class="btn" target="_blank" rel="noopener">Saiba mais
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        }
       </div>
-    </div>
+    }
   </div>
 </div>

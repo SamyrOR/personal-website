@@ -2,53 +2,60 @@
   <div class="certificates">
     <h3 data-cy="title">
       {{
-        "variousCertificationsFromNationalAndInternationalInstitutions"
-          | translate
+      "variousCertificationsFromNationalAndInternationalInstitutions"
+      | translate
       }}
     </h3>
     <p>
       {{ "certificationsFromVariousPlatforms" | translate }}
     </p>
-    <div class="loading" *ngIf="loading">
-      <h3>Carregando...</h3>
-    </div>
-
-    <div
-      *ngIf="!loading"
-      class="search-results"
-      infiniteScroll
-      [infiniteScrollDistance]="1"
-      [infiniteScrollThrottle]="50"
-      (scrolled)="onScroll()"
-    >
-      <div
-        class="certificates__organization"
-        *ngFor="let organization of initialData"
-      >
-        <h3>{{ organization.name }}</h3>
-        <div class="certificates__wrapper">
-          <div
-            class="certificate"
-            *ngFor="let certificate of organization.certificates"
-          >
-            <h4 class="certificate__title">{{ certificate.name }}</h4>
-            <a
-              *ngIf="certificate.link"
-              [href]="certificate.link"
-              target="_blank"
-              rel="noopener"
-            >
-              <img class="certificate__img" [src]="certificate.img" alt="" />
-            </a>
-            <img
-              *ngIf="!certificate.link"
-              class="certificate__img"
-              [src]="certificate.img"
-              alt=""
-            />
-          </div>
-        </div>
+    @if (loading) {
+      <div class="loading">
+        <h3>Carregando...</h3>
       </div>
-    </div>
+    }
+
+    @if (!loading) {
+      <div
+        class="search-results"
+        infiniteScroll
+        [infiniteScrollDistance]="1"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onScroll()"
+        >
+        @for (organization of initialData; track organization) {
+          <div
+            class="certificates__organization"
+            >
+            <h3>{{ organization.name }}</h3>
+            <div class="certificates__wrapper">
+              @for (certificate of organization.certificates; track certificate) {
+                <div
+                  class="certificate"
+                  >
+                  <h4 class="certificate__title">{{ certificate.name }}</h4>
+                  @if (certificate.link) {
+                    <a
+                      [href]="certificate.link"
+                      target="_blank"
+                      rel="noopener"
+                      >
+                      <img class="certificate__img" [src]="certificate.img" alt="" />
+                    </a>
+                  }
+                  @if (!certificate.link) {
+                    <img
+                      class="certificate__img"
+                      [src]="certificate.img"
+                      alt=""
+                      />
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    }
   </div>
 </div>
