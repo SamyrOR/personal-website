@@ -9,6 +9,7 @@ import {
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr
 } from '@angular/common/http';
 import {
   TranslateLoader,
@@ -39,6 +40,6 @@ const I18N_CONFIG = {
     AppRoutingModule,
     TranslateModule.forRoot(I18N_CONFIG),
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi()), TranslatePipe],
+  providers: [provideHttpClient(withXhr(), withInterceptorsFromDi()), TranslatePipe],
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
 import { Certificate } from './models/certificate';
@@ -7,6 +7,7 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
     selector: 'app-certificates',
     templateUrl: './certificates.component.html',
     styleUrls: ['./certificates.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CertificatesComponent implements OnInit, OnDestroy {

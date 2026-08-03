@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChildren,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { fromEvent, merge, Observable } from 'rxjs';
@@ -13,6 +14,7 @@ import { fromEvent, merge, Observable } from 'rxjs';
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
