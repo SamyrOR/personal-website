@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Projects } from './project';
 import { Certificate } from '../certificates/models/certificate';
@@ -8,7 +8,8 @@ import { Certificate } from '../certificates/models/certificate';
   providedIn: 'root',
 })
 export class GetDataService {
-  constructor(private httpClient: HttpClient) {}
+  private httpClient = inject(HttpClient);
+
 
   getProjects(locale: string): Observable<Projects[]> {
     return this.httpClient.get<Projects[]>(

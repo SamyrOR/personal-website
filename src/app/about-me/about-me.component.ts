@@ -9,8 +9,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AboutMeComponent implements OnInit {
   _actualYear: number = new Date().getFullYear();
-  _startYear: number = 2022;
-  yearsOfExperience: String = `${this._actualYear - this._startYear}`;
+  _startYear = 2022;
+  yearsOfExperience = `${this._actualYear - this._startYear}`;
   constructor() {}
 
   ngOnInit(): void {}

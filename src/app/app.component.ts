@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -12,12 +12,11 @@ import { filter, map } from 'rxjs/operators';
     standalone: false
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private titleService: Title,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private translateService: TranslateService,
-  ) {}
+  private titleService = inject(Title);
+  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
+  private translateService = inject(TranslateService);
+
 
   ngOnInit(): void {
     //Dynamic title

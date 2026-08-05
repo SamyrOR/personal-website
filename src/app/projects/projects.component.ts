@@ -1,12 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnDestroy, OnInit, ViewChild, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
 import { Projects } from '../shared/project';
@@ -20,19 +12,17 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
+  private getData = inject(GetDataService);
+  private translateService = inject(TranslateService);
+
   @ViewChild('cards') cards!: ElementRef;
   projectsList!: Projects[];
   subs = new Subscription();
-  loading: boolean = true;
-  zindex: number = 10;
+  loading = true;
+  zindex = 10;
   currentLocale: string = this.translateService.currentLang;
   changeLocaleEvent!: EventEmitter<LangChangeEvent>;
   handleLocaleChange!: Observable<Projects[]>;
-
-  constructor(
-    private getData: GetDataService,
-    private translateService: TranslateService,
-  ) {}
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
@@ -62,14 +52,14 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   onClick(e: MouseEvent) {
-    let cards = this.cards.nativeElement;
-    let card = e.currentTarget as HTMLElement;
+    const cards = this.cards.nativeElement;
+    const card = e.currentTarget as HTMLElement;
     let isShowing = false;
     if (card.classList.contains('show')) {
       isShowing = true;
     }
     if (cards.classList.contains('showing')) {
-      let showingCard = document.querySelector('div.card.show');
+      const showingCard = document.querySelector('div.card.show');
       showingCard?.classList.remove('show');
       if (isShowing) {
         cards.classList.remove('showing');

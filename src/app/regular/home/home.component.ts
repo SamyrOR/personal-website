@@ -1,13 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  ViewChildren,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, QueryList, ViewChildren, ChangeDetectionStrategy, inject } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription, switchMap, window } from 'rxjs';
 import { GetDataService } from 'src/app/shared/get-data.service';
@@ -21,6 +12,9 @@ import { Projects } from 'src/app/shared/project';
     standalone: false
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  private getData = inject(GetDataService);
+  private translateService = inject(TranslateService);
+
   projectsList: Projects[] = [];
   subs = new Subscription();
   currentLocale: string = this.translateService.currentLang;
@@ -28,11 +22,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   handleLocaleChange!: Observable<Projects[]>;
 
   @ViewChildren('allProjects') allProjects!: QueryList<Projects[]>;
-
-  constructor(
-    private getData: GetDataService,
-    private translateService: TranslateService,
-  ) {}
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
@@ -128,7 +117,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
         carousel.querySelectorAll('.dot').forEach((dot: Element) => {
           dot.addEventListener('click', (e: Event) => {
-            let item = Array.prototype.indexOf.call(
+            const item = Array.prototype.indexOf.call(
               (e.target as HTMLElement).parentNode?.children,
               e.target,
             );
@@ -191,7 +180,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   plusItem(carousel: Element) {
-    let item = this.currentItem(carousel);
+    const item = this.currentItem(carousel);
 
     carousel
       .querySelectorAll('.item')
@@ -201,7 +190,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   minusItem(carousel: Element) {
-    let item = this.currentItem(carousel);
+    const item = this.currentItem(carousel);
 
     carousel.querySelectorAll('.item')[item].previousElementSibling != null
       ? this.showItems(carousel, item - 1)

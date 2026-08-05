@@ -9,7 +9,8 @@
     "test": "ng test",
     "e2e": "ng e2e",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -33,9 +34,12 @@
     "@angular/cli": "^22.1.2",
     "@angular/compiler-cli": "^22.1.0",
     "@cypress/schematic": "^5.0.0",
+    "@eslint/js": "^10.0.1",
     "@types/jasmine": "~6.0.0",
     "@types/node": "^26.1.2",
+    "angular-eslint": "22.1.0",
     "cypress": "^15.19.0",
+    "eslint": "^10.6.0",
     "istanbul-lib-instrument": "^6.0.3",
     "jasmine-core": "~6.3.0",
     "karma": "~6.4.4",
@@ -44,6 +48,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.2.0",
     "typescript": "~6.0.1",
+    "typescript-eslint": "8.62.1",
     "vitest": "^4.0.8"
   }
 }

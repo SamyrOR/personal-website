@@ -52,7 +52,7 @@ describe('AppComponent', () => {
   it('should change tittle dynamically', () => {
     let appTitle = titleService.getTitle();
     expect(appTitle).toBe('>_DEV - Home');
-    let child = activatedRoute.firstChild;
+    const child = activatedRoute.firstChild;
     child!.snapshot.data['title'] = 'Certificates';
     fixture.detectChanges();
     appTitle = titleService.getTitle();

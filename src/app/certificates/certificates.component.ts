@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Observable, Subscription, switchMap } from 'rxjs';
 import { GetDataService } from '../shared/get-data.service';
 import { Certificate } from './models/certificate';
@@ -11,18 +11,16 @@ import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
+  private getData = inject(GetDataService);
+  private translateService = inject(TranslateService);
+
   organizations: Certificate[] = [];
   handleLocaleChange!: Observable<Certificate[]>;
   changeLocaleEvent!: EventEmitter<LangChangeEvent>;
   subs = new Subscription();
   initialData: Certificate[] = [];
-  loading: boolean = true;
+  loading = true;
   currentLocale: string = this.translateService.currentLang;
-
-  constructor(
-    private getData: GetDataService,
-    private translateService: TranslateService,
-  ) {}
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
