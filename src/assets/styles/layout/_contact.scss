@@ -24,7 +24,7 @@
     margin-bottom: rem(20);
   }
   &__label {
-    padding: rem(7) rem(15);
+    padding: rem(8) rem(4) rem(8) rem(0);
 
     line-height: 1.5;
     @include theme() {
@@ -32,11 +32,6 @@
     }
     @include sm {
       flex: 0 0 28%;
-      max-width: 28%;
-    }
-    @include lg {
-      flex: 0 0 16%;
-      max-width: 16%;
     }
   }
   &__input {
