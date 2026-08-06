@@ -1,9 +1,9 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ContactRoutingModule } from './contact-routing.module';
-import { ContactComponent } from './contact.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ContactRoutingModule } from "./contact-routing.module";
+import { ContactComponent } from "./contact.component";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [ContactComponent],
@@ -12,7 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     ReactiveFormsModule,
     ContactRoutingModule,
-    TranslateModule.forChild(),
+    TranslatePipe,
   ],
 })
 export class ContactModule { }

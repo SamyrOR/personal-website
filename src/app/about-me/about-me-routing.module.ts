@@ -1,14 +1,13 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { AboutMeComponent } from './about-me.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { AboutMeComponent } from "./about-me.component";
 
 const routes: Routes = [
-  { path: '', component: AboutMeComponent, data: { title: 'Sobre mim' } },
+  { path: "", component: AboutMeComponent, data: { title: "Sobre mim" } },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes), TranslateModule.forChild()],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AboutMeRoutingModule {}
+export class AboutMeRoutingModule { }

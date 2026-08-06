@@ -43,7 +43,7 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "browser": "src/main.ts"
+            "browser": "src/app.config.ts"
           },
           "configurations": {
             "production": {
