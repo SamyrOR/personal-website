@@ -1,4 +1,4 @@
-import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { GetDataService } from 'src/app/shared/get-data.service';
@@ -12,7 +12,7 @@ describe('HomeComponent', () => {
     await TestBed.configureTestingModule({
     declarations: [HomeComponent],
     imports: [],
-    providers: [GetDataService, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+    providers: [GetDataService, provideHttpClient(withXhr(), withInterceptorsFromDi()), provideHttpClientTesting()]
 }).compileComponents();
   });
 

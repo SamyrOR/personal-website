@@ -1,35 +1,36 @@
 import {
   Component,
   ElementRef,
-  EventEmitter,
   OnDestroy,
   OnInit,
   ViewChild,
-} from '@angular/core';
-import { Observable, Subscription, switchMap } from 'rxjs';
-import { GetDataService } from '../shared/get-data.service';
-import { Projects } from '../shared/project';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+  ChangeDetectionStrategy,
+  inject,
+} from "@angular/core";
+import { Observable, Subscription, switchMap } from "rxjs";
+import { GetDataService } from "../shared/get-data.service";
+import { Projects } from "../shared/project";
+import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './projects.component.html',
-  styleUrls: ['./projects.component.scss'],
+  selector: "app-projects",
+  templateUrl: "./projects.component.html",
+  styleUrls: ["./projects.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
-  @ViewChild('cards') cards!: ElementRef;
+  private getData = inject(GetDataService);
+  private translateService = inject(TranslateService);
+
+  @ViewChild("cards") cards!: ElementRef;
   projectsList!: Projects[];
   subs = new Subscription();
-  loading: boolean = true;
-  zindex: number = 10;
-  currentLocale: string = this.translateService.currentLang;
-  changeLocaleEvent!: EventEmitter<LangChangeEvent>;
+  loading = true;
+  zindex = 10;
+  currentLocale = this.translateService.currentLang();
+  changeLocaleEvent!: Observable<LangChangeEvent>;
   handleLocaleChange!: Observable<Projects[]>;
-
-  constructor(
-    private getData: GetDataService,
-    private translateService: TranslateService,
-  ) {}
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
@@ -59,26 +60,26 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   onClick(e: MouseEvent) {
-    let cards = this.cards.nativeElement;
-    let card = e.currentTarget as HTMLElement;
+    const cards = this.cards.nativeElement;
+    const card = e.currentTarget as HTMLElement;
     let isShowing = false;
-    if (card.classList.contains('show')) {
+    if (card.classList.contains("show")) {
       isShowing = true;
     }
-    if (cards.classList.contains('showing')) {
-      let showingCard = document.querySelector('div.card.show');
-      showingCard?.classList.remove('show');
+    if (cards.classList.contains("showing")) {
+      const showingCard = document.querySelector("div.card.show");
+      showingCard?.classList.remove("show");
       if (isShowing) {
-        cards.classList.remove('showing');
+        cards.classList.remove("showing");
       } else {
         card.style.zIndex = this.zindex.toString();
-        card.classList.add('show');
+        card.classList.add("show");
       }
       this.zindex++;
     } else {
-      cards.classList.add('showing');
+      cards.classList.add("showing");
       card.style.zIndex = this.zindex.toString();
-      card.classList.add('show');
+      card.classList.add("show");
       this.zindex++;
     }
   }

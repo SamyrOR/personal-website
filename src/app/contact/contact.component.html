@@ -18,16 +18,17 @@
             name="subject"
             placeholder="Ex: {{ 'projects' | translate }}"
             formControlName="subject"
-          />
-          <div
-            class="form__error"
-            *ngIf="
-              (formControls.subject.touched || submitted) &&
-              formControls.subject.errors?.required
-            "
-          >
-            {{ "pleaseEnterSubject" | translate }}
-          </div>
+            />
+          @if (
+            (formControls.subject.touched || submitted) &&
+            formControls.subject.errors?.required
+            ) {
+            <div
+              class="form__error"
+              >
+              {{ "pleaseEnterSubject" | translate }}
+            </div>
+          }
         </div>
         <div class="form__group">
           <label class="form__label" for="message">{{
@@ -41,15 +42,16 @@
             placeholder="{{ 'putMessage' | translate }}"
             formControlName="message"
           ></textarea>
-          <div
-            class="form__error"
-            *ngIf="
-              (formControls.message.touched || submitted) &&
-              formControls.message.errors?.required
-            "
-          >
-            {{"pleaseEnterMessage" | translate} }
-          </div>
+          @if (
+            (formControls.message.touched || submitted) &&
+            formControls.message.errors?.required
+            ) {
+            <div
+              class="form__error"
+              >
+              {{"pleaseEnterMessage" | translate} }
+            </div>
+          }
         </div>
       </div>
       <button class="btn" [disabled]="form.invalid">

@@ -2,6 +2,7 @@ import {
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
+  withXhr
 } from '@angular/common/http';
 import {
   HttpTestingController,
@@ -12,7 +13,7 @@ import { Certificate } from '../certificates/models/certificate';
 import { GetDataService } from './get-data.service';
 import { Projects } from './project';
 
-let mockProjects: Projects[] = [
+const mockProjects: Projects[] = [
   {
     title: 'Full e-commerce',
     img: '../../assets/images/projects/js-amazona.jpeg',
@@ -31,7 +32,7 @@ let mockProjects: Projects[] = [
   },
 ];
 
-let mockCertificates: Certificate[] = [
+const mockCertificates: Certificate[] = [
   {
     name: 'Digital Innovation One',
     certificates: [
@@ -53,7 +54,7 @@ describe('GetDataService', () => {
       providers: [
         GetDataService,
         HttpClient,
-        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
     });

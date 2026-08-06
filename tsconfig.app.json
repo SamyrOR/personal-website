@@ -6,10 +6,18 @@
     "types": []
   },
   "files": [
-    "src/main.ts",
+    "src/app.config.ts",
     "src/polyfills.ts"
   ],
   "include": [
     "src/**/*.d.ts"
-  ]
+  ],
+  "angularCompilerOptions": {
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
+  }
 }

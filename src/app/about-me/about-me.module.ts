@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { AboutMeRoutingModule } from './about-me-routing.module';
-import { AboutMeComponent } from './about-me.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { AboutMeRoutingModule } from "./about-me-routing.module";
+import { AboutMeComponent } from "./about-me.component";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @NgModule({
   declarations: [AboutMeComponent],
-  imports: [CommonModule, AboutMeRoutingModule, TranslateModule.forChild()],
+  imports: [CommonModule, AboutMeRoutingModule, TranslatePipe],
 })
-export class AboutMeModule {}
+export class AboutMeModule { }

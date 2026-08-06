@@ -6,30 +6,36 @@ import {
   OnInit,
   QueryList,
   ViewChildren,
-} from '@angular/core';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription, switchMap, window } from 'rxjs';
-import { GetDataService } from 'src/app/shared/get-data.service';
-import { Projects } from 'src/app/shared/project';
+  ChangeDetectionStrategy,
+  inject,
+} from "@angular/core";
+import {
+  LangChangeEvent,
+  TranslatePipe,
+  TranslateService,
+} from "@ngx-translate/core";
+import { Observable, Subscription, switchMap, window } from "rxjs";
+import { GetDataService } from "../../shared/get-data.service";
+import { Projects } from "../../shared/project";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+  private getData = inject(GetDataService);
+  private translateService = inject(TranslateService);
+
   projectsList: Projects[] = [];
   subs = new Subscription();
-  currentLocale: string = this.translateService.currentLang;
-  changeLocaleEvent!: EventEmitter<LangChangeEvent>;
+  currentLocale = this.translateService.currentLang();
+  changeLocaleEvent!: Observable<LangChangeEvent>;
   handleLocaleChange!: Observable<Projects[]>;
 
-  @ViewChildren('allProjects') allProjects!: QueryList<Projects[]>;
-
-  constructor(
-    private getData: GetDataService,
-    private translateService: TranslateService,
-  ) {}
+  @ViewChildren("allProjects") allProjects!: QueryList<Projects[]>;
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
@@ -76,20 +82,20 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   destroyCarousel() {
     document
-      .querySelectorAll('.carousel-container')
+      .querySelectorAll(".carousel-container")
       .forEach((carousel: Element) => {
         // Remove number texts
-        carousel.querySelectorAll('.numbertext').forEach((element) => {
+        carousel.querySelectorAll(".numbertext").forEach((element) => {
           element.remove();
         });
 
         // Remove dots
-        carousel.querySelector('.dots')?.remove();
+        carousel.querySelector(".dots")?.remove();
 
         // Remove event listeners
-        const prevButton = carousel.querySelector('.prev');
-        const nextButton = carousel.querySelector('.next');
-        const dots = carousel.querySelectorAll('.dot');
+        const prevButton = carousel.querySelector(".prev");
+        const nextButton = carousel.querySelector(".next");
+        const dots = carousel.querySelectorAll(".dot");
 
         if (prevButton) {
           prevButton.replaceWith(prevButton.cloneNode(true));
@@ -100,8 +106,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
         dots.forEach((dot) => dot.replaceWith(dot.cloneNode(true)));
 
         // Hide all items
-        carousel.querySelectorAll('.item').forEach((item) => {
-          (item as HTMLElement).style.display = 'none';
+        carousel.querySelectorAll(".item").forEach((item) => {
+          (item as HTMLElement).style.display = "none";
         });
       });
   }
@@ -109,23 +115,23 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   //Creat and load carousel functions
   loadCarousel() {
     document
-      .querySelectorAll('.carousel-container')
+      .querySelectorAll(".carousel-container")
       .forEach((carousel: Element) => {
         this.insertNumbers(carousel);
 
-        carousel.querySelector('.prev')?.addEventListener('click', () => {
+        carousel.querySelector(".prev")?.addEventListener("click", () => {
           this.minusItem(carousel);
         });
 
-        carousel.querySelector('.next')?.addEventListener('click', () => {
+        carousel.querySelector(".next")?.addEventListener("click", () => {
           this.plusItem(carousel);
         });
 
         this.insertDots(carousel);
 
-        carousel.querySelectorAll('.dot').forEach((dot: Element) => {
-          dot.addEventListener('click', (e: Event) => {
-            let item = Array.prototype.indexOf.call(
+        carousel.querySelectorAll(".dot").forEach((dot: Element) => {
+          dot.addEventListener("click", (e: Event) => {
+            const item = Array.prototype.indexOf.call(
               (e.target as HTMLElement).parentNode?.children,
               e.target,
             );
@@ -139,70 +145,70 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   insertNumbers(carousel: Element) {
-    const length = carousel.querySelectorAll('.item').length;
+    const length = carousel.querySelectorAll(".item").length;
     for (let i = 0; i < length; i++) {
-      const nmbr = document.createElement('div');
-      nmbr.classList.add('numbertext');
-      nmbr.innerText = i + 1 + ' / ' + length;
+      const nmbr = document.createElement("div");
+      nmbr.classList.add("numbertext");
+      nmbr.innerText = i + 1 + " / " + length;
 
-      carousel.querySelectorAll('.item')[i].append(nmbr);
+      carousel.querySelectorAll(".item")[i].append(nmbr);
     }
   }
 
   insertDots(carousel: Element) {
-    const dots = document.createElement('div');
-    dots.classList.add('dots');
+    const dots = document.createElement("div");
+    dots.classList.add("dots");
 
     carousel.append(dots);
 
-    carousel.querySelectorAll('.item').forEach(() => {
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
+    carousel.querySelectorAll(".item").forEach(() => {
+      const dot = document.createElement("div");
+      dot.classList.add("dot");
 
-      carousel.querySelector('.dots')?.append(dot);
+      carousel.querySelector(".dots")?.append(dot);
     });
   }
 
   currentItem(carousel: Element) {
-    return [...carousel.querySelectorAll('.item')].findIndex(
-      (item) => (item as HTMLElement).style.display == 'block',
+    return [...carousel.querySelectorAll(".item")].findIndex(
+      (item) => (item as HTMLElement).style.display == "block",
     );
   }
 
   showItems(carousel: Element, item: number) {
     if (
-      carousel.querySelectorAll('.item')[this.currentItem(carousel)] !=
+      carousel.querySelectorAll(".item")[this.currentItem(carousel)] !=
       undefined
     )
       (
-        carousel.querySelectorAll('.item')[
-          this.currentItem(carousel)
+        carousel.querySelectorAll(".item")[
+        this.currentItem(carousel)
         ] as HTMLElement
-      ).style.display = 'none';
-    (carousel.querySelectorAll('.item')[item] as HTMLElement).style.display =
-      'block';
+      ).style.display = "none";
+    (carousel.querySelectorAll(".item")[item] as HTMLElement).style.display =
+      "block";
 
-    if (carousel.querySelector('.dot.active') != null)
-      carousel.querySelector('.dot.active')?.classList.remove('active');
-    carousel.querySelectorAll('.dot')[item].classList.add('active');
+    if (carousel.querySelector(".dot.active") != null)
+      carousel.querySelector(".dot.active")?.classList.remove("active");
+    carousel.querySelectorAll(".dot")[item].classList.add("active");
   }
 
   plusItem(carousel: Element) {
-    let item = this.currentItem(carousel);
+    const item = this.currentItem(carousel);
 
     carousel
-      .querySelectorAll('.item')
-      [item].nextElementSibling?.classList.contains('item')
+      .querySelectorAll(".item")
+    [item].nextElementSibling?.classList.contains("item")
       ? this.showItems(carousel, item + 1)
       : this.showItems(carousel, 0);
   }
 
   minusItem(carousel: Element) {
-    let item = this.currentItem(carousel);
+    const item = this.currentItem(carousel);
 
-    carousel.querySelectorAll('.item')[item].previousElementSibling != null
+    carousel.querySelectorAll(".item")[item].previousElementSibling != null
       ? this.showItems(carousel, item - 1)
-      : this.showItems(carousel, carousel.querySelectorAll('.item').length - 1);
+      : this.showItems(carousel, carousel.querySelectorAll(".item").length - 1);
   }
 
   ngOnDestroy(): void {

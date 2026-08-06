@@ -5,23 +5,26 @@ import {
   OnInit,
   ViewChildren,
   inject,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { fromEvent, merge, Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
-  @ViewChildren('menuLink', { read: ElementRef }) menuLinks!: ElementRef[];
-  isDarkTheme: boolean = false;
-  isMenuOpen: boolean = false;
-  logos!: Element[];
-  lang: string = '';
+  private translateService = inject(TranslateService);
 
-  constructor(private translateService: TranslateService) {}
+  @ViewChildren('menuLink', { read: ElementRef }) menuLinks!: ElementRef[];
+  isDarkTheme = false;
+  isMenuOpen = false;
+  logos!: Element[];
+  lang = '';
 
   ngOnInit(): void {
     this.isDarkTheme =
@@ -35,7 +38,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   }
 
   closeMobileMenu(menuLinks: ElementRef[]) {
-    let linkClicks: Observable<Event>[] = menuLinks.map((link: ElementRef) =>
+    const linkClicks: Observable<Event>[] = menuLinks.map((link: ElementRef) =>
       fromEvent(link.nativeElement, 'click'),
     );
 
