@@ -10,14 +10,14 @@ import {
 import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
 import { Projects } from "../shared/project";
-import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
+import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate/core";
 
 @Component({
   selector: "app-projects",
   templateUrl: "./projects.component.html",
   styleUrls: ["./projects.component.scss"],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [TranslatePipe],
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);

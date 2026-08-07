@@ -8,13 +8,14 @@ import {
 import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
 import { Certificate } from "./models/certificate";
-import { LangChangeEvent, TranslateService } from "@ngx-translate/core";
+import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 @Component({
   selector: "app-certificates",
   templateUrl: "./certificates.component.html",
   styleUrls: ["./certificates.component.scss"],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [InfiniteScrollDirective, TranslatePipe],
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);

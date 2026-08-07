@@ -1,7 +1,6 @@
 import {
   AfterViewInit,
   Component,
-  EventEmitter,
   OnDestroy,
   OnInit,
   QueryList,
@@ -9,12 +8,13 @@ import {
   ChangeDetectionStrategy,
   inject,
 } from "@angular/core";
+import { RouterLink } from "@angular/router";
 import {
   LangChangeEvent,
   TranslatePipe,
   TranslateService,
 } from "@ngx-translate/core";
-import { Observable, Subscription, switchMap, window } from "rxjs";
+import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../../shared/get-data.service";
 import { Projects } from "../../shared/project";
 
@@ -23,7 +23,7 @@ import { Projects } from "../../shared/project";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [RouterLink, TranslatePipe],
 })
 export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
   private getData = inject(GetDataService);

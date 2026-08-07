@@ -1,5 +1,4 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+import { Routes } from "@angular/router";
 import { HomeComponent } from "./regular/home/home.component";
 import { NotFoundComponent } from "./regular/not-found/not-found.component";
 
@@ -8,25 +7,29 @@ export const routes: Routes = [
   { path: "home", component: HomeComponent, data: { title: "Home" } },
   {
     path: "certificates",
-    loadChildren: () =>
-      import("./certificates/certificates.module").then(
-        (m) => m.CertificatesModule,
+    loadComponent: () =>
+      import("./certificates/certificates.component").then(
+        (m) => m.CertificatesComponent,
       ),
+    data: { title: "Certificados" },
   },
   {
     path: "projects",
-    loadChildren: () =>
-      import("./projects/projects.module").then((m) => m.ProjectsModule),
+    loadComponent: () =>
+      import("./projects/projects.component").then((m) => m.ProjectsComponent),
+    data: { title: "Projetos" },
   },
   {
     path: "about-me",
-    loadChildren: () =>
-      import("./about-me/about-me.module").then((m) => m.AboutMeModule),
+    loadComponent: () =>
+      import("./about-me/about-me.component").then((m) => m.AboutMeComponent),
+    data: { title: "Sobre mim" },
   },
   {
     path: "contact",
-    loadChildren: () =>
-      import("./contact/contact.module").then((m) => m.ContactModule),
+    loadComponent: () =>
+      import("./contact/contact.component").then((m) => m.ContactComponent),
+    data: { title: "Contato" },
   },
 
   {

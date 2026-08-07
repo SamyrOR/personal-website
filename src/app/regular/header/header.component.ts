@@ -7,7 +7,10 @@ import {
   inject,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { fromEvent, merge, Observable } from 'rxjs';
 
 @Component({
@@ -15,7 +18,7 @@ import { fromEvent, merge, Observable } from 'rxjs';
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
     changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    imports: [NgClass, FormsModule, RouterLink, RouterLinkActive, TranslatePipe],
 })
 export class HeaderComponent implements OnInit, AfterViewInit {
   private translateService = inject(TranslateService);
@@ -85,8 +88,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeLanguage(language: any): void {
-    const selectedLanguage = language.target.value;
+  changeLanguage(event: Event): void {
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
     localStorage.setItem('lang', selectedLanguage);
     this.translateService.use(selectedLanguage);
   }

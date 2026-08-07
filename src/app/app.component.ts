@@ -4,30 +4,24 @@ import {
   ChangeDetectionStrategy,
   inject,
 } from "@angular/core";
-import { BrowserModule, Title } from "@angular/platform-browser";
+import { Title } from "@angular/platform-browser";
 import {
   ActivatedRoute,
   NavigationEnd,
   Router,
-  RouterModule,
+  RouterOutlet,
 } from "@angular/router";
 import { TranslatePipe, TranslateService } from "@ngx-translate/core";
 import { filter, map } from "rxjs/operators";
 import { HeaderComponent } from "./regular/header/header.component";
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-  withXhr,
-} from "@angular/common/http";
-import { RegularModule } from "./regular/regular.module";
+import { FooterComponent } from "./regular/footer/footer.component";
 
 @Component({
   selector: "app-root",
-  standalone: true,
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   changeDetection: ChangeDetectionStrategy.Eager,
-  imports: [RegularModule, RouterModule],
+  imports: [HeaderComponent, FooterComponent, RouterOutlet],
   providers: [TranslatePipe],
 })
 export class AppComponent implements OnInit {

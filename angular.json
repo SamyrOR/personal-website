@@ -81,7 +81,9 @@
                 "src/favicon.ico",
                 "src/assets"
               ],
-              "polyfills": "src/polyfills.ts"
+              "polyfills": [
+                "src/polyfills.ts"
+              ]
             }
           },
           "defaultConfiguration": "production"

@@ -12,7 +12,7 @@ Personal portfolio website (samyr.dev) built with Angular 22, Sass (BEM/SMACSS),
 - `npm run build` / `ng build` — production build, output to `dist/personal-website`
 - `npm run watch` — dev build in watch mode
 - `npm run lint` / `ng lint` — ESLint (angular-eslint + typescript-eslint) over `src/**/*.ts` and `src/**/*.html`
-- `npm test` / `ng test` — unit tests via the Angular `unit-test` builder, which runs on **Vitest** (not Karma, despite `karma.conf.js`/`src/test.ts` still existing as legacy leftovers from the v21→v22 CLI migration)
+- `npm test` / `ng test` — unit tests via the Angular `unit-test` builder, which runs on **Vitest** (not Karma). Currently broken pre-existing (unrelated to standalone migration, see `ROADMAP.md` Phase 0): `src/test.ts`'s Karma-era `platformBrowserDynamicTesting` setup conflicts with the builder's own auto-injected test-bed init, and a couple of spec files have stale references. Needs its own fix pass before `npm test` is usable again.
 - `npm run e2e` / `ng e2e` — Cypress e2e tests (opens interactive runner)
 - `npm run cypress:run` — Cypress e2e tests headless
 - `npm run cypress:open` — Cypress interactive runner directly
@@ -21,9 +21,9 @@ There is no single-test-file CLI flag documented in this repo; scope test runs u
 
 ## Architecture
 
-**Mixed standalone/NgModule bootstrap.** The app root bootstraps as standalone (`src/app.config.ts` calls `bootstrapApplication(AppComponent, { providers: [...] })` with `provideRouter`, `provideHttpClient`, `provideTranslateService`, etc.), and `AppComponent` itself is `standalone: true`. However, every feature area (`about-me`, `certificates`, `contact`, `projects`, `regular`) is still a classic `NgModule` with its own `*-routing.module.ts`, and their components are declared with `standalone: false`. `src/app/app.module.ts` is an empty leftover file — the real provider wiring lives in `src/app.config.ts`. When adding a new component, match the pattern of the module it belongs to rather than assuming everything is standalone.
+**Fully standalone.** The app bootstraps via `bootstrapApplication(AppComponent, { providers: [...] })` in `src/app.config.ts` (`provideRouter`, `provideHttpClient`, `provideTranslateService`, etc.). Every component — `AppComponent` and all feature components (`about-me`, `certificates`, `contact`, `projects`, `regular`'s `header`/`footer`/`home`/`not-found`) — is standalone with its own `imports: [...]` array; there are no `NgModule`s left in `src/app`. When adding a new component, import what it needs directly rather than reaching for a module.
 
-**Routing** is defined in `src/app/app.routes.ts` at the top level; each feature module is lazy-loaded via `loadChildren` pointing at its `*.module.ts`, which in turn declares its own child routes in `*-routing.module.ts`. Route `data: { title: ... }` drives the dynamic page title, set in `AppComponent.setDynamicTitle()` (`src/app/app.component.ts`) by walking `router.events` down to the deepest activated route.
+**Routing** is defined in `src/app/app.routes.ts` at the top level; each feature route is lazy-loaded via `loadComponent` pointing directly at its `*.component.ts`, with `data: { title: ... }` set inline on the route. That title drives the dynamic page title, set in `AppComponent.setDynamicTitle()` (`src/app/app.component.ts`) by walking `router.events` down to the deepest activated route.
 
 **Data flow.** `GetDataService` (`src/app/shared/get-data.service.ts`) fetches locale-specific static JSON via `HttpClient` from `src/assets/data/{projects,certificates}/*_<locale>.json`, where `<locale>` is the current `ngx-translate` language code (`en_US` or `pt_BR`). Components (e.g. `CertificatesComponent`) call this on init and re-fetch on `TranslateService.onLangChange`, since content itself is per-language, not just UI strings. Corresponding UI string translations live separately in `src/assets/i18n/{en_US,pt_BR}.json`.
 

@@ -1,11 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-about-me",
   templateUrl: "./about-me.component.html",
   styleUrls: ["./about-me.component.scss"],
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [TranslatePipe],
 })
 export class AboutMeComponent implements OnInit {
   _actualYear: number = new Date().getFullYear();
