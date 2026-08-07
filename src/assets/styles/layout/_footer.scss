@@ -85,6 +85,7 @@
   }
   &__by,
   &__by:visited {
+    text-decoration: underline;
     @include theme() {
       color: theme-get("color-link-active");
     }

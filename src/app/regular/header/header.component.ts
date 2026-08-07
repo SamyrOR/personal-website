@@ -68,14 +68,14 @@ export class HeaderComponent implements OnInit {
       document.documentElement.classList.remove('light-theme');
       document.documentElement.classList.add('dark-theme');
       this.logos.forEach((logo) =>
-        logo.setAttribute('src', './assets/images/logos/samyrdev-dark.png'),
+        logo.setAttribute('src', './assets/images/logos/samyrdev-dark.webp'),
       );
     } else {
       this.transition();
       document.documentElement.classList.add('light-theme');
       document.documentElement.classList.remove('dark-theme');
       this.logos.forEach((logo) =>
-        logo.setAttribute('src', './assets/images/logos/samyrdev.png'),
+        logo.setAttribute('src', './assets/images/logos/samyrdev.webp'),
       );
     }
     localStorage.setItem('selected-theme', this.isDarkTheme() ? 'dark' : 'light');

@@ -51,5 +51,8 @@
   "message": "Message: ",
   "putMessage": "Put your message here...",
   "pleaseEnterMessage": "Please enter a message",
-  "send": "Send"
+  "send": "Send",
+  "previousProject": "Previous project",
+  "nextProject": "Next project",
+  "toggleProjectDetails": "Toggle project details"
 }

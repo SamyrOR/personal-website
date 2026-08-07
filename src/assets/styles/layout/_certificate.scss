@@ -37,6 +37,9 @@
   }
   &__img {
     margin-top: rem(20);
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
     @include sm {
       max-width: rem(480);
     }
