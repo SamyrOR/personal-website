@@ -16,20 +16,32 @@
     position: relative;
     width: 100%;
     height: 100%;
-    &::before {
-      position: absolute;
-      content: "";
+  }
+  &__bg-img {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    object-fit: contain;
+
+    &--light {
+      display: none;
+      .light-theme & {
+        display: block;
+      }
+    }
+    &--dark {
+      display: none;
+      .dark-theme & {
+        display: block;
+      }
+    }
+
+    &--left {
       top: rem(80);
       left: rem(-85);
       width: rem(400);
       height: 65%;
-      @include theme() {
-        background-image: theme-get("bg-main-left");
-      }
-      background-position: 0 0;
-      background-repeat: no-repeat;
-      background-size: contain;
-      z-index: -1;
+      object-position: 0 0;
       @include sm {
         top: rem(176);
       }
@@ -37,20 +49,12 @@
         left: 0;
       }
     }
-    &::after {
-      position: absolute;
-      content: "";
+    &--right {
       top: rem(630);
       right: 0;
       width: rem(280);
       height: 60%;
-      @include theme() {
-        background-image: theme-get("bg-main-right");
-      }
-      background-position: rem(90) 0;
-      background-repeat: no-repeat;
-      background-size: contain;
-      z-index: -1;
+      object-position: rem(90) 0;
       @include lg {
         width: rem(424);
       }
