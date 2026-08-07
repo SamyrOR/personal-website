@@ -93,9 +93,11 @@ export class HeaderComponent implements OnInit {
   menuOpen() {
     if (window.innerWidth < 1024) {
       this.isMenuOpen.update((open) => !open);
-      this.isMenuOpen()
-        ? document.body.classList.add('no-scroll')
-        : document.body.classList.remove('no-scroll');
+      if (this.isMenuOpen()) {
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+      }
     }
   }
 

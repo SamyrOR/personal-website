@@ -29,7 +29,7 @@ export class ProjectsComponent {
     defaultValue: [],
   });
 
-  onClick(e: MouseEvent) {
+  onClick(e: Event) {
     const cards = this.cards()!.nativeElement;
     const card = e.currentTarget as HTMLElement;
     let isShowing = false;

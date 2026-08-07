@@ -163,18 +163,20 @@ export class HomeComponent {
   plusItem(carousel: Element) {
     const item = this.currentItem(carousel);
 
-    carousel
-      .querySelectorAll(".item")
-    [item].nextElementSibling?.classList.contains("item")
-      ? this.showItems(carousel, item + 1)
-      : this.showItems(carousel, 0);
+    if (carousel.querySelectorAll(".item")[item].nextElementSibling?.classList.contains("item")) {
+      this.showItems(carousel, item + 1);
+    } else {
+      this.showItems(carousel, 0);
+    }
   }
 
   minusItem(carousel: Element) {
     const item = this.currentItem(carousel);
 
-    carousel.querySelectorAll(".item")[item].previousElementSibling != null
-      ? this.showItems(carousel, item - 1)
-      : this.showItems(carousel, carousel.querySelectorAll(".item").length - 1);
+    if (carousel.querySelectorAll(".item")[item].previousElementSibling != null) {
+      this.showItems(carousel, item - 1);
+    } else {
+      this.showItems(carousel, carousel.querySelectorAll(".item").length - 1);
+    }
   }
 }
