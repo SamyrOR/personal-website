@@ -1,4 +1,4 @@
-import { Component, OnInit, Version, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Version, ChangeDetectionStrategy } from '@angular/core';
 import { VERSION } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -7,14 +7,10 @@ import { TranslatePipe } from '@ngx-translate/core';
     selector: 'app-footer',
     templateUrl: './footer.component.html',
     styleUrls: ['./footer.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [RouterLink, RouterLinkActive, TranslatePipe],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent {
   version: Version = VERSION;
   year: number = new Date().getFullYear();
-
-  constructor() {}
-
-  ngOnInit(): void {}
 }

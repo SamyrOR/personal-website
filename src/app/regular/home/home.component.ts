@@ -1,12 +1,13 @@
 import {
-  AfterViewInit,
   Component,
+  ElementRef,
   OnDestroy,
   OnInit,
-  QueryList,
-  ViewChildren,
   ChangeDetectionStrategy,
   inject,
+  signal,
+  viewChildren,
+  effect,
 } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import {
@@ -22,26 +23,40 @@ import { Projects } from "../../shared/project";
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, TranslatePipe],
 })
-export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
+export class HomeComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);
   private translateService = inject(TranslateService);
 
-  projectsList: Projects[] = [];
+  projectsList = signal<Projects[]>([]);
   subs = new Subscription();
   currentLocale = this.translateService.currentLang();
   changeLocaleEvent!: Observable<LangChangeEvent>;
   handleLocaleChange!: Observable<Projects[]>;
 
-  @ViewChildren("allProjects") allProjects!: QueryList<Projects[]>;
+  allProjects = viewChildren<ElementRef>("allProjects");
+
+  constructor() {
+    // Re-wire the carousel any time the set of #allProjects elements changes
+    // (initial render, or a locale switch re-rendering the @for with new data).
+    // destroyCarousel() is safe to call even on the very first run - it just
+    // no-ops on anything that doesn't exist yet.
+    effect(() => {
+      if (this.allProjects().length === 0) {
+        return;
+      }
+      this.destroyCarousel();
+      this.loadCarousel();
+    });
+  }
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
       .getProjects(this.currentLocale)
       //Get just a few projects
-      .subscribe((projects) => (this.projectsList = projects.slice(0, 3)));
+      .subscribe((projects) => this.projectsList.set(projects.slice(0, 3)));
 
     this.changeLocaleEvent = this.translateService.onLangChange;
     this.handleLocaleChange = this.changeLocaleEvent.pipe(
@@ -52,32 +67,12 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewInit {
     );
     const localeChangeSub = this.handleLocaleChange.subscribe(
       (projects: Projects[]) => {
-        this.projectsList = projects.slice(0, 3);
+        this.projectsList.set(projects.slice(0, 3));
       },
     );
 
     this.subs.add(firstLoadSub);
     this.subs.add(localeChangeSub);
-  }
-
-  ngAfterViewInit(): void {
-    //Load carousel after ngFor rendered
-    const afterLoopSub = this.allProjects.changes.subscribe(() => {
-      this.loadCarousel();
-    });
-
-    const restartCarousel = this.changeLocaleEvent.pipe(
-      switchMap(() => {
-        return this.allProjects.changes;
-      }),
-    );
-
-    restartCarousel.subscribe(() => {
-      this.destroyCarousel();
-      this.loadCarousel();
-    });
-
-    this.subs.add(afterLoopSub);
   }
 
   destroyCarousel() {

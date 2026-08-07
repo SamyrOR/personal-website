@@ -20,7 +20,7 @@ import { FooterComponent } from "./regular/footer/footer.component";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [HeaderComponent, FooterComponent, RouterOutlet],
   providers: [TranslatePipe],
 })

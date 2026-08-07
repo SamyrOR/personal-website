@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -6,14 +6,14 @@ import { TranslatePipe } from '@ngx-translate/core';
     selector: 'app-contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ReactiveFormsModule, TranslatePipe]
 })
 export class ContactComponent implements OnInit {
   private fb = inject(UntypedFormBuilder);
 
   form!: UntypedFormGroup;
-  submitted = false;
+  submitted = signal(false);
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit {
   }
 
   sendMail() {
-    this.submitted = true;
+    this.submitted.set(true);
     if (this.form.valid) {
       const subject = (document.querySelector('.form__input') as HTMLInputElement)
         .value;

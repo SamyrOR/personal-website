@@ -20,7 +20,7 @@
             formControlName="subject"
             />
           @if (
-            (formControls.subject.touched || submitted) &&
+            (formControls.subject.touched || submitted()) &&
             formControls.subject.errors?.required
             ) {
             <div
@@ -43,7 +43,7 @@
             formControlName="message"
           ></textarea>
           @if (
-            (formControls.message.touched || submitted) &&
+            (formControls.message.touched || submitted()) &&
             formControls.message.errors?.required
             ) {
             <div

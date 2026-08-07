@@ -1,14 +1,14 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
-  ViewChildren,
   inject,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  signal,
+  viewChildren,
+  effect,
 } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { fromEvent, merge, Observable } from 'rxjs';
@@ -17,30 +17,36 @@ import { fromEvent, merge, Observable } from 'rxjs';
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [NgClass, FormsModule, RouterLink, RouterLinkActive, TranslatePipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass, RouterLink, RouterLinkActive, TranslatePipe],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements OnInit {
   private translateService = inject(TranslateService);
 
-  @ViewChildren('menuLink', { read: ElementRef }) menuLinks!: ElementRef[];
-  isDarkTheme = false;
-  isMenuOpen = false;
+  menuLinks = viewChildren('menuLink', { read: ElementRef });
+  isDarkTheme = signal(false);
+  isMenuOpen = signal(false);
   logos!: Element[];
   lang = '';
 
+  constructor() {
+    // The #menuLink refs are static markup (no @if/@for), so this only ever fires once.
+    effect(() => {
+      const menuLinks = this.menuLinks();
+      if (menuLinks.length === 0) {
+        return;
+      }
+      this.closeMobileMenu(menuLinks);
+    });
+  }
+
   ngOnInit(): void {
-    this.isDarkTheme =
-      localStorage.getItem('selected-theme') === 'dark' ? true : false;
+    this.isDarkTheme.set(localStorage.getItem('selected-theme') === 'dark');
     this.switchTheme();
     this.lang = localStorage.getItem('lang') || 'pt_BR';
   }
 
-  ngAfterViewInit(): void {
-    this.closeMobileMenu(this.menuLinks);
-  }
-
-  closeMobileMenu(menuLinks: ElementRef[]) {
+  closeMobileMenu(menuLinks: readonly ElementRef[]) {
     const linkClicks: Observable<Event>[] = menuLinks.map((link: ElementRef) =>
       fromEvent(link.nativeElement, 'click'),
     );
@@ -50,9 +56,14 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     });
   }
 
+  onThemeToggle(event: Event): void {
+    this.isDarkTheme.set((event.target as HTMLInputElement).checked);
+    this.switchTheme();
+  }
+
   switchTheme() {
     this.logos = Array.from(document.querySelectorAll('.logo'));
-    if (this.isDarkTheme) {
+    if (this.isDarkTheme()) {
       this.transition();
       document.documentElement.classList.remove('light-theme');
       document.documentElement.classList.add('dark-theme');
@@ -67,7 +78,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         logo.setAttribute('src', './assets/images/logos/samyrdev.png'),
       );
     }
-    localStorage.setItem('selected-theme', this.isDarkTheme ? 'dark' : 'light');
+    localStorage.setItem('selected-theme', this.isDarkTheme() ? 'dark' : 'light');
   }
 
   //Add transition to theme change
@@ -81,8 +92,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   //add no-scroll and close menu at route change
   menuOpen() {
     if (window.innerWidth < 1024) {
-      this.isMenuOpen = !this.isMenuOpen;
-      this.isMenuOpen
+      this.isMenuOpen.update((open) => !open);
+      this.isMenuOpen()
         ? document.body.classList.add('no-scroll')
         : document.body.classList.remove('no-scroll');
     }

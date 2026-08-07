@@ -6,14 +6,14 @@
     <p class="projects__text">
       {{ "projectsForLearningAndFunctionality" | translate }}
     </p>
-    @if (loading) {
+    @if (loading()) {
       <div class="loading">
         <h3>{{ "loading" | translate }}</h3>
       </div>
     }
-    @if (!loading) {
+    @if (!loading()) {
       <div class="cards" #cards>
-        @for (project of projectsList; track project) {
+        @for (project of projectsList(); track project) {
           <div class="card" (click)="onClick($event)">
             <div class="card__image-holder">
               <img class="card__image" height="255" width="300" [src]="project.img" [alt]="project.title" />

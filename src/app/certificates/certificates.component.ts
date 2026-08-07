@@ -4,6 +4,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   inject,
+  signal,
 } from "@angular/core";
 import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
@@ -14,28 +15,28 @@ import { InfiniteScrollDirective } from "ngx-infinite-scroll";
   selector: "app-certificates",
   templateUrl: "./certificates.component.html",
   styleUrls: ["./certificates.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InfiniteScrollDirective, TranslatePipe],
 })
 export class CertificatesComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);
   private translateService = inject(TranslateService);
 
-  organizations: Certificate[] = [];
+  organizations = signal<Certificate[]>([]);
   handleLocaleChange!: Observable<Certificate[]>;
   changeLocaleEvent!: Observable<LangChangeEvent>;
   subs = new Subscription();
-  initialData: Certificate[] = [];
-  loading = true;
+  initialData = signal<Certificate[]>([]);
+  loading = signal(true);
   currentLocale = this.translateService.currentLang();
 
   ngOnInit(): void {
     const firstLoadSub = this.getData
       .getCertificates(this.currentLocale)
       .subscribe((data) => {
-        this.organizations = data;
-        this.initialData.push(this.organizations[0]);
-        this.loading = false;
+        this.organizations.set(data);
+        this.initialData.set([data[0]]);
+        this.loading.set(false);
       });
     this.changeLocaleEvent = this.translateService.onLangChange;
     this.handleLocaleChange = this.changeLocaleEvent.pipe(
@@ -47,11 +48,10 @@ export class CertificatesComponent implements OnInit, OnDestroy {
 
     const localeChangeSub = this.handleLocaleChange.subscribe(
       (certificates: Certificate[]) => {
-        this.loading = true;
-        this.organizations = certificates;
-        this.initialData = [];
-        this.initialData.push(this.organizations[0]);
-        this.loading = false;
+        this.loading.set(true);
+        this.organizations.set(certificates);
+        this.initialData.set([certificates[0]]);
+        this.loading.set(false);
       },
     );
 
@@ -60,8 +60,10 @@ export class CertificatesComponent implements OnInit, OnDestroy {
   }
   //Infinite scroll
   onScroll() {
-    if (this.initialData.length < this.organizations.length) {
-      this.initialData.push(this.organizations[this.initialData.length]);
+    const data = this.initialData();
+    const all = this.organizations();
+    if (data.length < all.length) {
+      this.initialData.set([...data, all[data.length]]);
     }
   }
 

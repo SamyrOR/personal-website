@@ -9,13 +9,13 @@
     <p>
       {{ "certificationsFromVariousPlatforms" | translate }}
     </p>
-    @if (loading) {
+    @if (loading()) {
       <div class="loading">
         <h3>Carregando...</h3>
       </div>
     }
 
-    @if (!loading) {
+    @if (!loading()) {
       <div
         class="search-results"
         infiniteScroll
@@ -23,7 +23,7 @@
         [infiniteScrollThrottle]="50"
         (scrolled)="onScroll()"
         >
-        @for (organization of initialData; track organization) {
+        @for (organization of initialData(); track organization) {
           <div
             class="certificates__organization"
             >

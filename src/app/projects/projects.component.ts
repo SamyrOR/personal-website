@@ -3,9 +3,10 @@ import {
   ElementRef,
   OnDestroy,
   OnInit,
-  ViewChild,
   ChangeDetectionStrategy,
   inject,
+  signal,
+  viewChild,
 } from "@angular/core";
 import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
@@ -16,17 +17,17 @@ import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate
   selector: "app-projects",
   templateUrl: "./projects.component.html",
   styleUrls: ["./projects.component.scss"],
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TranslatePipe],
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);
   private translateService = inject(TranslateService);
 
-  @ViewChild("cards") cards!: ElementRef;
-  projectsList!: Projects[];
+  cards = viewChild<ElementRef>("cards");
+  projectsList = signal<Projects[]>([]);
   subs = new Subscription();
-  loading = true;
+  loading = signal(true);
   zindex = 10;
   currentLocale = this.translateService.currentLang();
   changeLocaleEvent!: Observable<LangChangeEvent>;
@@ -36,8 +37,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     const firstLoadSub = this.getData
       .getProjects(this.currentLocale)
       .subscribe((projects) => {
-        this.projectsList = projects;
-        this.loading = false;
+        this.projectsList.set(projects);
+        this.loading.set(false);
       });
 
     this.changeLocaleEvent = this.translateService.onLangChange;
@@ -49,9 +50,9 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     );
     const localeChangeSub = this.handleLocaleChange.subscribe(
       (projects: Projects[]) => {
-        this.loading = true;
-        this.projectsList = projects;
-        this.loading = false;
+        this.loading.set(true);
+        this.projectsList.set(projects);
+        this.loading.set(false);
       },
     );
 
@@ -60,7 +61,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   onClick(e: MouseEvent) {
-    const cards = this.cards.nativeElement;
+    const cards = this.cards()!.nativeElement;
     const card = e.currentTarget as HTMLElement;
     let isShowing = false;
     if (card.classList.contains("show")) {

@@ -1,4 +1,4 @@
-<header class="header wrapper" [ngClass]="{ 'menu-opened': isMenuOpen }">
+<header class="header wrapper" [ngClass]="{ 'menu-opened': isMenuOpen() }">
   <nav class="menu">
     <a [routerLink]="['/home']" routerLinkActive="active">
       <img
@@ -90,8 +90,8 @@
           type="checkbox"
           id="switch"
           name="toggle"
-          [(ngModel)]="isDarkTheme"
-          (change)="switchTheme()"
+          [checked]="isDarkTheme()"
+          (change)="onThemeToggle($event)"
         />
         <label class="toggle__label" for="switch">Toggle</label>
       </li>

@@ -141,27 +141,76 @@ toggle (`light-theme` → `dark-theme`, logo swapped to the dark variant), used 
 
 ---
 
-## Phase 2 — OnPush + signals
+## Phase 2 — OnPush + signals (done)
 
-Do this once components are standalone — signal-driven templates pair naturally with OnPush.
+Converted one component at a time, verifying each with `ng build` + `npm test` + a real
+Playwright browser check before moving to the next — this is the phase the roadmap flagged as
+highest-risk, and it earned that reputation: two real regressions were caught and fixed along
+the way that no amount of static checking (build/lint/test) would have surfaced.
 
-- [ ] Convert `@ViewChild`/`@ViewChildren` decorators to signal queries:
-  - [ ] `header.component.ts` — `@ViewChildren('menuLink', { read: ElementRef })` → `viewChildren()`
-  - [ ] `home.component.ts` — `@ViewChildren` → `viewChildren()`
-  - [ ] `projects.component.ts` — `@ViewChild('cards')` → `viewChild()`
-- [ ] Convert plain mutable class fields that drive templates into `signal()`/`computed()`
-      (e.g. `isDarkTheme`, `isMenuOpen`, `lang` in `header.component.ts`; `loading`,
-      `projectsList`/`organizations` in `home`/`certificates`/`projects`)
-- [ ] Switch every component's `changeDetection` from `ChangeDetectionStrategy.Eager` to
-      `ChangeDetectionStrategy.OnPush` — do this per-component right after converting its state
-      to signals, not as one big-bang flip, so each one can be verified in isolation
-- [ ] Re-test theme switching, language switching, infinite scroll, and the home carousel after
-      each conversion — these all mutate DOM/state outside Angular's normal binding flow and are
-      the most likely to silently break under OnPush
+- [x] Trivial components (`not-found`, `footer`, `about-me`, `app`) flipped straight to
+      `OnPush` — all their state is set once at init and never mutated afterward, so there was
+      nothing to convert to signals. Also cleaned up the empty constructors/`ngOnInit`s lint was
+      already flagging on these same lines.
+- [x] `contact.component.ts`: `submitted` → `signal(false)`, flipped to `OnPush`. Verified via
+      Playwright: touch+blur validation errors still appear (native DOM `blur` event within the
+      component's own template still marks OnPush dirty), valid submit still runs
+      `submitted.set(true)` and the mailto branch without error.
+- [x] `projects.component.ts`: `@ViewChild('cards')` → `viewChild<ElementRef>('cards')`,
+      `loading`/`projectsList` → signals, flipped to `OnPush`. This is the textbook case the
+      roadmap warned about — state set inside an HTTP `.subscribe()` callback, no template event
+      involved — and it's exactly where a plain boolean would have silently frozen the "Loading…"
+      state under OnPush. Verified via Playwright: loading indicator correctly clears after the
+      async response, card flip interaction works, locale-switch refetch re-renders correctly.
+- [x] `certificates.component.ts`: `organizations`/`initialData`/`loading` → signals, flipped to
+      `OnPush`. `onScroll()`'s array push became `initialData.set([...data, next])`. Verified:
+      infinite scroll still appends on scroll, locale switch resets and re-renders correctly.
+- [x] `home.component.ts`: `projectsList` → signal; `@ViewChildren('allProjects')` →
+      `viewChildren<ElementRef>('allProjects')`, flipped to `OnPush`. **First regression found
+      here**: the mechanical fix — bridging the signal to an Observable via `toObservable()` to
+      preserve the original `QueryList.changes`-based subscription shape — introduced a real bug.
+      `toObservable()` is backed by a `ReplaySubject`, and the code had *two* separate
+      subscriptions to it (one long-lived from `ngAfterViewInit`, one freshly created per locale
+      change via `switchMap`); each new subscription replayed the buffered value, so
+      `loadCarousel()` fired twice on every locale switch — duplicate dots/listeners, then a
+      `Cannot read properties of undefined (reading 'style')` crash, caught immediately by the
+      Playwright check. **Fixed** by replacing the whole Observable bridge with a single
+      `effect(() => { if (this.allProjects().length) { this.destroyCarousel(); this.loadCarousel(); } })`
+      in the constructor — `destroyCarousel()` is idempotent/safe even on the very first run, so
+      one unconditional reactive path replaces the two-subscription setup entirely, and
+      `ngAfterViewInit` was removed as no longer needed. Re-verified clean: zero console errors,
+      dot count stays correct across a locale switch, carousel nav works before and after.
+- [x] `header.component.ts`: `@ViewChildren('menuLink')` → `viewChildren('menuLink', { read: ElementRef })`
+      (static markup, no `@if`/`@for`, so the effect watching it only ever fires once — same
+      `effect()`-in-constructor pattern as `home`, no Observable bridge needed here since there's
+      no restart case to handle). `isDarkTheme`/`isMenuOpen` → signals. **Second regression
+      avoided before it happened**: `isMenuOpen` is mutated from a raw `fromEvent(...)` DOM
+      listener set up imperatively in `closeMobileMenu()` — not an Angular template binding — so
+      under OnPush a plain boolean here would have silently failed to reopen/close the mobile
+      menu, exactly like the `projectsList` case. Separately, `[(ngModel)]="isDarkTheme"` can't
+      bind directly to a `WritableSignal` (two-way `ngModel` sugar does a plain `=` assignment on
+      change), and the template also had a *second*, separate `(change)="switchTheme()"` handler
+      on the same checkbox — keeping both `ngModelChange` and `(change)` on the same native event
+      would have made `switchTheme()`'s read of `isDarkTheme()` depend on unspecified listener
+      ordering. Replaced both with a single `[checked]="isDarkTheme()"` +
+      `(change)="onThemeToggle($event)"` (sets the signal, then calls `switchTheme()`) —
+      deterministic, and let `FormsModule` be dropped from this component's imports entirely
+      (it was the only `ngModel` usage in the file). Verified via Playwright at both desktop and
+      mobile viewport widths: theme toggles both directions, mobile menu opens on the hamburger
+      button and closes when a nav link is clicked (the `fromEvent`-driven path), language switch
+      still works.
 
-**Verify:** manually exercise theme toggle, language toggle, mobile menu, carousel, and infinite
-scroll in the browser after each component — OnPush regressions won't show up in unit tests that
-don't assert on change detection timing.
+**Verify:** `npx ng lint` — the `prefer-on-push-component-change-detection` rule is now clean
+across all 9 components (was 9 errors at the start of this phase, 0 now); the 6 remaining lint
+errors are all pre-existing and unrelated (a11y on `projects.component.html`, ternary-as-
+statement in `home`/`header`). `ng build` succeeds — and the initial bundle actually shrank
+(304 kB → 255 kB) since `FormsModule` is no longer eagerly pulled into the main chunk by
+`header.component.ts`. `npm test` — 10/10 files, 13/13 tests, unaffected by any of this (the
+specs only assert `should create`, which doesn't exercise change-detection timing — this is
+exactly why the roadmap called for **manual browser verification**, not just green tests). Ran a
+final combined Playwright session round-tripping through every route with multiple theme
+toggles, language switches, infinite scroll, card clicks, and carousel navigation interleaved —
+zero console/page errors, no duplicated DOM state anywhere.
 
 ---
 
@@ -229,7 +278,7 @@ loading states (`loading` flag, infinite scroll `initialData`) still behave the 
 1. ~~Phase 0 (same day, trivial)~~ — done
 2. ~~Phase 1 (foundational — do before anything else architectural)~~ — done
 3. ~~Phase 1.5 (fix test infra — unblocks real regression coverage for Phase 2)~~ — done
-4. Phase 2 (one component at a time, verify each) — **up next**
-5. Phase 4 (can slot in anytime after Phase 1, independent track)
-6. Phase 3 (only after Phase 2 is fully verified)
+4. ~~Phase 2 (one component at a time, verify each)~~ — done
+5. Phase 4 (can slot in anytime after Phase 1, independent track) — **up next**
+6. Phase 3 (only after Phase 2 is fully verified) — unblocked, ready whenever
 7. Phase 5 (optional polish, once comfortable with signals from Phase 2)
