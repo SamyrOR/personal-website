@@ -7,15 +7,13 @@ import {
 } from "@angular/core";
 import { rxResource } from "@angular/core/rxjs-interop";
 import { GetDataService } from "../shared/get-data.service";
-import { Certificate } from "./models/certificate";
 import { TranslatePipe } from "@ngx-translate/core";
-import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 @Component({
   selector: "app-certificates",
   templateUrl: "./certificates.component.html",
   styleUrls: ["./certificates.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InfiniteScrollDirective, TranslatePipe],
+  imports: [TranslatePipe],
 })
 export class CertificatesComponent {
   private getData = inject(GetDataService);
@@ -26,23 +24,28 @@ export class CertificatesComponent {
     defaultValue: [],
   });
 
-  initialData = signal<Certificate[]>([]);
+  private openIndexes = signal<ReadonlySet<number>>(new Set());
 
   constructor() {
-    // Reset the incrementally-revealed infinite-scroll subset any time the
-    // underlying data changes (initial load, or a locale switch refetch).
+    // Collapse every accordion panel any time the underlying data changes
+    // (initial load, or a locale switch refetch).
     effect(() => {
-      const data = this.certificatesResource.value();
-      this.initialData.set(data.length ? [data[0]] : []);
+      this.certificatesResource.value();
+      this.openIndexes.set(new Set());
     });
   }
 
-  //Infinite scroll
-  onScroll() {
-    const data = this.initialData();
-    const all = this.certificatesResource.value();
-    if (data.length < all.length) {
-      this.initialData.set([...data, all[data.length]]);
+  isOpen(index: number): boolean {
+    return this.openIndexes().has(index);
+  }
+
+  toggle(index: number): void {
+    const next = new Set(this.openIndexes());
+    if (next.has(index)) {
+      next.delete(index);
+    } else {
+      next.add(index);
     }
+    this.openIndexes.set(next);
   }
 }

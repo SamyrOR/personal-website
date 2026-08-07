@@ -1,22 +1,120 @@
 @use "../abstracts/" as *;
+@use "sass:color";
 
 .certificates {
   @extend %mt-mb-50;
   p {
     margin-top: rem(10);
   }
-  &__organization {
-    margin-top: rem(80);
-    text-align: center;
-  }
   &__wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    padding: rem(30) rem(20);
     @include lg {
       justify-content: space-between;
     }
+  }
+}
+
+.accordion {
+  margin-top: rem(50);
+  display: flex;
+  flex-direction: column;
+  gap: rem(16);
+
+  &__item {
+    border-radius: rem(10);
+    overflow: hidden;
+    @include theme() {
+      background-color: theme-get("color-card-bg");
+    }
+  }
+
+  &__heading {
+    margin: 0;
+  }
+
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: rem(14);
+    padding: rem(18) rem(20);
+    border: none;
+    background: transparent;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 0.2s $cubic;
+    @include theme() {
+      color: theme-get("color-title");
+    }
+
+    @include lg {
+      &:hover {
+        @include theme() {
+          background-color: color.adjust(theme-get("color-card-bg"), $lightness: -4%);
+        }
+      }
+    }
+  }
+
+  &__name {
+    flex: 1;
+    font-size: rem(18);
+    font-weight: 600;
+  }
+
+  &__count {
+    flex-shrink: 0;
+    min-width: rem(28);
+    height: rem(28);
+    padding: 0 rem(8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: rem(28);
+    color: $white;
+    font-size: rem(13);
+    font-weight: 700;
+    @include theme() {
+      background: linear-gradient(
+        to top right,
+        theme-get("color-primary"),
+        theme-get("color-secondary")
+      );
+    }
+  }
+
+  &__chevron {
+    flex-shrink: 0;
+    width: rem(24);
+    height: rem(24);
+    transition: transform 0.25s $cubic;
+    @include theme() {
+      fill: theme-get("color-title");
+    }
+  }
+
+  &__item--open &__chevron {
+    transform: rotate(180deg);
+  }
+
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s $cubic;
+  }
+
+  &__item--open &__panel {
+    grid-template-rows: 1fr;
+  }
+
+  &__panel-inner {
+    min-height: 0;
+    overflow: hidden;
   }
 }
 

@@ -16,42 +16,65 @@
     }
 
     @if (!certificatesResource.isLoading()) {
-      <div
-        class="search-results"
-        infiniteScroll
-        [infiniteScrollDistance]="1"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()"
-        >
-        @for (organization of initialData(); track organization) {
-          <div
-            class="certificates__organization"
-            >
-            <h3>{{ organization.name }}</h3>
-            <div class="certificates__wrapper">
-              @for (certificate of organization.certificates; track certificate) {
-                <div
-                  class="certificate"
+      <div class="accordion">
+        @for (organization of certificatesResource.value(); track organization.name; let i = $index) {
+          <div class="accordion__item" [class.accordion__item--open]="isOpen(i)">
+            <h3 class="accordion__heading">
+              <button
+                type="button"
+                class="accordion__trigger"
+                [attr.aria-expanded]="isOpen(i)"
+                [attr.aria-controls]="'certificate-panel-' + i"
+                (click)="toggle(i)"
+                >
+                <span class="accordion__name">{{ organization.name }}</span>
+                <span class="accordion__count">{{ organization.certificates.length }}</span>
+                <svg
+                  class="accordion__chevron"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 -960 960 960"
+                  aria-hidden="true"
                   >
-                  <h4 class="certificate__title">{{ certificate.name }}</h4>
-                  @if (certificate.link) {
-                    <a
-                      [href]="certificate.link"
-                      target="_blank"
-                      rel="noopener"
-                      >
-                      <img class="certificate__img" [src]="certificate.img" alt="" />
-                    </a>
-                  }
-                  @if (!certificate.link) {
-                    <img
-                      class="certificate__img"
-                      [src]="certificate.img"
-                      alt=""
-                      />
+                  <path d="M480-360 280-560h400L480-360Z" />
+                </svg>
+              </button>
+            </h3>
+            <div
+              class="accordion__panel"
+              [id]="'certificate-panel-' + i"
+              role="region"
+              >
+              <div class="accordion__panel-inner">
+                <div class="certificates__wrapper">
+                  @for (certificate of organization.certificates; track certificate.name) {
+                    <div class="certificate">
+                      <h4 class="certificate__title">{{ certificate.name }}</h4>
+                      @if (certificate.link) {
+                        <a
+                          [href]="certificate.link"
+                          target="_blank"
+                          rel="noopener"
+                          >
+                          <img
+                            class="certificate__img"
+                            [src]="certificate.img"
+                            loading="lazy"
+                            alt=""
+                            />
+                        </a>
+                      }
+                      @if (!certificate.link) {
+                        <img
+                          class="certificate__img"
+                          [src]="certificate.img"
+                          loading="lazy"
+                          alt=""
+                          />
+                      }
+                    </div>
                   }
                 </div>
-              }
+              </div>
             </div>
           </div>
         }
