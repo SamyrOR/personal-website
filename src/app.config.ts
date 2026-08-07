@@ -1,4 +1,4 @@
-import { enableProdMode, provideZoneChangeDetection } from "@angular/core";
+import { enableProdMode, provideZonelessChangeDetection } from "@angular/core";
 
 import { environment } from "./environments/environment";
 import { bootstrapApplication } from "@angular/platform-browser";
@@ -16,7 +16,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideHttpClient(),
     provideTranslateService({
       loader: provideTranslateHttpLoader({

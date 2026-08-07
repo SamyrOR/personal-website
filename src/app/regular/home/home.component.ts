@@ -9,6 +9,7 @@ import {
   viewChildren,
   effect,
 } from "@angular/core";
+import { NgOptimizedImage } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import {
   LangChangeEvent,
@@ -24,7 +25,7 @@ import { Projects } from "../../shared/project";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, TranslatePipe],
+  imports: [RouterLink, TranslatePipe, NgOptimizedImage],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);

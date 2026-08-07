@@ -997,13 +997,13 @@
         <h2>{{ "projects" | translate }}</h2>
         <p>{{ "projectsDevelopedByMe" | translate }}</p>
         <div class="carousel-container">
-          @for (project of projectsList(); track project) {
+          @for (project of projectsList(); track project; let i = $index) {
             <div
               #allProjects
               class="item fade"
               >
               <div class="image">
-                <img [src]="project.img" [alt]="project.title" />
+                <img [ngSrc]="project.img" [alt]="project.title" [priority]="i === 0" fill />
               </div>
               <div class="text">
                 <h4 class="title">{{ project.title }}</h4>

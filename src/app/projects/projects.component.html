@@ -13,10 +13,10 @@
     }
     @if (!loading()) {
       <div class="cards" #cards>
-        @for (project of projectsList(); track project) {
+        @for (project of projectsList(); track project; let i = $index) {
           <div class="card" (click)="onClick($event)">
             <div class="card__image-holder">
-              <img class="card__image" height="255" width="300" [src]="project.img" [alt]="project.title" />
+              <img class="card__image" [ngSrc]="project.img" [alt]="project.title" [priority]="i === 0" fill />
             </div>
             <div class="card-title">
               <a class="toggle-info btn">

@@ -52,13 +52,12 @@ div.card {
 
   .card__image-holder {
     background: rgba(0, 0, 0, 0.1);
-    height: 0;
-    padding-bottom: 75%;
+    height: rem(225);
+    position: relative;
     img {
       object-fit: cover;
       border-top-left-radius: rem(10);
       border-top-right-radius: rem(10);
-      height: rem(225);
     }
   }
 

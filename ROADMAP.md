@@ -214,43 +214,111 @@ zero console/page errors, no duplicated DOM state anywhere.
 
 ---
 
-## Phase 3 — Zoneless change detection
+## Phase 3 — Zoneless change detection (done)
 
-Only attempt once Phase 2 is fully done — zoneless relies on OnPush + signals to know when to
-re-render.
-
-- [ ] Remove `import 'zone.js'` from `src/polyfills.ts`
-- [ ] Replace `provideZoneChangeDetection({ eventCoalescing: true })` with
+- [x] Replaced `provideZoneChangeDetection({ eventCoalescing: true })` with
       `provideZonelessChangeDetection()` in `src/app.config.ts`
-- [ ] Remove `zone.js` from `package.json` dependencies
-- [ ] Audit any remaining direct DOM manipulation that mutates state without going through a
-      signal (e.g. `home.component.ts` carousel logic, `header.component.ts` `switchTheme()`) —
-      under zoneless these won't trigger change detection automatically and may need an explicit
-      signal update or `ChangeDetectorRef`-free refactor
+- [x] Removed `"zone.js"` from `angular.json`'s `polyfills` array in both the `build` and
+      `testing` configurations (there was no `src/polyfills.ts` left to edit — Phase 1.5 already
+      replaced that legacy wrapper file with the `"zone.js"` package-specifier form; this phase
+      just removed the specifier itself)
+- [x] `npm uninstall zone.js` — removed from `package.json`/`package-lock.json` and
+      `node_modules` cleanly
+- [x] **Audit** (before flipping anything): grepped every component for plain (non-signal)
+      fields that are both read in a template and mutated after init. Found none — Phase 2's
+      signal conversion already covered every piece of state that actually drives a template
+      binding (`isDarkTheme`, `isMenuOpen`, `loading`×3, `projectsList`×2, `organizations`,
+      `initialData`, `submitted`). The remaining direct DOM manipulation (`home.component.ts`'s
+      carousel `insertDots`/`showItems`/etc., `header.component.ts`'s `switchTheme()`
+      classList/logo swaps) writes straight to the DOM outside Angular's rendering pipeline
+      entirely — it was never gated by change detection in the first place, so zone vs. zoneless
+      makes no difference to it. Also confirmed `TranslatePipe` (`@ngx-translate/core`) calls
+      `changeDetectorRef.markForCheck()` internally on language change — zone-independent, so
+      translated text in components with no local signal tied to the locale (header, footer,
+      about-me) still refreshes correctly.
 
-**Verify:** full manual click-through of the app; zoneless bugs (stale UI after an event) don't
-always surface in automated tests.
+**Found and fixed a real bug the migration surfaced — not in the app, in a test.**
+`app.component.spec.ts`'s "should change tittle dynamically" test manually called
+`app.ngOnInit()` in `beforeEach`, then called `fixture.detectChanges()` inside the test body
+expecting a second, different title to appear. Empirically (verified by temporarily reinstalling
+zone.js and comparing): under zone-based CD, that `detectChanges()` call happened to trigger a
+**second**, incidental `ngOnInit()` invocation through Angular's own first-change-detection
+lifecycle bookkeeping — since the manual call bypassed Angular's normal "has this hook run yet"
+tracking — which re-subscribed to the (cold, one-shot) mock `router.events` Observable a second
+time, and by then the test had already mutated the mock route data, so the second subscription
+read the updated value. Under zoneless this incidental double-invocation didn't happen, the
+subscription fired exactly once, and the test failed correctly — it was never actually testing
+"title updates as navigation happens," it was accidentally passing off a lifecycle quirk.
+Rewrote it properly: replaced the one-shot cold `Observable` mock with a `Subject` so the test
+can emit multiple genuine `NavigationEnd` events over time, and removed the manual `ngOnInit()`
+call in favor of letting `fixture.detectChanges()` invoke it exactly once, the normal Angular
+way. This is deterministic under both zone and zoneless and actually exercises the behavior the
+test's name claims to test.
+
+**Verified:** `ng build` — succeeds, and the polyfills chunk (34.59 kB, zone.js) is gone
+entirely; initial bundle 260.89 kB → 225.71 kB. `npm test` — 10/10 files, 13/13 tests (after the
+fix above). Full Playwright re-run of every scenario exercised across Phase 2 and Phase 4 —
+cross-page round-trip, theme toggle both directions, mobile menu open/close via the native
+`fromEvent` listener, contact form touch/blur validation and submit, infinite scroll, card flip,
+carousel navigation and locale-triggered restart — all identical to the zone-based results, zero
+console errors. Also specifically re-verified the dynamic page title (the thing the fixed test
+covers) end-to-end in the real running app across multiple client-side navigations.
 
 ---
 
-## Phase 4 — Forms & images
+## Phase 4 — Forms & images (mostly done)
 
-Independent of Phases 1–3 — can be done in parallel if you want a smaller, self-contained PR.
-
-- [ ] `contact.component.ts`: replace `UntypedFormBuilder`/`UntypedFormGroup` with typed
+- [x] `contact.component.ts`: replaced `UntypedFormBuilder`/`UntypedFormGroup` with a typed
       `FormBuilder`/`FormGroup<{ subject: FormControl<string>, message: FormControl<string> }>`
-- [ ] `contact.component.ts` `sendMail()`: read `this.form.value` instead of
-      `document.querySelector('.form__input'/'​.form__textarea')`
-- [ ] Add `NgOptimizedImage` (`ngSrc`) in place of plain `<img [src]>` for:
-  - [ ] `certificates.component.html:43`
-  - [ ] `projects.component.html:19` (already has `height`/`width` — good, just swap the
-        directive)
-  - [ ] `home.component.html:1006`
+      built via `this.fb.nonNullable.group(...)` (avoids `string | null` on every control) as a
+      field initializer, which also let `implements OnInit` drop entirely
+- [x] `contact.component.ts` `sendMail()`: reads `this.form.getRawValue()` instead of
+      `document.querySelector('.form__input'/'.form__textarea')`
+- [x] **Bonus fix, found while verifying**: `contact.component.html`'s message-field error had
+      mismatched braces (`{{"pleaseEnterMessage" | translate} }`) so it silently never rendered —
+      users saw nothing instead of the validation message. Pre-existing, unrelated to typed forms,
+      but trivial and directly in the file under test — fixed and verified with Playwright.
+- [x] `home.component.html:1006`: `NgOptimizedImage` via `ngSrc` + `fill` (not fixed
+      `width`/`height` — the carousel image already fills its container edge-to-edge via CSS
+      `object-fit: cover`, so `fill` matches the real rendering exactly and sidesteps aspect-ratio
+      validation entirely). Added `position: relative` to `.image` in `_carousel.scss` (required
+      by `fill`).
+- [x] `projects.component.html:19`: **the roadmap's original assumption here was wrong** — it
+      said "already has height/width — good, just swap the directive," but a straight swap
+      immediately threw `NG02952` aspect-ratio-mismatch warnings for every single card in
+      Playwright (real intrinsic ratios range 1.18–2.06 across the project images; the hardcoded
+      `300×255` attribute never matched any of them, and didn't even match the actual CSS-enforced
+      `225px` height — a pre-existing drift). Plain `<img>` never validated this, so it went
+      unnoticed for however long. Fixed the same way as `home`: switched to `fill` +
+      `object-fit: cover` (`.card__image-holder` in `_card.scss` changed from the
+      `height:0;padding-bottom:75%` aspect-ratio-box hack to a fixed `height: rem(225)` +
+      `position: relative`, matching what was already being rendered). Also added
+      `[priority]="i === 0"` (via `let i = $index` on the `@for`) on both `home` and `projects` to
+      fix an `NG02955` error — the first card was flagged as the page's LCP element and wasn't
+      marked priority.
+- [ ] `certificates.component.html:43` — **skipped, by explicit decision.** Checked the actual
+      certificate badge image files before touching anything: they are not uniform (most are
+      ~480×340, but one outlier is 8000×4500 — a ~17× wider-than-tall image — plus a few 350/359/
+      361-height variants), and there's no existing CSS box constraining them (they render at
+      native size today). Forcing fixed `width`/`height` would visibly distort the outlier;
+      `fill` + `object-fit` would require introducing a fixed-size box that doesn't exist today,
+      changing the visual design (crop via `cover`, or letterbox via `contain`). Asked — decided
+      to leave this one on plain `<img>` rather than guess at a product/design call. Revisit if
+      the source images ever get normalized to consistent dimensions.
 
-**Verify:** submit the contact form end-to-end (mailto link should still fire correctly);
-confirm images still render with `ngSrc` (note `NgOptimizedImage` requires an explicit
-`width`/`height` or `fill` — `certificates.component.html` and `home.component.html` don't
-currently set these and will need them added).
+**Verified:** contact form submit-with-empty-data (button correctly disabled), touch+blur
+validation errors (now actually visible, including the fixed message error), valid submit +
+mailto branch, all via Playwright with zero console errors. Images: `NG02952`/`NG02955` warnings
+gone after the `fill` conversion, display sizes unchanged (300×225 for cards — confirmed via
+`clientWidth`/`clientHeight` before and after) — visually identical output, just correctly
+described to the browser now. Full cross-page round-trip re-run clean.
+
+**Aside, found but not fixed (out of scope for this phase):** `home.component.html`'s `@for`
+loop uses `track project` (identity-based tracking on the whole object) — Angular's dev-mode
+console logs `NG0956`, warning that this forces full DOM re-creation of the carousel on every
+locale switch (a new array reference each time) instead of efficient diffing. Pre-existing,
+unrelated to any of Phase 2/4's changes — worth a `track project.title` (or similar stable key)
+fix at some point, but not folded in here since it wasn't part of this phase's scope.
 
 ---
 
@@ -279,6 +347,6 @@ loading states (`loading` flag, infinite scroll `initialData`) still behave the 
 2. ~~Phase 1 (foundational — do before anything else architectural)~~ — done
 3. ~~Phase 1.5 (fix test infra — unblocks real regression coverage for Phase 2)~~ — done
 4. ~~Phase 2 (one component at a time, verify each)~~ — done
-5. Phase 4 (can slot in anytime after Phase 1, independent track) — **up next**
-6. Phase 3 (only after Phase 2 is fully verified) — unblocked, ready whenever
-7. Phase 5 (optional polish, once comfortable with signals from Phase 2)
+5. ~~Phase 4 (forms & images)~~ — done (certificate images skipped by explicit decision)
+6. ~~Phase 3 (zoneless change detection)~~ — done
+7. Phase 5 (optional polish, once comfortable with signals from Phase 2) — **only remaining item**

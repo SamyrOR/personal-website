@@ -8,6 +8,7 @@ import {
   signal,
   viewChild,
 } from "@angular/core";
+import { NgOptimizedImage } from "@angular/common";
 import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
 import { Projects } from "../shared/project";
@@ -18,7 +19,7 @@ import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate
   templateUrl: "./projects.component.html",
   styleUrls: ["./projects.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [TranslatePipe],
+  imports: [TranslatePipe, NgOptimizedImage],
 })
 export class ProjectsComponent implements OnInit, OnDestroy {
   private getData = inject(GetDataService);

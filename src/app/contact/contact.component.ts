@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, inject, signal } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
@@ -9,25 +9,22 @@ import { TranslatePipe } from '@ngx-translate/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     imports: [ReactiveFormsModule, TranslatePipe]
 })
-export class ContactComponent implements OnInit {
-  private fb = inject(UntypedFormBuilder);
+export class ContactComponent {
+  private fb = inject(FormBuilder);
 
-  form!: UntypedFormGroup;
+  form: FormGroup<{
+    subject: FormControl<string>;
+    message: FormControl<string>;
+  }> = this.fb.nonNullable.group({
+    subject: ['', Validators.required],
+    message: ['', Validators.required],
+  });
   submitted = signal(false);
-
-  ngOnInit(): void {
-    this.form = this.fb.group({
-      subject: ['', Validators.required],
-      message: ['', Validators.required],
-    });
-  }
 
   sendMail() {
     this.submitted.set(true);
     if (this.form.valid) {
-      const subject = (document.querySelector('.form__input') as HTMLInputElement)
-        .value;
-      const message = (document.querySelector('.form__textarea') as HTMLInputElement).value;
+      const { subject, message } = this.form.getRawValue();
       const link = `mailto:saamyr@live.com?subject=${encodeURI(
         subject
       )}&body=${encodeURI(message)}`;
