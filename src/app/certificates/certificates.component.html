@@ -9,13 +9,13 @@
     <p>
       {{ "certificationsFromVariousPlatforms" | translate }}
     </p>
-    @if (loading()) {
+    @if (certificatesResource.isLoading()) {
       <div class="loading">
         <h3>Carregando...</h3>
       </div>
     }
 
-    @if (!loading()) {
+    @if (!certificatesResource.isLoading()) {
       <div
         class="search-results"
         infiniteScroll

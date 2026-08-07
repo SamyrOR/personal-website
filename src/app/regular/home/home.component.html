@@ -997,7 +997,7 @@
         <h2>{{ "projects" | translate }}</h2>
         <p>{{ "projectsDevelopedByMe" | translate }}</p>
         <div class="carousel-container">
-          @for (project of projectsList(); track project; let i = $index) {
+          @for (project of projectsResource.value(); track project; let i = $index) {
             <div
               #allProjects
               class="item fade"

@@ -1,18 +1,14 @@
 import {
   Component,
   ElementRef,
-  OnDestroy,
-  OnInit,
   ChangeDetectionStrategy,
   inject,
-  signal,
   viewChild,
 } from "@angular/core";
+import { rxResource } from "@angular/core/rxjs-interop";
 import { NgOptimizedImage } from "@angular/common";
-import { Observable, Subscription, switchMap } from "rxjs";
 import { GetDataService } from "../shared/get-data.service";
-import { Projects } from "../shared/project";
-import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
 
 @Component({
   selector: "app-projects",
@@ -21,45 +17,17 @@ import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TranslatePipe, NgOptimizedImage],
 })
-export class ProjectsComponent implements OnInit, OnDestroy {
+export class ProjectsComponent {
   private getData = inject(GetDataService);
-  private translateService = inject(TranslateService);
 
   cards = viewChild<ElementRef>("cards");
-  projectsList = signal<Projects[]>([]);
-  subs = new Subscription();
-  loading = signal(true);
   zindex = 10;
-  currentLocale = this.translateService.currentLang();
-  changeLocaleEvent!: Observable<LangChangeEvent>;
-  handleLocaleChange!: Observable<Projects[]>;
 
-  ngOnInit(): void {
-    const firstLoadSub = this.getData
-      .getProjects(this.currentLocale)
-      .subscribe((projects) => {
-        this.projectsList.set(projects);
-        this.loading.set(false);
-      });
-
-    this.changeLocaleEvent = this.translateService.onLangChange;
-    this.handleLocaleChange = this.changeLocaleEvent.pipe(
-      switchMap((value: LangChangeEvent) => {
-        this.currentLocale = value.lang;
-        return this.getData.getProjects(this.currentLocale);
-      }),
-    );
-    const localeChangeSub = this.handleLocaleChange.subscribe(
-      (projects: Projects[]) => {
-        this.loading.set(true);
-        this.projectsList.set(projects);
-        this.loading.set(false);
-      },
-    );
-
-    this.subs.add(firstLoadSub);
-    this.subs.add(localeChangeSub);
-  }
+  projectsResource = rxResource({
+    params: () => this.getData.currentLocale(),
+    stream: ({ params }) => this.getData.getProjects(params),
+    defaultValue: [],
+  });
 
   onClick(e: MouseEvent) {
     const cards = this.cards()!.nativeElement;
@@ -84,9 +52,5 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       card.classList.add("show");
       this.zindex++;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 }

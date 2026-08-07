@@ -1,24 +1,17 @@
 import {
   Component,
   ElementRef,
-  OnDestroy,
-  OnInit,
   ChangeDetectionStrategy,
   inject,
-  signal,
   viewChildren,
   effect,
 } from "@angular/core";
+import { rxResource } from "@angular/core/rxjs-interop";
 import { NgOptimizedImage } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import {
-  LangChangeEvent,
-  TranslatePipe,
-  TranslateService,
-} from "@ngx-translate/core";
-import { Observable, Subscription, switchMap } from "rxjs";
+import { TranslatePipe } from "@ngx-translate/core";
+import { map } from "rxjs";
 import { GetDataService } from "../../shared/get-data.service";
-import { Projects } from "../../shared/project";
 
 @Component({
   selector: "app-home",
@@ -27,17 +20,18 @@ import { Projects } from "../../shared/project";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, TranslatePipe, NgOptimizedImage],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent {
   private getData = inject(GetDataService);
-  private translateService = inject(TranslateService);
-
-  projectsList = signal<Projects[]>([]);
-  subs = new Subscription();
-  currentLocale = this.translateService.currentLang();
-  changeLocaleEvent!: Observable<LangChangeEvent>;
-  handleLocaleChange!: Observable<Projects[]>;
 
   allProjects = viewChildren<ElementRef>("allProjects");
+
+  projectsResource = rxResource({
+    params: () => this.getData.currentLocale(),
+    stream: ({ params }) =>
+      //Get just a few projects
+      this.getData.getProjects(params).pipe(map((projects) => projects.slice(0, 3))),
+    defaultValue: [],
+  });
 
   constructor() {
     // Re-wire the carousel any time the set of #allProjects elements changes
@@ -51,29 +45,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.destroyCarousel();
       this.loadCarousel();
     });
-  }
-
-  ngOnInit(): void {
-    const firstLoadSub = this.getData
-      .getProjects(this.currentLocale)
-      //Get just a few projects
-      .subscribe((projects) => this.projectsList.set(projects.slice(0, 3)));
-
-    this.changeLocaleEvent = this.translateService.onLangChange;
-    this.handleLocaleChange = this.changeLocaleEvent.pipe(
-      switchMap((value: LangChangeEvent) => {
-        this.currentLocale = value.lang;
-        return this.getData.getProjects(this.currentLocale);
-      }),
-    );
-    const localeChangeSub = this.handleLocaleChange.subscribe(
-      (projects: Projects[]) => {
-        this.projectsList.set(projects.slice(0, 3));
-      },
-    );
-
-    this.subs.add(firstLoadSub);
-    this.subs.add(localeChangeSub);
   }
 
   destroyCarousel() {
@@ -205,9 +176,5 @@ export class HomeComponent implements OnInit, OnDestroy {
     carousel.querySelectorAll(".item")[item].previousElementSibling != null
       ? this.showItems(carousel, item - 1)
       : this.showItems(carousel, carousel.querySelectorAll(".item").length - 1);
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 }

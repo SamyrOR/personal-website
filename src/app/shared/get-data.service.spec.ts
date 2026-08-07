@@ -9,6 +9,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 import { Certificate } from '../certificates/models/certificate';
 import { GetDataService } from './get-data.service';
 import { Projects } from './project';
@@ -56,6 +57,7 @@ describe('GetDataService', () => {
         HttpClient,
         provideHttpClient(withXhr(), withInterceptorsFromDi()),
         provideHttpClientTesting(),
+        provideTranslateService(),
       ],
     });
     service = TestBed.inject(GetDataService);

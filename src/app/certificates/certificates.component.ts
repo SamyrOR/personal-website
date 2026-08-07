@@ -1,15 +1,14 @@
 import {
   Component,
-  OnDestroy,
-  OnInit,
   ChangeDetectionStrategy,
   inject,
   signal,
+  effect,
 } from "@angular/core";
-import { Observable, Subscription, switchMap } from "rxjs";
+import { rxResource } from "@angular/core/rxjs-interop";
 import { GetDataService } from "../shared/get-data.service";
 import { Certificate } from "./models/certificate";
-import { LangChangeEvent, TranslatePipe, TranslateService } from "@ngx-translate/core";
+import { TranslatePipe } from "@ngx-translate/core";
 import { InfiniteScrollDirective } from "ngx-infinite-scroll";
 @Component({
   selector: "app-certificates",
@@ -18,56 +17,32 @@ import { InfiniteScrollDirective } from "ngx-infinite-scroll";
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [InfiniteScrollDirective, TranslatePipe],
 })
-export class CertificatesComponent implements OnInit, OnDestroy {
+export class CertificatesComponent {
   private getData = inject(GetDataService);
-  private translateService = inject(TranslateService);
 
-  organizations = signal<Certificate[]>([]);
-  handleLocaleChange!: Observable<Certificate[]>;
-  changeLocaleEvent!: Observable<LangChangeEvent>;
-  subs = new Subscription();
+  certificatesResource = rxResource({
+    params: () => this.getData.currentLocale(),
+    stream: ({ params }) => this.getData.getCertificates(params),
+    defaultValue: [],
+  });
+
   initialData = signal<Certificate[]>([]);
-  loading = signal(true);
-  currentLocale = this.translateService.currentLang();
 
-  ngOnInit(): void {
-    const firstLoadSub = this.getData
-      .getCertificates(this.currentLocale)
-      .subscribe((data) => {
-        this.organizations.set(data);
-        this.initialData.set([data[0]]);
-        this.loading.set(false);
-      });
-    this.changeLocaleEvent = this.translateService.onLangChange;
-    this.handleLocaleChange = this.changeLocaleEvent.pipe(
-      switchMap((value: LangChangeEvent) => {
-        this.currentLocale = value.lang;
-        return this.getData.getCertificates(this.currentLocale);
-      }),
-    );
-
-    const localeChangeSub = this.handleLocaleChange.subscribe(
-      (certificates: Certificate[]) => {
-        this.loading.set(true);
-        this.organizations.set(certificates);
-        this.initialData.set([certificates[0]]);
-        this.loading.set(false);
-      },
-    );
-
-    this.subs.add(firstLoadSub);
-    this.subs.add(localeChangeSub);
+  constructor() {
+    // Reset the incrementally-revealed infinite-scroll subset any time the
+    // underlying data changes (initial load, or a locale switch refetch).
+    effect(() => {
+      const data = this.certificatesResource.value();
+      this.initialData.set(data.length ? [data[0]] : []);
+    });
   }
+
   //Infinite scroll
   onScroll() {
     const data = this.initialData();
-    const all = this.organizations();
+    const all = this.certificatesResource.value();
     if (data.length < all.length) {
       this.initialData.set([...data, all[data.length]]);
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subs.unsubscribe();
   }
 }

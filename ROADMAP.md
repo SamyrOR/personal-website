@@ -322,22 +322,45 @@ fix at some point, but not folded in here since it wasn't part of this phase's s
 
 ---
 
-## Phase 5 — Data-fetching modernization
+## Phase 5 — Data-fetching modernization (done)
 
-Optional, higher-effort cleanup once signals are in place (Phase 2). Removes the repeated
-`Subscription` + `switchMap(onLangChange)` + manual `ngOnDestroy` unsubscribe pattern duplicated
-across `home`, `certificates`, and `projects` components.
+- [x] Added a single `currentLocale` signal to `GetDataService` itself (rather than duplicating
+      the same `toSignal(translateService.onLangChange)` three times, once per consumer):
+      `currentLocale = toSignal(this.translateService.onLangChange.pipe(map(e => e.lang)), { initialValue: this.translateService.currentLang() ?? 'pt_BR' })`.
+      Centralizing it in the service that already encapsulates locale-based data access means
+      all three consumers key off the exact same signal instance instead of each re-deriving it.
+- [x] `projects.component.ts`: replaced the manual `.subscribe()` + `Subscription` +
+      `switchMap(onLangChange)` block with
+      `rxResource({ params: () => this.getData.currentLocale(), stream: ({ params }) => this.getData.getProjects(params), defaultValue: [] })`.
+      Template reads `projectsResource.value()` / `projectsResource.isLoading()` instead of the
+      former `loading`/`projectsList` signals.
+- [x] `certificates.component.ts`: same `rxResource` pattern for `certificatesResource`. The
+      infinite-scroll `initialData` subset couldn't come directly from the resource (it's
+      independently, incrementally mutated by `onScroll()`), so it stays its own
+      `signal<Certificate[]>([])`, reset via an `effect()` that watches
+      `certificatesResource.value()` and reinitializes to `[data[0]]` whenever the underlying
+      data changes (initial load or locale-driven refetch) — the same reset that used to happen
+      inline inside the old locale-change subscription callback.
+- [x] `home.component.ts`: same pattern, with the `.slice(0, 3)` transform now living inside the
+      `stream` callback (`this.getData.getProjects(params).pipe(map(projects => projects.slice(0, 3)))`)
+      instead of the subscribe callback. Left the Phase 2 carousel `effect()` (watching the
+      `allProjects` viewChildren signal) completely untouched — independent concern, no
+      interaction with the resource migration.
+- [x] Deleted `subs`/`Subscription`/`OnInit`/`OnDestroy`/`ngOnDestroy`/`changeLocaleEvent`/
+      `handleLocaleChange`/component-local `currentLocale` entirely from all three components —
+      `rxResource` owns its own subscription lifecycle, tied automatically to the component's
+      injection context, so there was nothing left to manually unsubscribe.
 
-- [ ] Introduce a `currentLocale` signal (from `TranslateService.onLangChange`, or via
-      `toSignal()`) in `GetDataService` consumers
-- [ ] Replace manual `.subscribe()` + `Subscription` bookkeeping in `home.component.ts`,
-      `certificates.component.ts`, and `projects.component.ts` with `resource()` or
-      `httpResource()` keyed on the locale signal
-- [ ] Delete the `subs`/`ngOnDestroy` boilerplate once each component's fetch is
-      resource-driven
-
-**Verify:** language switching still refetches and re-renders projects/certificates correctly;
-loading states (`loading` flag, infinite scroll `initialData`) still behave the same.
+**Verify:** `npm test` — 10/10 files, 13/13 tests, after adding `provideTranslateService()` to
+`get-data.service.spec.ts` (the service now injects `TranslateService` for the locale signal).
+`ng build` succeeds. `ng lint` — same 6 pre-existing errors, nothing new. Playwright, run after
+each component individually and once more as a full cross-page round-trip: HTTP loading state
+correctly clears (the exact scenario that would silently break under OnPush without the
+resource's own signal-based `isLoading()`), locale switch refetches and re-renders
+projects/certificates/home correctly, infinite scroll still appends on scroll and correctly
+resets to one item on a locale switch, and the carousel + `rxResource` interaction specifically
+(the highest-risk combination — Phase 2's `effect()` reacting to Phase 5's resource-driven data)
+still produces no duplicated dots/listeners and zero console errors.
 
 ---
 
@@ -349,4 +372,12 @@ loading states (`loading` flag, infinite scroll `initialData`) still behave the 
 4. ~~Phase 2 (one component at a time, verify each)~~ — done
 5. ~~Phase 4 (forms & images)~~ — done (certificate images skipped by explicit decision)
 6. ~~Phase 3 (zoneless change detection)~~ — done
-7. Phase 5 (optional polish, once comfortable with signals from Phase 2) — **only remaining item**
+7. ~~Phase 5 (optional polish, once comfortable with signals from Phase 2)~~ — done
+
+All phases complete. Remaining known-but-out-of-scope items, found along the way and
+deliberately not folded in (see the relevant phase sections above for detail):
+- `certificates.component.html` images left on plain `<img>` (non-uniform source image
+  dimensions, explicit decision to skip)
+- `home.component.html`'s `@for (project of ...; track project)` uses identity-based tracking,
+  which Angular's dev console flags (`NG0956`) as forcing full DOM re-creation on every locale
+  switch instead of efficient diffing — pre-existing, found during Phase 4 verification

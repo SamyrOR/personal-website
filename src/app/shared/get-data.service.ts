@@ -1,6 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable, inject } from "@angular/core";
-import { Observable } from "rxjs";
+import { toSignal } from "@angular/core/rxjs-interop";
+import { TranslateService } from "@ngx-translate/core";
+import { Observable, map } from "rxjs";
 import { Projects } from "./project";
 import { Certificate } from "../certificates/models/certificate";
 
@@ -9,6 +11,12 @@ import { Certificate } from "../certificates/models/certificate";
 })
 export class GetDataService {
   private httpClient = inject(HttpClient);
+  private translateService = inject(TranslateService);
+
+  currentLocale = toSignal(
+    this.translateService.onLangChange.pipe(map((event) => event.lang)),
+    { initialValue: this.translateService.currentLang() ?? "pt_BR" },
+  );
 
   getProjects(locale: string | null): Observable<Projects[]> {
     return this.httpClient.get<Projects[]>(
