@@ -16,8 +16,16 @@
     }
 
     @if (!certificatesResource.isLoading()) {
+      <app-tag-filter [tags]="availableTags()" [(selected)]="selectedTags" />
+
+      @if (filteredOrganizations().length === 0) {
+        <div class="empty-state">
+          <p>{{ "noResultsForSelectedFilters" | translate }}</p>
+        </div>
+      }
+
       <div class="accordion">
-        @for (organization of certificatesResource.value(); track organization.name; let i = $index) {
+        @for (organization of filteredOrganizations(); track organization.name; let i = $index) {
           <div class="accordion__item" [class.accordion__item--open]="isOpen(i)">
             <h3 class="accordion__heading">
               <button

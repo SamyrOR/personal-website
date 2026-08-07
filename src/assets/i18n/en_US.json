@@ -54,5 +54,8 @@
   "send": "Send",
   "previousProject": "Previous project",
   "nextProject": "Next project",
-  "toggleProjectDetails": "Toggle project details"
+  "toggleProjectDetails": "Toggle project details",
+  "filterByTechnology": "Filter by technology",
+  "clearFilters": "Clear filters",
+  "noResultsForSelectedFilters": "Nothing matches the selected filters."
 }

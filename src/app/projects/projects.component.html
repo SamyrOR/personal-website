@@ -12,8 +12,16 @@
       </div>
     }
     @if (!projectsResource.isLoading()) {
+      <app-tag-filter [tags]="availableTags()" [(selected)]="selectedTags" />
+
+      @if (filteredProjects().length === 0) {
+        <div class="empty-state">
+          <p>{{ "noResultsForSelectedFilters" | translate }}</p>
+        </div>
+      }
+
       <div class="cards" #cards>
-        @for (project of projectsResource.value(); track project; let i = $index) {
+        @for (project of filteredProjects(); track project) {
           <div
             class="card"
             role="button"
@@ -22,7 +30,7 @@
             (keyup.enter)="onClick($event)"
           >
             <div class="card__image-holder">
-              <img class="card__image" [ngSrc]="project.img" [alt]="project.title" [priority]="i === 0" fill />
+              <img class="card__image" [ngSrc]="project.img" [alt]="project.title" [priority]="project === firstProject()" fill />
             </div>
             <div class="card-title">
               <span class="toggle-info btn" aria-hidden="true">
