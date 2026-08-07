@@ -12,7 +12,7 @@ Personal portfolio website (samyr.dev) built with Angular 22, Sass (BEM/SMACSS),
 - `npm run build` / `ng build` — production build, output to `dist/personal-website`
 - `npm run watch` — dev build in watch mode
 - `npm run lint` / `ng lint` — ESLint (angular-eslint + typescript-eslint) over `src/**/*.ts` and `src/**/*.html`
-- `npm test` / `ng test` — unit tests via the Angular `unit-test` builder, which runs on **Vitest** (not Karma). Currently broken pre-existing (unrelated to standalone migration, see `ROADMAP.md` Phase 0): `src/test.ts`'s Karma-era `platformBrowserDynamicTesting` setup conflicts with the builder's own auto-injected test-bed init, and a couple of spec files have stale references. Needs its own fix pass before `npm test` is usable again.
+- `npm test` / `ng test` — unit tests via the Angular `unit-test` builder, which runs on **Vitest** (not Karma). No custom `src/test.ts` setup file — the builder auto-generates its own TestBed init based on the `"zone.js"` polyfill entry in `angular.json`.
 - `npm run e2e` / `ng e2e` — Cypress e2e tests (opens interactive runner)
 - `npm run cypress:run` — Cypress e2e tests headless
 - `npm run cypress:open` — Cypress interactive runner directly

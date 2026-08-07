@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { AppComponent } from './app.component';
 
@@ -22,12 +23,10 @@ describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: AppComponent;
   let titleService: Title;
-  let router: Router;
   let activatedRoute: ActivatedRoute;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [AppComponent],
+      imports: [RouterTestingModule, AppComponent],
       providers: [
         { provide: Router, useClass: MockRouter },
         {
@@ -35,6 +34,7 @@ describe('AppComponent', () => {
           useValue: { firstChild: { snapshot: { data: { title: 'Home' } } } },
         },
         Title,
+        provideTranslateService(),
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);

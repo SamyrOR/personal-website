@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UntypedFormBuilder } from '@angular/forms';
+import { provideTranslateService } from '@ngx-translate/core';
 import { ContactComponent } from './contact.component';
 
 describe('ContactComponent', () => {
@@ -8,8 +9,8 @@ describe('ContactComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ContactComponent],
-      providers: [UntypedFormBuilder],
+      imports: [ContactComponent],
+      providers: [UntypedFormBuilder, provideTranslateService()],
     }).compileComponents();
   });
 

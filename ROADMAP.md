@@ -29,12 +29,8 @@ before or alongside Phase 1.
       `Event` type (e.g. `Event` with `event.target as HTMLSelectElement`), consistent with
       `strict`/`strictTemplates` already enabled in `tsconfig.json`
 
-**Additional pre-existing issue found while verifying (not part of this roadmap, needs its own
-fix):** `npm test` fails independently of everything above — `home.component.spec.ts` imports
-`GetDataService` from a broken absolute-looking path, `get-data.service.spec.ts` calls
-`getProjects()`/`getCertificates()` without the required `locale` argument, and `src/test.ts`'s
-Karma-era setup (`@angular/platform-browser-dynamic/testing`, top-level `await import('zone.js/testing')`)
-isn't compatible with the new Vitest builder target. None of this was touched by Phase 0/1.
+**Pre-existing issue found while verifying, fixed in Phase 1.5:** `npm test` was broken for
+reasons unrelated to this roadmap's architectural work.
 
 ---
 
@@ -66,15 +62,82 @@ lazy chunks now named per-component — `certificates-component`, `about-me-comp
 `projects-component`, `contact-component` — confirming `loadComponent` routing works). Also
 fixed two unrelated pre-existing config bugs blocking any verification: missing `jsdom`
 devDependency, and `angular.json`'s `testing` build configuration had `polyfills` as a string
-instead of an array (schema violation). `npm test` still fails after those fixes — see the
-pre-existing test-infra issue noted under Phase 0, untouched by this migration.
+instead of an array (schema violation). `npm test` still failed after those fixes at this point
+in time — most of the remaining breakage was pre-existing, but part of it —
+`declarations: [XComponent]` in every component spec — was a direct consequence of this phase's
+standalone migration: `TestBed.configureTestingModule` can't `declare` a standalone component,
+only `import` it. All fixed in Phase 1.5.
 
-Full manual browser verification done via a headless Playwright script (`chromium-cli` wasn't
-available; installed `playwright` + Chromium directly): navigated to all 6 routes (`/home`,
-`/certificates`, `/projects`, `/about-me`, `/contact`, and an unmatched route for the 404 page)
-— all rendered correct content/title with zero console errors. Also exercised the theme toggle
-and language switcher on `/home`: both worked correctly (dark theme + logo swap applied, UI
-strings and route labels switched to English), zero console errors during interaction.
+No headless browser was available to verify this in an actual browser at the time this phase
+landed (`chromium-cli` absent; Cypress broken; Playwright not yet installed). Verification was
+limited to: dev server `curl` against all 6 routes (all 200, correct lazy chunks compiled, no
+errors in the server log) plus `ng build`'s AOT template type-checking, which fails loudly if a
+template uses a directive/pipe not present in that component's `imports`. Real in-browser
+verification (theme toggle, language switcher, all 6 routes) was done afterward, once Playwright
+was installed — see Phase 1.5.
+
+---
+
+## Phase 1.5 — Fix test infrastructure (done)
+
+`npm test` was broken, which would have forced Phase 2 (OnPush + signals) to rely on manual
+click-through alone — exactly the kind of regression (stale bindings, missed `markForCheck()`)
+that a `fixture.detectChanges()` unit test catches mechanically and a human does not. Fixed
+before starting Phase 2. Turned out to be four separate, layered problems — each one only
+became visible after fixing the one before it:
+
+- [x] **`src/test.ts` deleted**, `setupFiles` removed from `angular.json`, `src/test.ts`
+      references removed from `tsconfig.spec.json`/`tsconfig.app.json`. Traced through
+      `@angular/build`'s source directly (`node_modules/@angular/build/src/builders/unit-test/runners/vitest/build-options.js`):
+      the Vitest runner auto-generates its own `angular:test-bed-init` virtual module
+      (`zone.js/testing` + `@angular/platform-browser/testing`, not the old `-dynamic` package)
+      regardless of `setupFiles`. The manual init in `test.ts` was pure dead weight fighting the
+      builder, not a legitimate customization point.
+- [x] **Found a second, non-obvious layer underneath that**: even with `test.ts` gone, the
+      builder's auto-generated init still failed with "Top-level await is not available in the
+      configured target environment." Root cause: `angular.json`'s `polyfills` option pointed at
+      a custom `src/polyfills.ts` file (a vestigial Angular-6-era wrapper whose only content was
+      `import 'zone.js';`) instead of the `"zone.js"` package specifier the builder's zone-strategy
+      detection (`getZoneTestingStrategy`) checks for by exact string match. Because it wasn't
+      recognized, the builder fell back to a `dynamic` (top-level-`await`) zone-loading strategy,
+      which the configured browser targets don't support. **Fix:** replaced
+      `"polyfills": ["src/polyfills.ts"]` with `"polyfills": ["zone.js"]` in both `angular.json`
+      build configs (default + `testing`), deleted `src/polyfills.ts`, removed it from
+      `tsconfig.app.json`'s `files`. This is also the modern v22-scaffold pattern — new projects
+      don't get a polyfills wrapper file at all.
+- [x] **`declarations` → `imports` for standalone components in TestBed**, confirmed as a
+      direct Phase 1 consequence — and broader than first estimated: every component spec that
+      declared its component (`about-me`, `app`, `certificates`, `contact`, `footer`, `header`,
+      `home`, `not-found`, `projects` — 9 files, not just the 3 originally guessed) needed this
+      fix, since standalone components can't be declared in an `NgModule`, only imported.
+- [x] **New failure surfaced only after the `declarations` fix**: `certificates`, `contact`,
+      `home`, `projects`, `footer`, `header`, `about-me`, and `app` specs all now import their
+      component directly, which pulls in `TranslatePipe` — and `TranslatePipe` needs
+      `TranslateService` in the injector, which none of these specs provided (previously masked
+      by the NgModule providing it globally). Added `provideTranslateService()` (from
+      `@ngx-translate/core`) to each affected spec's `providers`. `footer` and `header` (and
+      `home`, which now imports `RouterLink`) also needed `provideRouter([])` for `RouterLink`'s
+      injected `Router`.
+- [x] `home.component.spec.ts`: fixed
+      `import { GetDataService } from 'src/app/shared/get-data.service'` →
+      `'../../shared/get-data.service'` (no `baseUrl`/`paths` configured in `tsconfig.json`, so
+      the absolute-style path never resolved)
+- [x] `get-data.service.spec.ts`: `getProjects()`/`getCertificates()` now called with a
+      `'en_US'` locale arg; mocked `httpTestingController.expectOne(...)` URLs updated to match
+      what the service actually requests (`assets/data/projects/projects_en_US.json`,
+      `assets/data/certificates/certificates_en_US.json`); removed the dangling `expect.call;`
+      no-op statement
+- [x] Removed the unused `httpClient`/`TestBed.inject(HttpClient)` in `home`/`certificates`/
+      `projects` specs and the unused `router` variable in `app.component.spec.ts`
+
+**Verified:** `npm test` — **10/10 spec files, 13/13 tests pass.** `npm run lint` — 24 errors
+remain, all pre-existing (`prefer-on-push`, empty constructors/lifecycle methods, ternary-as-
+statement) and unrelated to any of the above. `ng build` still succeeds with the polyfills
+change. Also used this pass to install Playwright (`npm install -D playwright && npx playwright
+install chromium --with-deps`) and do the real in-browser verification Phase 1 was missing:
+scripted navigation to all 6 routes (correct title + content each time), clicked the theme
+toggle (`light-theme` → `dark-theme`, logo swapped to the dark variant), used the language
+`<select>` (UI + fetched content switched pt_BR → en_US) — zero console/page errors throughout.
 
 ---
 
@@ -165,7 +228,8 @@ loading states (`loading` flag, infinite scroll `initialData`) still behave the 
 
 1. ~~Phase 0 (same day, trivial)~~ — done
 2. ~~Phase 1 (foundational — do before anything else architectural)~~ — done
-3. Phase 2 (one component at a time, verify each) — **up next**
-4. Phase 4 (can slot in anytime after Phase 1, independent track)
-5. Phase 3 (only after Phase 2 is fully verified)
-6. Phase 5 (optional polish, once comfortable with signals from Phase 2)
+3. ~~Phase 1.5 (fix test infra — unblocks real regression coverage for Phase 2)~~ — done
+4. Phase 2 (one component at a time, verify each) — **up next**
+5. Phase 4 (can slot in anytime after Phase 1, independent track)
+6. Phase 3 (only after Phase 2 is fully verified)
+7. Phase 5 (optional polish, once comfortable with signals from Phase 2)

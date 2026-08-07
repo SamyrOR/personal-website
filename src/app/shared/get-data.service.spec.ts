@@ -70,23 +70,24 @@ describe('GetDataService', () => {
     expect(service).toBeTruthy();
   });
   it('should get projects json', () => {
-    service.getProjects().subscribe((projectsData) => {
+    service.getProjects('en_US').subscribe((projectsData) => {
       expect(projectsData[0].title).toBe('Full e-commerce');
       expect(projectsData[1].title).toBe('Games Info');
     });
 
-    const req = httpTestingController.expectOne('assets/data/projects.json');
+    const req = httpTestingController.expectOne(
+      'assets/data/projects/projects_en_US.json',
+    );
     req.flush(mockProjects);
   });
 
   it('should get certificates json', () => {
-    service.getCertificates().subscribe((certificatesData) => {
+    service.getCertificates('en_US').subscribe((certificatesData) => {
       expect(certificatesData[0].name).toBe('Digital Innovation One');
-      expect.call;
     });
 
     const req = httpTestingController.expectOne(
-      'assets/data/certificates.json',
+      'assets/data/certificates/certificates_en_US.json',
     );
     req.flush(mockCertificates);
   });

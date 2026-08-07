@@ -25,7 +25,7 @@
             },
             "index": "src/index.html",
             "polyfills": [
-              "src/polyfills.ts"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -82,7 +82,7 @@
                 "src/assets"
               ],
               "polyfills": [
-                "src/polyfills.ts"
+                "zone.js"
               ]
             }
           },
@@ -116,9 +116,6 @@
             "coverageReporters": [
               "html",
               "text-summary"
-            ],
-            "setupFiles": [
-              "src/test.ts"
             ],
             "buildTarget": ":build:testing",
             "runner": "vitest"

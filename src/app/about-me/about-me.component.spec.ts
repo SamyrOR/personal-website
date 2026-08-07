@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { provideTranslateService } from "@ngx-translate/core";
 import { AboutMeComponent } from "./about-me.component";
 
 describe("AboutMeComponent", () => {
@@ -7,7 +8,8 @@ describe("AboutMeComponent", () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AboutMeComponent],
+      imports: [AboutMeComponent],
+      providers: [provideTranslateService()],
     }).compileComponents();
   });
 
