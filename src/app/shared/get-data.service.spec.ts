@@ -22,6 +22,7 @@ const mockProjects: Projects[] = [
     description:
       'Desenvolvido desde o front-end até o back end com JavaScript, tento todo processo de seleção e compra da mercadoria, empregando diversas tecnologias.',
     link: 'https://github.com/SamyrOR/full-ecommerce',
+    tags: ['javascript', 'fullstack'],
   },
   {
     title: 'Games Info',
@@ -30,6 +31,7 @@ const mockProjects: Projects[] = [
     description:
       'Plataforma para pesquisa de jogos, com detalhes do jogo selecionado, desenvolvida com as melhores práticas em Angular.',
     link: 'https://github.com/SamyrOR/games-info',
+    tags: ['angular', 'api'],
   },
 ];
 
@@ -41,6 +43,7 @@ const mockCertificates: Certificate[] = [
         name: 'Lógica de programação essencial',
         img: '../../assets/images/certificates/dio-logica.jpg',
         link: 'https://certificates.digitalinnovation.one/035F6F4D',
+        tags: ['logic'],
       },
     ],
   },

@@ -4,83 +4,95 @@
     "img": "../../assets/images/projects/charity-finder.jpeg",
     "caption": "Aplicação que conecta pessoas a projetos beneficentes ao redor do mundo.",
     "description": "Desenvolvida com Angular, Bootstrap e consumo da Global Giving API, muitos desafios superados e conhecimentos adquiridos. ",
-    "link": "https://github.com/SamyrOR/charity-finder-app"
+    "link": "https://github.com/SamyrOR/charity-finder-app",
+    "tags": ["angular", "bootstrap", "api"]
   },
   {
     "title": "Requisições App",
     "img": "../../assets/images/projects/requisicoes-app.jpeg",
     "caption": "Aplicação completa em Angular, com diversos conceitos aplicados.",
     "description": "Com um CRUD integrado com o banco de dados do Firebase, é possível realizar e acompanhar requisições entre diferentes setores da mesma empresa.",
-    "link": "https://github.com/SamyrOR/requisicoes-app"
+    "link": "https://github.com/SamyrOR/requisicoes-app",
+    "tags": ["angular", "firebase", "crud"]
   },
   {
     "title": "Frontend Mentor",
     "img": "../../assets/images/projects/frontend-mentor.jpeg",
     "caption": "Inúmeros desafios práticos e reais que realizei para desenvolver habilidades no front-end.",
     "description": "Adquiri habilidades em desenvolvimento de botões, carousels, sliders, responsividade em HTML, CSS, JS e tambem desenvolvi em SCSS.",
-    "link": "https://github.com/SamyrOR/Frontend-Mentor"
+    "link": "https://github.com/SamyrOR/Frontend-Mentor",
+    "tags": ["html", "css", "javascript", "scss"]
   },
   {
     "title": "Blog pessoal",
     "img": "../../assets/images/projects/blog-pessoal.png",
     "caption": "Desenvolvido com Astro, alguns componentes em React e com localização de idioma",
     "description": "Confira o meu blog pessoal, nele eu posto artigos tanto, tecnicos como experiencias que tive na carreira de desenvolvimento.",
-    "link": "https://github.com/SamyrOR/personal-blog"
+    "link": "https://github.com/SamyrOR/personal-blog",
+    "tags": ["astro", "react"]
   },
   {
     "title": "Games Info",
     "img": "../../assets/images/projects/games-info.jpeg",
     "caption": "Aplicação em Angular com consumo de uma API de jogos.",
     "description": "Plataforma para pesquisa de jogos, com detalhes do jogo selecionado, desenvolvida com as melhores práticas em Angular.",
-    "link": "https://github.com/SamyrOR/games-info"
+    "link": "https://github.com/SamyrOR/games-info",
+    "tags": ["angular", "api"]
   },
   {
     "title": "Ionic Recipes",
     "img": "../../assets/images/projects/ionic-recipes.jpeg",
     "caption": "Aplicativo em Ionic para estudo do framework.",
     "description": "App para registro de receitas, aplicando diversos components Ionic e classes do framework, utilizando junto com Angular.",
-    "link": "https://github.com/SamyrOR/ionic-recipes"
+    "link": "https://github.com/SamyrOR/ionic-recipes",
+    "tags": ["ionic", "angular"]
   },
   {
     "title": "Full e-commerce",
     "img": "../../assets/images/projects/js-amazona.jpeg",
     "caption": "Plataforma de e-commerce completa desenvolvida com vanilla JS.",
     "description": "Desenvolvimento completo desde o front-end até o back end com JavaScript, tento todo processo de seleção e compra da mercadoria, empregando diversas tecnologias.",
-    "link": "https://github.com/SamyrOR/full-ecommerce"
+    "link": "https://github.com/SamyrOR/full-ecommerce",
+    "tags": ["javascript", "fullstack"]
   },
   {
     "title": "7 Dias 7 Projetos",
     "img": "../../assets/images/projects/7days7projects.jpeg",
     "caption": "7 projetos incríveis com JavaScript.",
     "description": "Projetos como tocar bateria com o teclado, relogio analógico, jogo da velha, aplicativo de clima, quiz e mais!",
-    "link": "https://github.com/SamyrOR/7Days7Projects"
+    "link": "https://github.com/SamyrOR/7Days7Projects",
+    "tags": ["javascript"]
   },
   {
     "title": "Primeiro site pessoal",
     "img": "../../assets/images/projects/primeiro-site.jpeg",
     "caption": "Minha primeira página web.",
     "description": "Primeiro grande desafio, desenvolvido com HTML, CSS e Bootstrap.",
-    "link": "https://samyror.github.io/"
+    "link": "https://samyror.github.io/",
+    "tags": ["html", "css", "bootstrap"]
   },
   {
     "title": "Hcode JS Fullstack",
     "img": "../../assets/images/projects/hcode-js.jpeg",
     "caption": "Curso com 6 projetos reais em JavaScript.",
     "description": "6 projetos reais desenvolvendo funcionalidades tanto para o front-end quanto para o back-end.",
-    "link": "https://github.com/SamyrOR/hcode-javascript-fullstack"
+    "link": "https://github.com/SamyrOR/hcode-javascript-fullstack",
+    "tags": ["javascript", "fullstack"]
   },
   {
     "title": "Site pessoal",
     "img": "../../assets/images/projects/site-pessoal.jpeg",
     "caption": "Desenvolvido com as melhores práticas em Angular.",
     "description": "Estilos em SCSS, BEM e SMACSS escritos do zero, com carousel, cards interativos, teste de integração e unitarios!",
-    "link": "https://github.com/SamyrOR/personal-website"
+    "link": "https://github.com/SamyrOR/personal-website",
+    "tags": ["angular", "scss", "testing"]
   },
   {
     "title": "Rumbl",
     "img": "../../assets/images/projects/rumbl.png",
     "caption": "Anotação em videos em tempo eral",
     "description": "Aplicação fullstack em Elixir e Phoenix, com cadastro, autenticação e anotação de vídeos em tempo real, com armazemaneto no Postgres",
-    "link": "https://github.com/SamyrOR/programming_phoenix"
+    "link": "https://github.com/SamyrOR/programming_phoenix",
+    "tags": ["elixir", "phoenix", "fullstack", "postgres"]
   }
 ]
