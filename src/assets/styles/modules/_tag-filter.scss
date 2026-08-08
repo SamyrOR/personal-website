@@ -4,6 +4,14 @@
 .tag-filter {
   margin-top: rem(30);
 
+  &__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: rem(12);
+  }
+
   &__toggle {
     display: inline-flex;
     align-items: center;
@@ -86,16 +94,39 @@
   }
 
   &__clear {
-    margin-top: rem(14);
-    padding: 0;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: rem(6);
+    padding: rem(10) rem(16);
     border: none;
-    background: transparent;
+    border-radius: rem(25);
     cursor: pointer;
-    text-decoration: underline;
+    -webkit-tap-highlight-color: transparent;
     font-size: rem(14);
+    font-weight: 600;
+    background: transparent;
+    transition:
+      background-color 0.2s $cubic,
+      color 0.2s $cubic;
     @include theme() {
       color: theme-get("color-secondary");
     }
+
+    @include lg {
+      &:hover {
+        @include theme() {
+          background-color: theme-get("color-card-bg");
+        }
+      }
+    }
+  }
+
+  &__clear-icon {
+    flex-shrink: 0;
+    width: rem(16);
+    height: rem(16);
+    fill: currentColor;
   }
 }
 
@@ -108,7 +139,6 @@
   border-radius: rem(20);
   font-size: rem(14);
   font-weight: 600;
-  text-transform: capitalize;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition:
@@ -134,8 +164,13 @@
   }
 
   &--active {
-    color: $white;
+    // `color: $white` needs to be inside the theme mixin (not a bare
+    // declaration) so the generated selector's specificity — an ancestor
+    // theme class plus two chained classes — beats the plain `.chip`
+    // theme-title-color rule above; otherwise the light theme's rule wins
+    // on specificity alone and the label stays unreadable on the gradient.
     @include theme() {
+      color: $white;
       background: linear-gradient(
         to top right,
         theme-get("color-primary"),

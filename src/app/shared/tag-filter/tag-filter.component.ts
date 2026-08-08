@@ -49,8 +49,4 @@ export class TagFilterComponent {
   togglePanel(): void {
     this.panelOpen.update((open) => !open);
   }
-
-  formatLabel(tag: string): string {
-    return tag.replace(/-/g, " ");
-  }
 }
