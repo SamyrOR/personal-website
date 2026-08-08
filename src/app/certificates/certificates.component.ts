@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   inject,
   signal,
-  effect,
   computed,
 } from "@angular/core";
 import { rxResource } from "@angular/core/rxjs-interop";
@@ -60,32 +59,4 @@ export class CertificatesComponent {
       }))
       .filter((organization) => organization.certificates.length > 0);
   });
-
-  private openIndexes = signal<ReadonlySet<number>>(new Set());
-
-  constructor() {
-    // Collapse every accordion panel any time the underlying data changes
-    // (initial load, or a locale switch refetch).
-    effect(() => {
-      this.certificatesResource.value();
-      this.openIndexes.set(new Set());
-    });
-  }
-
-  isOpen(index: number): boolean {
-    return this.selectedTags().size > 0 || this.openIndexes().has(index);
-  }
-
-  toggle(index: number): void {
-    if (this.selectedTags().size > 0) {
-      return;
-    }
-    const next = new Set(this.openIndexes());
-    if (next.has(index)) {
-      next.delete(index);
-    } else {
-      next.add(index);
-    }
-    this.openIndexes.set(next);
-  }
 }
