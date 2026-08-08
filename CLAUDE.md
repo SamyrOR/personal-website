@@ -32,3 +32,7 @@ There is no single-test-file CLI flag documented in this repo; scope test runs u
 **Infinite scroll pattern.** List-heavy pages (e.g. `CertificatesComponent`) don't render the full fetched dataset at once — they push items incrementally into an `initialData` array via `ngx-infinite-scroll`'s `onScroll()` callback, with a `loading` flag while data is (re)fetched on locale change.
 
 **Styles** follow SMACSS layering under `src/assets/styles/`: `abstracts` (variables/mixins/functions, no output), `base` (reset), `layout` (one partial per page/section), `modules` (reusable UI pieces like buttons/cards/carousel), `themes` (light/dark variable overrides). `src/styles.scss` only `@use`s the top-level `base`, `layout`, `modules` index partials. New components get `style: "scss"` by default per `angular.json` schematics config.
+
+## Git workflow
+
+Never run `git commit` on your own, even if the change is small, complete, and verified. Leave the working tree staged or unstaged as-is and let the user review and commit manually themselves.
