@@ -3,19 +3,21 @@ import {
   ChangeDetectionStrategy,
   inject,
   signal,
-  effect,
+  computed,
 } from "@angular/core";
 import { rxResource } from "@angular/core/rxjs-interop";
 import { GetDataService } from "../shared/get-data.service";
-import { Certificate } from "./models/certificate";
 import { TranslatePipe } from "@ngx-translate/core";
-import { InfiniteScrollDirective } from "ngx-infinite-scroll";
+import {
+  TagFilterComponent,
+  TagOption,
+} from "../shared/tag-filter/tag-filter.component";
 @Component({
   selector: "app-certificates",
   templateUrl: "./certificates.component.html",
   styleUrls: ["./certificates.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [InfiniteScrollDirective, TranslatePipe],
+  imports: [TranslatePipe, TagFilterComponent],
 })
 export class CertificatesComponent {
   private getData = inject(GetDataService);
@@ -26,23 +28,35 @@ export class CertificatesComponent {
     defaultValue: [],
   });
 
-  initialData = signal<Certificate[]>([]);
+  selectedTags = signal<ReadonlySet<string>>(new Set());
 
-  constructor() {
-    // Reset the incrementally-revealed infinite-scroll subset any time the
-    // underlying data changes (initial load, or a locale switch refetch).
-    effect(() => {
-      const data = this.certificatesResource.value();
-      this.initialData.set(data.length ? [data[0]] : []);
-    });
-  }
-
-  //Infinite scroll
-  onScroll() {
-    const data = this.initialData();
-    const all = this.certificatesResource.value();
-    if (data.length < all.length) {
-      this.initialData.set([...data, all[data.length]]);
+  availableTags = computed<TagOption[]>(() => {
+    const counts = new Map<string, number>();
+    for (const organization of this.certificatesResource.value()) {
+      for (const certificate of organization.certificates) {
+        for (const tag of certificate.tags) {
+          counts.set(tag, (counts.get(tag) ?? 0) + 1);
+        }
+      }
     }
-  }
+    return [...counts.entries()]
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([value, count]) => ({ value, count }));
+  });
+
+  filteredOrganizations = computed(() => {
+    const selected = this.selectedTags();
+    const organizations = this.certificatesResource.value();
+    if (selected.size === 0) {
+      return organizations;
+    }
+    return organizations
+      .map((organization) => ({
+        ...organization,
+        certificates: organization.certificates.filter((certificate) =>
+          certificate.tags.some((tag) => selected.has(tag)),
+        ),
+      }))
+      .filter((organization) => organization.certificates.length > 0);
+  });
 }

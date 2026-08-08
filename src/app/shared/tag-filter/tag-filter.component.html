@@ -1,0 +1,57 @@
+<div class="tag-filter" [class.tag-filter--open]="panelOpen()">
+  <div class="tag-filter__bar">
+    <button
+      type="button"
+      class="tag-filter__toggle"
+      [attr.aria-expanded]="panelOpen()"
+      aria-controls="tag-filter-panel"
+      (click)="togglePanel()"
+    >
+      <svg
+        class="tag-filter__icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 -960 960 960"
+        aria-hidden="true"
+      >
+        <path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z" />
+      </svg>
+      <span>{{ "filterByTechnology" | translate }}</span>
+      @if (activeCount() > 0) {
+        <span class="tag-filter__badge">{{ activeCount() }}</span>
+      }
+    </button>
+
+    @if (activeCount() > 0) {
+      <button type="button" class="tag-filter__clear" (click)="clear()">
+        <svg
+          class="tag-filter__clear-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          aria-hidden="true"
+        >
+          <path d="M256-208 208-256l224-224-224-224 48-48 224 224 224-224 48 48-224 224 224 224-48 48-224-224-224 224Z" />
+        </svg>
+        {{ "clearFilters" | translate }}
+      </button>
+    }
+  </div>
+
+  <div class="tag-filter__panel" id="tag-filter-panel">
+    <div class="tag-filter__panel-inner">
+      <div class="tag-filter__chips">
+        @for (tag of tags(); track tag.value) {
+          <button
+            type="button"
+            class="chip"
+            [class.chip--active]="isSelected(tag.value)"
+            [attr.aria-pressed]="isSelected(tag.value)"
+            (click)="toggleTag(tag.value)"
+          >
+            {{ "tags." + tag.value | translate }}
+            <span class="chip__count">{{ tag.count }}</span>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

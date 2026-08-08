@@ -16,46 +16,48 @@
     }
 
     @if (!certificatesResource.isLoading()) {
-      <div
-        class="search-results"
-        infiniteScroll
-        [infiniteScrollDistance]="1"
-        [infiniteScrollThrottle]="50"
-        (scrolled)="onScroll()"
-        >
-        @for (organization of initialData(); track organization) {
-          <div
-            class="certificates__organization"
-            >
-            <h3>{{ organization.name }}</h3>
-            <div class="certificates__wrapper">
-              @for (certificate of organization.certificates; track certificate) {
-                <div
-                  class="certificate"
-                  >
-                  <h4 class="certificate__title">{{ certificate.name }}</h4>
-                  @if (certificate.link) {
-                    <a
-                      [href]="certificate.link"
-                      target="_blank"
-                      rel="noopener"
-                      >
-                      <img class="certificate__img" [src]="certificate.img" alt="" />
-                    </a>
-                  }
-                  @if (!certificate.link) {
+      <app-tag-filter [tags]="availableTags()" [(selected)]="selectedTags" />
+
+      @if (filteredOrganizations().length === 0) {
+        <div class="empty-state">
+          <p>{{ "noResultsForSelectedFilters" | translate }}</p>
+        </div>
+      }
+
+      @for (organization of filteredOrganizations(); track organization.name) {
+        <div class="certificates__organization">
+          <h3>{{ organization.name }}</h3>
+          <div class="certificates__wrapper">
+            @for (certificate of organization.certificates; track certificate.name) {
+              <div class="certificate">
+                <h4 class="certificate__title">{{ certificate.name }}</h4>
+                @if (certificate.link) {
+                  <a
+                    [href]="certificate.link"
+                    target="_blank"
+                    rel="noopener"
+                    >
                     <img
                       class="certificate__img"
                       [src]="certificate.img"
+                      loading="lazy"
                       alt=""
                       />
-                  }
-                </div>
-              }
-            </div>
+                  </a>
+                }
+                @if (!certificate.link) {
+                  <img
+                    class="certificate__img"
+                    [src]="certificate.img"
+                    loading="lazy"
+                    alt=""
+                    />
+                }
+              </div>
+            }
           </div>
-        }
-      </div>
+        </div>
+      }
     }
   </div>
 </div>

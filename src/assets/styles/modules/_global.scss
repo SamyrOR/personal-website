@@ -40,3 +40,12 @@
   width: 100%;
   height: rem(400);
 }
+
+//Empty state (e.g. no results after filtering)
+.empty-state {
+  margin-top: rem(40);
+  text-align: center;
+  @include theme() {
+    color: theme-get("color-text");
+  }
+}

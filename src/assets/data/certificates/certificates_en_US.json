@@ -4,93 +4,115 @@
     "certificates": [
       {
         "name": "Programming Logic Essential",
-        "img": "../../assets/images/certificates/dio-logica.jpg"
+        "img": "../../assets/images/certificates/dio-logica.jpg",
+        "tags": ["logic"]
       },
       {
         "name": "Fundamentals of Systems Architecture",
-        "img": "../../assets/images/certificates/dio-fundamentos-as.jpg"
+        "img": "../../assets/images/certificates/dio-fundamentos-as.jpg",
+        "tags": ["architecture"]
       },
       {
         "name": "Introduction to Git and Version Control",
-        "img": "../../assets/images/certificates/dio-intro-git.jpg"
+        "img": "../../assets/images/certificates/dio-intro-git.jpg",
+        "tags": ["git"]
       },
       {
         "name": "Internet programming with HTML5 and CSS3",
-        "img": "../../assets/images/certificates/dio-html5-css3.jpg"
+        "img": "../../assets/images/certificates/dio-html5-css3.jpg",
+        "tags": ["html", "css"]
       },
       {
         "name": "Internet programming with JavaScript",
-        "img": "../../assets/images/certificates/dio-intro-js.jpg"
+        "img": "../../assets/images/certificates/dio-intro-js.jpg",
+        "tags": ["javascript"]
       },
       {
         "name": "JavaScript ES6 essential",
-        "img": "../../assets/images/certificates/dio-js-es6-essential.jpg"
+        "img": "../../assets/images/certificates/dio-js-es6-essential.jpg",
+        "tags": ["javascript"]
       },
       {
         "name": "Advanced development with JavaScript ES6",
-        "img": "../../assets/images/certificates/dio-js-es6-advanced.jpg"
+        "img": "../../assets/images/certificates/dio-js-es6-advanced.jpg",
+        "tags": ["javascript"]
       },
       {
         "name": "Practical Challenge: Web Performance Using JavaScript",
-        "img": "../../assets/images/certificates/dio-js-web-performance.jpg"
+        "img": "../../assets/images/certificates/dio-js-web-performance.jpg",
+        "tags": ["javascript", "performance"]
       },
       {
         "name": "Agile projects with SCRUM",
-        "img": "../../assets/images/certificates/dio-scrum.jpg"
+        "img": "../../assets/images/certificates/dio-scrum.jpg",
+        "tags": ["scrum", "agile"]
       },
       {
         "name": "Introduction to Angular 8",
-        "img": "../../assets/images/certificates/dio-intro-angular8.jpg"
+        "img": "../../assets/images/certificates/dio-intro-angular8.jpg",
+        "tags": ["angular"]
       },
       {
         "name": "Advanced techiniques in Angular 8",
-        "img": "../../assets/images/certificates/dio-angular8-advanced.jpg"
+        "img": "../../assets/images/certificates/dio-angular8-advanced.jpg",
+        "tags": ["angular"]
       },
       {
         "name": "Angular Front-End Development",
-        "img": "../../assets/images/certificates/dio-front-end-angular.jpg"
+        "img": "../../assets/images/certificates/dio-front-end-angular.jpg",
+        "tags": ["angular"]
       },
       {
         "name": "Responsiveness and User Experience Concepts",
-        "img": "../../assets/images/certificates/dio-responsiveness-userxp.jpg"
+        "img": "../../assets/images/certificates/dio-responsiveness-userxp.jpg",
+        "tags": ["css", "ux"]
       },
       {
         "name": "Learn what Data Structures and Algorithms are",
-        "img": "../../assets/images/certificates/dio-data-structure-algorithm.jpg"
+        "img": "../../assets/images/certificates/dio-data-structure-algorithm.jpg",
+        "tags": ["algorithms", "data-structures"]
       },
       {
         "name": "Rectreating the Netflix interface",
-        "img": "../../assets/images/certificates/dio-netflix-interface.jpg"
+        "img": "../../assets/images/certificates/dio-netflix-interface.jpg",
+        "tags": ["angular", "css"]
       },
       {
         "name": "Advanced applications with Angular",
-        "img": "../../assets/images/certificates/dio-advanced-angular-apps.jpg"
+        "img": "../../assets/images/certificates/dio-advanced-angular-apps.jpg",
+        "tags": ["angular"]
       },
       {
         "name": "Developing SPA with Angular",
-        "img": "../../assets/images/certificates/dio-angular-spa.jpg"
+        "img": "../../assets/images/certificates/dio-angular-spa.jpg",
+        "tags": ["angular"]
       },
       {
         "name": "Component architecture and complexity management in the front-end",
-        "img": "../../assets/images/certificates/dio-angular-comp-architecture.jpg"
+        "img": "../../assets/images/certificates/dio-angular-comp-architecture.jpg",
+        "tags": ["angular", "architecture"]
       },
       {
         "name": "Implementing automated tests using Cypress in an Angular application",
-        "img": "../../assets/images/certificates/dio-angular-cypress.jpg"
+        "img": "../../assets/images/certificates/dio-angular-cypress.jpg",
+        "tags": ["angular", "testing", "cypress"]
       },
       {
         "name": "Creating a project to check the weather forecast via API",
-        "img": "../../assets/images/certificates/dio-angular-weather-app.jpg"
+        "img": "../../assets/images/certificates/dio-angular-weather-app.jpg",
+        "tags": ["angular", "api"]
       },
       {
         "name": "Advanced performance and optimization concepts using Angular",
         "img": "../../assets/images/certificates/dio-angular-performance.jpg",
-        "link": "https://certificates.digitalinnovation.one/2724E031"
+        "link": "https://certificates.digitalinnovation.one/2724E031",
+        "tags": ["angular", "performance"]
       },
       {
         "name": "Avanade Angular Developer",
         "img": "../../assets/images/certificates/dio-avanade-angular-dev.jpg",
-        "link": "https://certificates.digitalinnovation.one/40EEB258"
+        "link": "https://certificates.digitalinnovation.one/40EEB258",
+        "tags": ["angular"]
       }
     ]
   },
@@ -100,7 +122,8 @@
       {
         "name": "Angular",
         "img": "../../assets/images/certificates/loiane-angular.jpg",
-        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ"
+        "link": "https://loiane.training/certificado/kDP5voLskyXkYfZOFCiJ",
+        "tags": ["angular"]
       }
     ]
   },
@@ -110,7 +133,8 @@
       {
         "name": "JavaScript FullStack",
         "img": "../../assets/images/certificates/hcode-js.jpg",
-        "link": "https://www.udemy.com/certificate/UC-fe3c03e1-201d-466b-a28b-a2725326a32a/"
+        "link": "https://www.udemy.com/certificate/UC-fe3c03e1-201d-466b-a28b-a2725326a32a/",
+        "tags": ["javascript", "fullstack"]
       }
     ]
   },
@@ -120,12 +144,14 @@
       {
         "name": "HTML Course",
         "img": "../../assets/images/certificates/sololearn-html.jpg",
-        "link": "https://www.sololearn.com/Certificate/1014-9372838/jpg"
+        "link": "https://www.sololearn.com/Certificate/1014-9372838/jpg",
+        "tags": ["html"]
       },
       {
         "name": "CSS Course",
         "img": "../../assets/images/certificates/sololearn-css.jpg",
-        "link": "https://www.sololearn.com/Certificate/1023-9372838/jpg"
+        "link": "https://www.sololearn.com/Certificate/1023-9372838/jpg",
+        "tags": ["css"]
       }
     ]
   },
@@ -135,7 +161,8 @@
       {
         "name": "CSS Skill",
         "img": "../../assets/images/certificates/hackerrank-css.jpg",
-        "link": "https://www.hackerrank.com/certificates/ec8ac15f857a"
+        "link": "https://www.hackerrank.com/certificates/ec8ac15f857a",
+        "tags": ["css"]
       }
     ]
   },
@@ -144,7 +171,8 @@
     "certificates": [
       {
         "name": "Flutter Course",
-        "img": "../../assets/images/certificates/flutter-fteam.jpg"
+        "img": "../../assets/images/certificates/flutter-fteam.jpg",
+        "tags": ["flutter"]
       }
     ]
   }
