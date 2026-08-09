@@ -18,8 +18,10 @@
     display: none;
     @include lg {
       display: block;
-      svg {
+      app-three-scene {
+        display: block;
         width: rem(480);
+        aspect-ratio: 1019.4842 / 436.68123;
       }
     }
   }
