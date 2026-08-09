@@ -12,16 +12,32 @@ import { RouterLink } from "@angular/router";
 import { TranslatePipe } from "@ngx-translate/core";
 import { map } from "rxjs";
 import { GetDataService } from "../../shared/get-data.service";
+import { ThreeSceneComponent } from "../../shared/three-scene/three-scene.component";
+import type { SceneBuilder } from "../../shared/three-scene/three-scene.types";
 
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, TranslatePipe, NgOptimizedImage],
+  imports: [RouterLink, TranslatePipe, NgOptimizedImage, ThreeSceneComponent],
 })
 export class HomeComponent {
   private getData = inject(GetDataService);
+
+  // Loaded via dynamic import() so three.js (and the scene-building code)
+  // stays out of this eagerly-loaded landing route's bundle, fetched only
+  // once a canvas actually mounts.
+  heroSceneBuilder: SceneBuilder = (ctx) =>
+    import("../../shared/three-scene/scenes/hero-scene").then((m) => m.buildHeroScene(ctx));
+  techSceneBuilder: SceneBuilder = (ctx) =>
+    import("../../shared/three-scene/scenes/tech-scene").then((m) => m.buildTechScene(ctx));
+  mobileSceneBuilder: SceneBuilder = (ctx) =>
+    import("../../shared/three-scene/scenes/mobile-scene").then((m) => m.buildMobileScene(ctx));
+  certificateSceneBuilder: SceneBuilder = (ctx) =>
+    import("../../shared/three-scene/scenes/certificate-scene").then((m) =>
+      m.buildCertificateScene(ctx),
+    );
 
   allProjects = viewChildren<ElementRef>("allProjects");
 
