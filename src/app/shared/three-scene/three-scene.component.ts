@@ -22,7 +22,8 @@ import type { SceneBuilder, SceneHandle } from "./three-scene.types";
 export class ThreeSceneComponent {
   build = input.required<SceneBuilder>();
 
-  private canvasRef = viewChild.required<ElementRef<HTMLCanvasElement>>("canvas");
+  private canvasRef =
+    viewChild.required<ElementRef<HTMLCanvasElement>>("canvas");
   private destroyRef = inject(DestroyRef);
   private destroyed = false;
 
@@ -102,7 +103,9 @@ export class ThreeSceneComponent {
       attributeFilter: ["class"],
     });
 
-    const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const reduceMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    );
     let reduceMotion = reduceMotionQuery.matches;
     const onReduceMotionChange = (event: MediaQueryListEvent): void => {
       reduceMotion = event.matches;

@@ -1,10 +1,21 @@
 import * as THREE from "three";
 import type { SceneBuildContext, SceneHandle } from "../three-scene.types";
 import { palette } from "./palette";
-import { createDot, createLights, addLights, createContactShadow, material, disposeObject } from "./props";
+import {
+  createDot,
+  createLights,
+  addLights,
+  createContactShadow,
+  material,
+  disposeObject,
+} from "./props";
 
 /** A rounded-rectangle outline, used for the phone frame/screen and card panels. */
-function roundedRectShape(width: number, height: number, radius: number): THREE.Shape {
+function roundedRectShape(
+  width: number,
+  height: number,
+  radius: number,
+): THREE.Shape {
   const w = width / 2;
   const h = height / 2;
   const shape = new THREE.Shape();
@@ -21,8 +32,17 @@ function roundedRectShape(width: number, height: number, radius: number): THREE.
   return shape;
 }
 
-function roundedPanel(width: number, height: number, radius: number, color: number, roughness = 0.8): THREE.Mesh {
-  return new THREE.Mesh(new THREE.ShapeGeometry(roundedRectShape(width, height, radius)), material(color, roughness));
+function roundedPanel(
+  width: number,
+  height: number,
+  radius: number,
+  color: number,
+  roughness = 0.8,
+): THREE.Mesh {
+  return new THREE.Mesh(
+    new THREE.ShapeGeometry(roundedRectShape(width, height, radius)),
+    material(color, roughness),
+  );
 }
 
 /**
@@ -36,15 +56,18 @@ function createPhone(): THREE.Group {
   const group = new THREE.Group();
 
   const frameDepth = 0.11;
-  const frameGeometry = new THREE.ExtrudeGeometry(roundedRectShape(1.28, 2.35, 0.16), {
-    depth: frameDepth,
-    bevelEnabled: false,
-  });
+  const frameGeometry = new THREE.ExtrudeGeometry(
+    roundedRectShape(1.28, 2.35, 0.16),
+    {
+      depth: frameDepth,
+      bevelEnabled: false,
+    },
+  );
   frameGeometry.center();
   const frame = new THREE.Mesh(frameGeometry, material(palette.gray, 0.7));
   group.add(frame);
 
-  const screen = roundedPanel(1.14, 2.18, 0.12, palette.paper, 0.95);
+  const screen = roundedPanel(1.14, 2.18, 0.12, palette.white, 0.95);
   screen.position.z = frameDepth / 2 + 0.001;
   group.add(screen);
 
@@ -56,29 +79,51 @@ function createPhone(): THREE.Group {
   // clear margins so it reads as a row, not scattered noise.
   const statusY = 0.9;
   const statusMat = material(palette.grayDark, 0.7);
-  const timeDot = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.03, 0.01), statusMat);
+  const timeDot = new THREE.Mesh(
+    new THREE.BoxGeometry(0.1, 0.03, 0.01),
+    statusMat,
+  );
   timeDot.position.set(-0.48, statusY, frameDepth / 2 + 0.01);
   group.add(timeDot);
 
   [0, 1, 2].forEach((i) => {
     const barHeight = 0.028 + i * 0.022;
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.032, barHeight, 0.01), statusMat);
-    bar.position.set(0.3 + i * 0.05, statusY - 0.045 + barHeight / 2, frameDepth / 2 + 0.01);
+    const bar = new THREE.Mesh(
+      new THREE.BoxGeometry(0.032, barHeight, 0.01),
+      statusMat,
+    );
+    bar.position.set(
+      0.3 + i * 0.05,
+      statusY - 0.045 + barHeight / 2,
+      frameDepth / 2 + 0.01,
+    );
     group.add(bar);
   });
 
-  const batteryOutline = new THREE.Mesh(new THREE.BoxGeometry(0.11, 0.05, 0.01), statusMat);
+  const batteryOutline = new THREE.Mesh(
+    new THREE.BoxGeometry(0.11, 0.05, 0.01),
+    statusMat,
+  );
   batteryOutline.position.set(0.5, statusY, frameDepth / 2 + 0.01);
   group.add(batteryOutline);
-  const batteryFill = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.032, 0.012), material(palette.accentBlue, 0.5));
+  const batteryFill = new THREE.Mesh(
+    new THREE.BoxGeometry(0.08, 0.032, 0.012),
+    material(palette.accentBlue, 0.5),
+  );
   batteryFill.position.set(0.488, statusY, frameDepth / 2 + 0.015);
   group.add(batteryFill);
-  const batteryNub = new THREE.Mesh(new THREE.BoxGeometry(0.012, 0.02, 0.01), statusMat);
+  const batteryNub = new THREE.Mesh(
+    new THREE.BoxGeometry(0.012, 0.02, 0.01),
+    statusMat,
+  );
   batteryNub.position.set(0.562, statusY, frameDepth / 2 + 0.01);
   group.add(batteryNub);
 
   // App header: a title bar with a menu icon in a subtle rounded chip.
-  const titleBar = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.05, 0.01), material(palette.grayDark, 0.6));
+  const titleBar = new THREE.Mesh(
+    new THREE.BoxGeometry(0.42, 0.05, 0.01),
+    material(palette.grayDark, 0.6),
+  );
   titleBar.position.set(-0.32, 0.78, frameDepth / 2 + 0.01);
   group.add(titleBar);
 
@@ -87,7 +132,10 @@ function createPhone(): THREE.Group {
   group.add(menuChip);
   const menuMat = material(palette.accentBlue, 0.6);
   [0, 1, 2].forEach((i) => {
-    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.014, 0.01), menuMat);
+    const bar = new THREE.Mesh(
+      new THREE.BoxGeometry(0.08, 0.014, 0.01),
+      menuMat,
+    );
     bar.position.set(0.46, 0.81 - i * 0.03, frameDepth / 2 + 0.012);
     group.add(bar);
   });
@@ -110,7 +158,10 @@ function createPhone(): THREE.Group {
   mountainShape.lineTo(0.42, 0.17);
   mountainShape.lineTo(-0.42, 0.17);
   mountainShape.closePath();
-  const mountain = new THREE.Mesh(new THREE.ShapeGeometry(mountainShape), material(palette.grayDark, 0.9));
+  const mountain = new THREE.Mesh(
+    new THREE.ShapeGeometry(mountainShape),
+    material(palette.grayDark, 0.9),
+  );
   mountain.position.z = frameDepth / 2 + 0.012;
   group.add(mountain);
 
@@ -118,7 +169,10 @@ function createPhone(): THREE.Group {
   textBoxOutline.position.set(0, -0.15, frameDepth / 2 + 0.005);
   group.add(textBoxOutline);
   [0.05, -0.05].forEach((y, i) => {
-    const line = new THREE.Mesh(new THREE.BoxGeometry(i === 1 ? 0.55 : 0.75, 0.03, 0.01), material(palette.accentBlue, 0.6));
+    const line = new THREE.Mesh(
+      new THREE.BoxGeometry(i === 1 ? 0.55 : 0.75, 0.03, 0.01),
+      material(palette.accentBlue, 0.6),
+    );
     line.position.set(-0.15, -0.15 + y, frameDepth / 2 + 0.015);
     group.add(line);
   });
@@ -127,23 +181,38 @@ function createPhone(): THREE.Group {
   wideBox.position.set(0, -0.65, frameDepth / 2 + 0.005);
   group.add(wideBox);
   [0.13, 0.0, -0.13].forEach((y) => {
-    const line = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.025, 0.01), material(palette.grayDark, 0.8));
+    const line = new THREE.Mesh(
+      new THREE.BoxGeometry(0.75, 0.025, 0.01),
+      material(palette.grayDark, 0.8),
+    );
     line.position.set(0, -0.65 + y, frameDepth / 2 + 0.015);
     group.add(line);
   });
 
-  const homeIndicator = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.02, 0.01), material(palette.grayDark, 0.6));
+  const homeIndicator = new THREE.Mesh(
+    new THREE.BoxGeometry(0.32, 0.02, 0.01),
+    material(palette.grayDark, 0.6),
+  );
   homeIndicator.position.set(0, -1.05, frameDepth / 2 + 0.01);
   group.add(homeIndicator);
 
   const plusButton = new THREE.Group();
   plusButton.position.set(0.44, -0.9, frameDepth / 2 + 0.03);
-  const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.05, 20), material(palette.accentBlue, 0.5));
+  const disc = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.14, 0.14, 0.05, 20),
+    material(palette.accentBlue, 0.5),
+  );
   disc.rotation.x = Math.PI / 2;
   plusButton.add(disc);
   const plusMat = material(palette.paper, 0.6);
-  const barH = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.026, 0.026), plusMat);
-  const barV = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.14, 0.026), plusMat);
+  const barH = new THREE.Mesh(
+    new THREE.BoxGeometry(0.14, 0.026, 0.026),
+    plusMat,
+  );
+  const barV = new THREE.Mesh(
+    new THREE.BoxGeometry(0.026, 0.14, 0.026),
+    plusMat,
+  );
   barH.position.z = 0.03;
   barV.position.z = 0.03;
   plusButton.add(barH, barV);
@@ -171,7 +240,10 @@ function createNotificationBell(): { group: THREE.Group; badge: THREE.Mesh } {
   const body = new THREE.Mesh(bellGeometry, material(palette.accentBlue, 0.55));
   group.add(body);
 
-  const knob = new THREE.Mesh(new THREE.SphereGeometry(0.02, 8, 6), material(palette.accentBlue, 0.55));
+  const knob = new THREE.Mesh(
+    new THREE.SphereGeometry(0.02, 8, 6),
+    material(palette.accentBlue, 0.55),
+  );
   knob.position.y = 0.13;
   group.add(knob);
 
@@ -200,7 +272,10 @@ function createLocationPin(): THREE.Group {
   point.rotation.x = Math.PI;
   group.add(point);
 
-  const hole = new THREE.Mesh(new THREE.CircleGeometry(0.04, 12), material(palette.paper, 0.6));
+  const hole = new THREE.Mesh(
+    new THREE.CircleGeometry(0.04, 12),
+    material(palette.paper, 0.6),
+  );
   hole.position.set(0, 0.06, 0.095);
   group.add(hole);
 
@@ -210,7 +285,10 @@ function createLocationPin(): THREE.Group {
 /** A home-screen app icon: a rounded tile with a simple glyph. */
 function createAppIcon(color: number): THREE.Group {
   const group = new THREE.Group();
-  const tile = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.22, 0.03), material(color, 0.6));
+  const tile = new THREE.Mesh(
+    new THREE.BoxGeometry(0.22, 0.22, 0.03),
+    material(color, 0.6),
+  );
   group.add(tile);
 
   const glyphShape = new THREE.Shape();
@@ -218,7 +296,10 @@ function createAppIcon(color: number): THREE.Group {
   glyphShape.lineTo(-0.035, -0.045);
   glyphShape.lineTo(0.045, 0);
   glyphShape.closePath();
-  const glyph = new THREE.Mesh(new THREE.ShapeGeometry(glyphShape), material(palette.paper, 0.6));
+  const glyph = new THREE.Mesh(
+    new THREE.ShapeGeometry(glyphShape),
+    material(palette.paper, 0.6),
+  );
   glyph.position.set(-0.005, 0, 0.017);
   group.add(glyph);
 
@@ -288,7 +369,8 @@ export function buildMobileScene({ isDark }: SceneBuildContext): SceneHandle {
       phone.rotation.y = Math.sin(elapsed * 0.35) * 0.06;
 
       bell.group.position.y = 1.15 + Math.sin(elapsed * 1.4) * 0.07;
-      bell.group.rotation.z = restBellRotation.z + Math.sin(elapsed * 2.6) * 0.14;
+      bell.group.rotation.z =
+        restBellRotation.z + Math.sin(elapsed * 2.6) * 0.14;
       bell.badge.scale.setScalar(1 + Math.sin(elapsed * 3.5) * 0.2);
 
       pin.position.y = 0.75 + Math.sin(elapsed * 1.3 + 1) * 0.07;
@@ -298,7 +380,8 @@ export function buildMobileScene({ isDark }: SceneBuildContext): SceneHandle {
       // A bounded sway rather than a full spin — a flat tile rotated all the
       // way around briefly edge-on to the camera, shrinking to an
       // near-invisible sliver partway through the loop.
-      appIcon.rotation.y = restAppIconRotation.y + Math.sin(elapsed * 0.6) * 0.35;
+      appIcon.rotation.y =
+        restAppIconRotation.y + Math.sin(elapsed * 0.6) * 0.35;
 
       dot.position.y = 1.7 + Math.sin(elapsed * 1.4) * 0.08;
       dot2.position.y = -0.75 + Math.sin(elapsed * 1.4 + 1) * 0.08;

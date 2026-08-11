@@ -1,8 +1,8 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   inject,
+  OnInit,
 } from "@angular/core";
 import { Title } from "@angular/platform-browser";
 import {

@@ -24,4 +24,5 @@ export const palette = {
   clothingDarkOnDark: 0x4a4f6b,
   /** windowTitleBar's counterpart for dark theme, kept the same amount darker than clothingDarkOnDark. */
   windowTitleBarOnDark: 0x3d4260,
+  white: 0xffffff,
 } as const;

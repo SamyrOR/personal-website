@@ -2,8 +2,15 @@ import * as THREE from "three";
 import { palette } from "./palette";
 
 /** A flat-shaded standard material, the single building block every prop in these scenes is made from. */
-export function material(color: number, roughness = 0.7): THREE.MeshStandardMaterial {
-  return new THREE.MeshStandardMaterial({ color, roughness, flatShading: true });
+export function material(
+  color: number,
+  roughness = 0.7,
+): THREE.MeshStandardMaterial {
+  return new THREE.MeshStandardMaterial({
+    color,
+    roughness,
+    flatShading: true,
+  });
 }
 
 export interface SceneLights {
@@ -14,9 +21,21 @@ export interface SceneLights {
   setTheme(isDark: boolean): void;
 }
 
+// Single source of truth for the theme-reactive intensities, so the initial
+// construction below and setTheme() can never drift out of sync (they used
+// to hardcode these numbers separately in both places).
+const AMBIENT_INTENSITY = { dark: 0.75, light: 1.5 };
+const KEY_INTENSITY = { dark: 1.1, light: 1.8 };
+
 export function createLights(isDark: boolean): SceneLights {
-  const ambient = new THREE.AmbientLight(0xffffff, isDark ? 0.75 : 0.85);
-  const key = new THREE.DirectionalLight(0xffffff, isDark ? 1.1 : 0.9);
+  const ambient = new THREE.AmbientLight(
+    0xffffff,
+    isDark ? AMBIENT_INTENSITY.dark : AMBIENT_INTENSITY.light,
+  );
+  const key = new THREE.DirectionalLight(
+    0xffffff,
+    isDark ? KEY_INTENSITY.dark : KEY_INTENSITY.light,
+  );
   key.position.set(2.5, 3.5, 3);
   const fill = new THREE.DirectionalLight(0xbfd4ff, 0.35);
   fill.position.set(-3, 1.5, -2);
@@ -26,8 +45,10 @@ export function createLights(isDark: boolean): SceneLights {
     key,
     fill,
     setTheme(dark: boolean) {
-      ambient.intensity = dark ? 0.75 : 0.85;
-      key.intensity = dark ? 1.1 : 0.9;
+      ambient.intensity = dark
+        ? AMBIENT_INTENSITY.dark
+        : AMBIENT_INTENSITY.light;
+      key.intensity = dark ? KEY_INTENSITY.dark : KEY_INTENSITY.light;
     },
   };
 }
@@ -53,13 +74,15 @@ export function disposeObject(root: THREE.Object3D): void {
 }
 
 /** A small flat "document" card — a paper plane plus a few text-line bars, matching the floating document icons in the source illustrations. */
-export function createDocumentCard(options: {
-  width?: number;
-  height?: number;
-  paperColor?: number;
-  lineColor?: number;
-  lines?: number;
-} = {}): THREE.Group {
+export function createDocumentCard(
+  options: {
+    width?: number;
+    height?: number;
+    paperColor?: number;
+    lineColor?: number;
+    lines?: number;
+  } = {},
+): THREE.Group {
   const {
     width = 0.42,
     height = 0.3,
@@ -70,7 +93,10 @@ export function createDocumentCard(options: {
 
   const group = new THREE.Group();
 
-  const paper = new THREE.Mesh(new THREE.BoxGeometry(width, height, 0.02), material(paperColor, 0.9));
+  const paper = new THREE.Mesh(
+    new THREE.BoxGeometry(width, height, 0.02),
+    material(paperColor, 0.9),
+  );
   group.add(paper);
 
   const lineMat = material(lineColor, 0.6);
@@ -79,8 +105,15 @@ export function createDocumentCard(options: {
   const startY = height * 0.25;
   for (let i = 0; i < lines; i++) {
     const lineWidth = width * (i === lines - 1 ? 0.45 : 0.72);
-    const line = new THREE.Mesh(new THREE.BoxGeometry(lineWidth, lineHeight, 0.015), lineMat);
-    line.position.set(-width / 2 + lineWidth / 2 + width * 0.08, startY - i * lineGap, 0.02);
+    const line = new THREE.Mesh(
+      new THREE.BoxGeometry(lineWidth, lineHeight, 0.015),
+      lineMat,
+    );
+    line.position.set(
+      -width / 2 + lineWidth / 2 + width * 0.08,
+      startY - i * lineGap,
+      0.02,
+    );
     group.add(line);
   }
 
@@ -88,14 +121,24 @@ export function createDocumentCard(options: {
 }
 
 export function createDot(radius: number, color: number): THREE.Mesh {
-  return new THREE.Mesh(new THREE.IcosahedronGeometry(radius, 0), material(color, 0.7));
+  return new THREE.Mesh(
+    new THREE.IcosahedronGeometry(radius, 0),
+    material(color, 0.7),
+  );
 }
 
 /** A soft dark ellipse laid flat beneath a scene's centerpiece, grounding it with a contact shadow. */
-export function createContactShadow(radiusX: number, radiusZ: number): THREE.Mesh {
+export function createContactShadow(
+  radiusX: number,
+  radiusZ: number,
+): THREE.Mesh {
   const mesh = new THREE.Mesh(
     new THREE.CircleGeometry(1, 24),
-    new THREE.MeshBasicMaterial({ color: palette.shadow, transparent: true, opacity: 0.16 }),
+    new THREE.MeshBasicMaterial({
+      color: palette.shadow,
+      transparent: true,
+      opacity: 0.16,
+    }),
   );
   mesh.rotation.x = -Math.PI / 2;
   mesh.scale.set(radiusX, radiusZ, 1);
