@@ -17,8 +17,77 @@ export interface SceneLights {
   ambient: THREE.AmbientLight;
   key: THREE.DirectionalLight;
   fill: THREE.DirectionalLight;
-  /** Nudges intensities per theme so the flat-shaded facets stay readable on both backgrounds. */
-  setTheme(isDark: boolean): void;
+  /**
+   * Nudges intensities per theme so the flat-shaded facets stay readable on
+   * both backgrounds. Pass `instant: true` (when `prefers-reduced-motion` is
+   * set) to snap immediately instead of easing — otherwise the change would
+   * never appear, since the ease only advances from update(), which the host
+   * component skips entirely for reduced-motion users.
+   */
+  setTheme(isDark: boolean, instant?: boolean): void;
+  /** Advances the intensity tweens started by setTheme(); call once per frame with delta in ms. */
+  update(deltaMs: number): void;
+}
+
+// Matches the CSS theme cross-fade duration (see html.transition in
+// _reset.scss) so the WebGL scenes ease in sync with the rest of the page
+// instead of snapping instantly while everything else fades.
+const THEME_TWEEN_MS = 420;
+
+/** Eases a material's color toward a new target over THEME_TWEEN_MS instead of snapping. */
+export function createColorTween(target: {
+  color: THREE.Color;
+}): {
+  to(color: THREE.ColorRepresentation, instant?: boolean): void;
+  update(deltaMs: number): void;
+} {
+  const from = target.color.clone();
+  const to = target.color.clone();
+  let elapsed = THEME_TWEEN_MS;
+  return {
+    to(color, instant = false) {
+      to.set(color);
+      if (instant) {
+        target.color.copy(to);
+        elapsed = THEME_TWEEN_MS;
+        return;
+      }
+      from.copy(target.color);
+      elapsed = 0;
+    },
+    update(deltaMs) {
+      if (elapsed >= THEME_TWEEN_MS) return;
+      elapsed = Math.min(THEME_TWEEN_MS, elapsed + deltaMs);
+      target.color.lerpColors(from, to, elapsed / THEME_TWEEN_MS);
+    },
+  };
+}
+
+/** Eases a scalar (e.g. a light's intensity) toward a new target over THEME_TWEEN_MS. */
+function createNumberTween(
+  get: () => number,
+  set: (value: number) => void,
+): { to(value: number, instant?: boolean): void; update(deltaMs: number): void } {
+  let from = get();
+  let to = get();
+  let elapsed = THEME_TWEEN_MS;
+  return {
+    to(value, instant = false) {
+      to = value;
+      if (instant) {
+        set(value);
+        elapsed = THEME_TWEEN_MS;
+        return;
+      }
+      from = get();
+      elapsed = 0;
+    },
+    update(deltaMs) {
+      if (elapsed >= THEME_TWEEN_MS) return;
+      elapsed = Math.min(THEME_TWEEN_MS, elapsed + deltaMs);
+      set(from + (to - from) * (elapsed / THEME_TWEEN_MS));
+    },
+  };
 }
 
 // Single source of truth for the theme-reactive intensities, so the initial
@@ -40,15 +109,26 @@ export function createLights(isDark: boolean): SceneLights {
   const fill = new THREE.DirectionalLight(0xbfd4ff, 0.35);
   fill.position.set(-3, 1.5, -2);
 
+  const ambientTween = createNumberTween(
+    () => ambient.intensity,
+    (value) => (ambient.intensity = value),
+  );
+  const keyTween = createNumberTween(
+    () => key.intensity,
+    (value) => (key.intensity = value),
+  );
+
   return {
     ambient,
     key,
     fill,
-    setTheme(dark: boolean) {
-      ambient.intensity = dark
-        ? AMBIENT_INTENSITY.dark
-        : AMBIENT_INTENSITY.light;
-      key.intensity = dark ? KEY_INTENSITY.dark : KEY_INTENSITY.light;
+    setTheme(dark: boolean, instant = false) {
+      ambientTween.to(dark ? AMBIENT_INTENSITY.dark : AMBIENT_INTENSITY.light, instant);
+      keyTween.to(dark ? KEY_INTENSITY.dark : KEY_INTENSITY.light, instant);
+    },
+    update(deltaMs: number) {
+      ambientTween.update(deltaMs);
+      keyTween.update(deltaMs);
     },
   };
 }

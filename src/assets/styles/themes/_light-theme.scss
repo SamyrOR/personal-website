@@ -11,5 +11,10 @@ $light-theme: (
   "color-link-active": $c-neutral,
   "footer-bg": $c-footer,
   "bg-header-first": $bg-header-first,
-  "bg-header-second": $bg-header-second-dark,
+  "bg-header-second": $bg-header-second,
+  // Offset/blur (applied in _home.scss, the only place that needs rem()) are shared with
+  // the dark theme (see _dark-theme.scss) — only the color changes, so the two states
+  // are a straightforward CSS filter interpolation.
+  "main-shadow-left-color": rgba(28, 129, 227, 0.35),
+  "main-shadow-right-color": rgba(29, 134, 229, 0.3),
 );

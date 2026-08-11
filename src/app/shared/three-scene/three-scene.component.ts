@@ -95,14 +95,6 @@ export class ThreeSceneComponent {
     );
     intersectionObserver.observe(canvas);
 
-    const themeObserver = new MutationObserver(() => {
-      handle.setTheme?.(this.isDark());
-    });
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
     const reduceMotionQuery = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     );
@@ -111,6 +103,19 @@ export class ThreeSceneComponent {
       reduceMotion = event.matches;
     };
     reduceMotionQuery.addEventListener("change", onReduceMotionChange);
+
+    // Theme changes normally ease in over a beat (see setTheme() in each
+    // scene) to match the page's CSS cross-fade. That ease only advances
+    // from update() below, which is skipped for reduced-motion users, so
+    // snap instantly for them instead — otherwise the change would never
+    // visibly apply.
+    const themeObserver = new MutationObserver(() => {
+      handle.setTheme?.(this.isDark(), reduceMotion);
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
 
     const clock = new THREE.Clock();
     let frameId = 0;

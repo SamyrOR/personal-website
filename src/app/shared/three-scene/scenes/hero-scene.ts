@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { SceneBuildContext, SceneHandle } from "../three-scene.types";
 import { palette } from "./palette";
-import { createDocumentCard, createDot, createLights, addLights, createContactShadow, material, disposeObject } from "./props";
+import { createDocumentCard, createDot, createLights, createColorTween, addLights, createContactShadow, material, disposeObject } from "./props";
 
 function createLaptop(): { group: THREE.Group; bodyMaterial: THREE.MeshStandardMaterial } {
   const group = new THREE.Group();
@@ -111,11 +111,12 @@ export function buildHeroScene({ isDark }: SceneBuildContext): SceneHandle {
   scene.add(docs);
 
   const restLaptopRotationY = laptop.group.rotation.y;
+  const bodyColorTween = createColorTween(laptop.bodyMaterial);
 
   return {
     scene,
     camera,
-    update(elapsed) {
+    update(elapsed, delta) {
       laptop.group.position.y = -0.05 + Math.sin(elapsed * 0.7) * 0.02;
       laptop.group.rotation.y = restLaptopRotationY + Math.sin(elapsed * 0.4) * 0.03;
 
@@ -123,10 +124,13 @@ export function buildHeroScene({ isDark }: SceneBuildContext): SceneHandle {
         child.position.y += Math.sin(elapsed * (0.8 + i * 0.2)) * 0.0006;
         child.rotation.y += 0.004 + i * 0.001;
       });
+
+      lights.update(delta * 1000);
+      bodyColorTween.update(delta * 1000);
     },
-    setTheme(dark) {
-      lights.setTheme(dark);
-      laptop.bodyMaterial.color.set(dark ? palette.clothingDarkOnDark : palette.clothingDark);
+    setTheme(dark, instant) {
+      lights.setTheme(dark, instant);
+      bodyColorTween.to(dark ? palette.clothingDarkOnDark : palette.clothingDark, instant);
     },
     dispose() {
       disposeObject(scene);

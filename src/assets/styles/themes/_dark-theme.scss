@@ -12,4 +12,10 @@ $dark-theme: (
   "footer-bg": $c-footer-dark,
   "bg-header-first": $bg-header-first-dark,
   "bg-header-second": $bg-header-second-dark,
+  // Offset/blur match the light theme (see _light-theme.scss); the source art's dark
+  // variant has a barely-visible shadow on the right shape, so its alpha here is tiny
+  // rather than 0 — keeps the filter transition a smooth interpolation instead of a
+  // discrete drop-shadow()-to-none jump.
+  "main-shadow-left-color": rgba(0, 0, 0, 0.45),
+  "main-shadow-right-color": rgba(0, 0, 0, 0.08),
 );

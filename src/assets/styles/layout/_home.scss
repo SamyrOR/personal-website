@@ -17,22 +17,33 @@
     width: 100%;
     height: 100%;
   }
+  // A single flat shape per side (not a light/dark image pair) masked from a shadow-less
+  // cutout of the original artwork. The fill is the ordinary page background-color and
+  // the soft glow is a CSS drop-shadow, so both ease smoothly on theme change — the same
+  // way the hero scene's laptop material eases — instead of cross-fading two rasters
+  // that each have their own baked-in shadow (see git history for why that looked muddy).
   &__bg-img {
     position: absolute;
     z-index: -1;
     pointer-events: none;
-    object-fit: contain;
 
-    &--light {
-      display: none;
-      .light-theme & {
-        display: block;
-      }
-    }
-    &--dark {
-      display: none;
-      .dark-theme & {
-        display: block;
+    // The mask lives on a ::before layer and the drop-shadow filter on this element, not
+    // both on the same box: CSS applies `filter` *before* `mask` in its rendering
+    // pipeline, so a filter on the masked element itself would compute its shadow off
+    // the full rectangular box (invisible, since its fill matches the page background)
+    // and then have that shadow clipped away by the mask afterward. Putting the mask one
+    // layer down means the filter sees the already-shape-clipped result and casts a
+    // shadow that actually follows the shape's outline.
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      mask-size: contain;
+      -webkit-mask-size: contain;
+      @include theme() {
+        background-color: theme-get("color-bg");
       }
     }
 
@@ -41,7 +52,15 @@
       left: rem(-85);
       width: rem(400);
       height: 65%;
-      object-position: 0 0;
+      @include theme() {
+        filter: drop-shadow(#{rem(10)} #{rem(22)} #{rem(20)} theme-get("main-shadow-left-color"));
+      }
+      &::before {
+        mask-image: url(../../images/backgrounds/bg-main-left-mask.png);
+        -webkit-mask-image: url(../../images/backgrounds/bg-main-left-mask.png);
+        mask-position: 0 0;
+        -webkit-mask-position: 0 0;
+      }
       @include sm {
         top: rem(176);
       }
@@ -54,7 +73,15 @@
       right: 0;
       width: rem(280);
       height: 60%;
-      object-position: rem(90) 0;
+      @include theme() {
+        filter: drop-shadow(#{rem(-8)} #{rem(24)} #{rem(20)} theme-get("main-shadow-right-color"));
+      }
+      &::before {
+        mask-image: url(../../images/backgrounds/bg-main-right-mask.png);
+        -webkit-mask-image: url(../../images/backgrounds/bg-main-right-mask.png);
+        mask-position: rem(90) 0;
+        -webkit-mask-position: rem(90) 0;
+      }
       @include lg {
         width: rem(424);
       }

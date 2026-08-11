@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import type { SceneBuildContext, SceneHandle } from "../three-scene.types";
 import { palette } from "./palette";
-import { createDot, createLights, addLights, createContactShadow, material, disposeObject } from "./props";
+import { createDot, createLights, createColorTween, addLights, createContactShadow, material, disposeObject } from "./props";
 
 /**
  * The centerpiece: a dark code-editor window with a browser-style title bar,
@@ -251,11 +251,13 @@ export function buildTechScene({ isDark }: SceneBuildContext): SceneHandle {
   scene.add(dot2);
 
   const restRotationY = composition.rotation.y;
+  const panelColorTween = createColorTween(codeWindow.panelMaterial);
+  const titleBarColorTween = createColorTween(codeWindow.titleBarMaterial);
 
   return {
     scene,
     camera,
-    update(elapsed) {
+    update(elapsed, delta) {
       composition.position.y = 0.55 + Math.sin(elapsed * 0.7) * 0.02;
       composition.rotation.y = restRotationY + Math.sin(elapsed * 0.3) * 0.05;
 
@@ -274,11 +276,15 @@ export function buildTechScene({ isDark }: SceneBuildContext): SceneHandle {
 
       dot.position.y = 1.35 + Math.sin(elapsed * 0.9) * 0.03;
       dot2.position.y = -0.15 + Math.sin(elapsed * 0.9 + 1) * 0.03;
+
+      lights.update(delta * 1000);
+      panelColorTween.update(delta * 1000);
+      titleBarColorTween.update(delta * 1000);
     },
-    setTheme(dark) {
-      lights.setTheme(dark);
-      codeWindow.panelMaterial.color.set(dark ? palette.clothingDarkOnDark : palette.clothingDark);
-      codeWindow.titleBarMaterial.color.set(dark ? palette.windowTitleBarOnDark : palette.windowTitleBar);
+    setTheme(dark, instant) {
+      lights.setTheme(dark, instant);
+      panelColorTween.to(dark ? palette.clothingDarkOnDark : palette.clothingDark, instant);
+      titleBarColorTween.to(dark ? palette.windowTitleBarOnDark : palette.windowTitleBar, instant);
     },
     dispose() {
       disposeObject(scene);

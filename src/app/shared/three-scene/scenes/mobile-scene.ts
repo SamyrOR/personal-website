@@ -365,7 +365,7 @@ export function buildMobileScene({ isDark }: SceneBuildContext): SceneHandle {
   return {
     scene,
     camera,
-    update(elapsed) {
+    update(elapsed, delta) {
       phone.rotation.y = Math.sin(elapsed * 0.35) * 0.06;
 
       bell.group.position.y = 1.15 + Math.sin(elapsed * 1.4) * 0.07;
@@ -385,9 +385,11 @@ export function buildMobileScene({ isDark }: SceneBuildContext): SceneHandle {
 
       dot.position.y = 1.7 + Math.sin(elapsed * 1.4) * 0.08;
       dot2.position.y = -0.75 + Math.sin(elapsed * 1.4 + 1) * 0.08;
+
+      lights.update(delta * 1000);
     },
-    setTheme(dark) {
-      lights.setTheme(dark);
+    setTheme(dark, instant) {
+      lights.setTheme(dark, instant);
     },
     dispose() {
       disposeObject(scene);

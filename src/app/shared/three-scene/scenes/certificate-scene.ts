@@ -300,7 +300,7 @@ export function buildCertificateScene({
   return {
     scene,
     camera,
-    update(elapsed) {
+    update(elapsed, delta) {
       composition.position.y = 0.35 + Math.sin(elapsed * 0.7) * 0.015;
       composition.rotation.y = Math.sin(elapsed * 0.3) * 0.04;
 
@@ -315,9 +315,11 @@ export function buildCertificateScene({
 
       dot.position.y = 1.55 + Math.sin(elapsed * 1.4) * 0.08;
       dot2.position.y = -0.7 + Math.sin(elapsed * 1.4 + 1) * 0.08;
+
+      lights.update(delta * 1000);
     },
-    setTheme(dark) {
-      lights.setTheme(dark);
+    setTheme(dark, instant) {
+      lights.setTheme(dark, instant);
     },
     dispose() {
       disposeObject(scene);

@@ -34,12 +34,25 @@ img {
 }
 
 //Theme transition
-html.transition,
-html.transition *,
-html.transition *:before,
-html.transition *:after {
-  transition: cubic-bezier(0.68, -0.55, 0.27, 01.55) 420ms;
-  transition-delay: 0;
+//Scoped to theme-relevant properties (not `all`) so it doesn't animate layout/transform
+//changes that happen to land in the same 420ms window, and gated behind
+//prefers-reduced-motion since it's purely decorative.
+@media (prefers-reduced-motion: no-preference) {
+  html.transition,
+  html.transition *,
+  html.transition *:before,
+  html.transition *:after {
+    // background-image can't be interpolated (it's a "discrete" property) — it can only
+    // pop, never fade. Giving it the *same* duration/delay as everything else (via
+    // allow-discrete) makes browsers swap it at the transition's 50% mark, i.e.
+    // mid-fade, alongside the colors around it — instead of at 0% (instantly, before
+    // anything else has moved) or held back until 100% (after everything else settles).
+    transition-property: background-color, color, border-color, box-shadow, fill, stroke, background-image, filter;
+    transition-duration: 420ms;
+    transition-timing-function: cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    transition-delay: 0s;
+    transition-behavior: allow-discrete;
+  }
 }
 
 //Body and background default

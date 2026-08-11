@@ -10,7 +10,7 @@ export interface SceneHandle {
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
   update(elapsed: number, delta: number): void;
-  setTheme?(isDark: boolean): void;
+  setTheme?(isDark: boolean, instant?: boolean): void;
   dispose?(): void;
 }
 
